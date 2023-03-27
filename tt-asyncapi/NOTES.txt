@@ -1,0 +1,8 @@
+# Notes
+
+Async api tooling
+
+| name | description |Link |
+| maven plugin | maven plugin to generate async api definitions | https://ctron.github.io/asyncapi-maven/usage.html |
+
+

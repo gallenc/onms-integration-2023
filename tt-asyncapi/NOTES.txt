@@ -6,3 +6,10 @@ Async api tooling
 | maven plugin | maven plugin to generate async api definitions | https://ctron.github.io/asyncapi-maven/usage.html |
 
 
+# notes
+
+to use npm and run scripts you need to chane local user permissions on windows power shell
+
+```
+Set-ExecutionPolicy -Scope CurrentUser Unrestricted
+```

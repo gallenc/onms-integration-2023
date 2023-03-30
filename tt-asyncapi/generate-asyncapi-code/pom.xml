@@ -1,0 +1,111 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.opennms.integration.asyncapi</groupId>
+	<artifactId>generate-asyncapi</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<!-- see example https://www.asyncapi.com/casestudies/adeogroup -->
+
+	<properties>
+		<frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+		<node.installation.path></node.installation.path>
+		<asyncapi.generator.version></asyncapi.generator.version>
+		<node.modules.installation.path></node.modules.installation.path>
+		<ag.binary.name></ag.binary.name>
+		<node.version>v12.18.4</node.version>
+	</properties>
+
+	<build>
+
+		<plugins>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<!-- Use the latest released version: https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
+				<version>${frontend-maven-plugin.version}</version>
+				<configuration>
+					<nodeVersion>${node.version}</nodeVersion>
+					<!-- <installDirectory>${node.installation.path}</installDirectory> -->
+					<!-- <workingDirectory>${node.installation.path}</workingDirectory> -->
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					</execution>
+					<execution>
+						<id>install @asyncapi/generator globally</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install
+								@asyncapi/generator@${asyncapi.generator.version}</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- <plugin> -->
+			<!-- <groupId>org.codehaus.mojo</groupId> -->
+			<!-- <artifactId>exec-maven-plugin</artifactId> -->
+			<!-- <version>1.6.0</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>execute-generation</id> -->
+			<!-- <goals> -->
+<!--  -<goal>exec</goal> -->
+			<!-- </goals> -->
+			<!-- <phase>generate-resources</phase> -->
+
+			<!-- <configuration> -->
+<!-- Access binary file in node_modules because it doesn't work on -->
+			<!-- windows otherwise. -->
+			<!-- <executable>${node.modules.installation.path}/${ag.binary.name}</executable> -->
+			<!-- <commandlineArgs> -->
+			<!-- ${project.basedir}/src/docs/asyncapi/asyncapi.yaml -->
+			<!-- @asyncapi/html-template@${asyncapi.htmltemplate.version} -p -->
+			<!-- sidebarOrganization=byTags -p -->
+			<!-- version=${project.version} -o ${asyncapi.generation.dir} -->
+			<!-- </commandlineArgs> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+<!-- <artifactId>maven-resources-plugin</artifactId> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>copy-resources</id> -->
+			<!-- here the phase you need -->
+			<!-- <phase>generate-resources</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>copy-resources</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <outputDirectory>${asyncapi.generation.dir}/assets</outputDirectory> -->
+			<!-- <resources> -->
+			<!-- <resource> -->
+			<!-- <directory>src/docs/asyncapi/assets</directory> -->
+			<!-- <filtering>true</filtering> -->
+			<!-- </resource> -->
+			<!-- </resources> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+
+
+
+		</plugins>
+	</build>
+
+
+</project>

@@ -1704,7 +1704,7 @@ components:
         - $ref: '#/components/schemas/TroubleTicketChangeEvent'
         - $ref: '#/components/schemas/TroubleTicketInformationRequiredEvent'
     CorrelationHeader:
-      x-parser-schema-id: TroubleTicketBasePlusEvent,
+      x-parser-schema-id: CorrelationHeader,
       type: object
       properties:
         CORRELATION_ID:

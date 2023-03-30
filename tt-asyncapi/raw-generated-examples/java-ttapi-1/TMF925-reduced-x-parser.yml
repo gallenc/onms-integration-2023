@@ -94,7 +94,14 @@ components:
             - APPLICATION
     RequestHeaders:
       allOf:
-        - $ref: '#/components/schemas/ApplicationHeader'
+        - type: object
+          x-parser-schema-id: RequestHeadersAPPLICATION,
+          properties:
+            APPLICATION:
+              type: string
+              description: Name of the calling application.
+          required:
+            - APPLICATION
         - $ref: '#/components/schemas/CorrelationHeader'
   messages:
     RetrieveTroubleTicketRequest:

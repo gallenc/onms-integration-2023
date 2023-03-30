@@ -83,18 +83,16 @@ components:
           format: uuid
       required:
         - CORRELATION_ID
-    ApplicationHeader:
-      x-parser-schema-id: ApplicationHeader,
-      type: object
-      properties:
-          APPLICATION:
-            type: string
-            description: Name of the calling application.
-          required:
-            - APPLICATION
     RequestHeaders:
       allOf:
-        - $ref: '#/components/schemas/ApplicationHeader'
+        - type: object
+          x-parser-schema-id: RequestHeadersAPPLICATION,
+          properties:
+            APPLICATION:
+              type: string
+              description: Name of the calling application.
+          required:
+            - APPLICATION
         - $ref: '#/components/schemas/CorrelationHeader'
   messages:
     RetrieveTroubleTicketRequest:

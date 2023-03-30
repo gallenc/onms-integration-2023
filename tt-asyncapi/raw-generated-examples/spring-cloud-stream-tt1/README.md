@@ -2,6 +2,8 @@
 
 ```
  asyncapi generate fromTemplate TMF925-TroubleTicket-v4.0.0.asyncapi.yml       @asyncapi/java-spring-cloud-stream-template -o target --force-write
+ 
+  asyncapi generate fromTemplate TMF925-TroubleTicket-v4.0.0.asyncapi-x-parser.yml       @asyncapi/java-spring-cloud-stream-template -o target --force-write --debug
 
 ## note  --force-write needed if in uncommitted git repo
 

@@ -4,6 +4,14 @@
 
 asyncapi generate fromTemplate TMF925-TroubleTicket-v4.0.0.asyncapi.yml @asyncapi/java-spring-template -o target --force-write
 
+asyncapi generate fromTemplate TMF925-TroubleTicket-v4.0.0.asyncapi-id.yml @asyncapi/java-spring-template -o target --force-write
+
+asyncapi generate fromTemplate TMF925-TroubleTicket-v4.0.0.asyncapi-x-parser.yml @asyncapi/java-spring-template -o target --force-write
+
+OR
+
+ag TMF925-TroubleTicket-v4.0.0.asyncapi-x-parser.yml @asyncapi/java-spring-template -o target --force-write
+
 ```
 
 output

@@ -8,7 +8,7 @@ Async api tooling
 
 # notes
 
-to use npm and run scripts you need to chane local user permissions on windows power shell
+to use npm and run scripts you need to change local user permissions on windows power shell
 
 ```
 Set-ExecutionPolicy -Scope CurrentUser Unrestricted

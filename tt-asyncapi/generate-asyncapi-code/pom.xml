@@ -2,7 +2,7 @@
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.opennms.integration.asyncapi</groupId>
-   <artifactId>generate-asyncapi</artifactId>
+   <artifactId>generate-asyncapi-code</artifactId>
    <version>0.0.1-SNAPSHOT</version>
    <packaging>pom</packaging>
 
@@ -10,46 +10,74 @@
 
    <properties>
       <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-      <node.installation.path>${project.basedir}\node</node.installation.path>
-      <node.modules.installation.path>${project.basedir}\node-modules</node.modules.installation.path>
-      <ag.binary.name>ag</ag.binary.name>
+      <node.installation.path>${project.basedir}\node\node</node.installation.path>
+      <node.modules.installation.path>${project.basedir}\node\node_modules</node.modules.installation.path>
+      <node.binary.name>node.exe</node.binary.name>
       <node.version>v12.18.4</node.version>
       <asyncapi.generator.version>1.9.17</asyncapi.generator.version>
       <asyncapi.generation.dir>${project.build.directory}\generated-project</asyncapi.generation.dir>
+      <asyncapi.htmltemplate.version>0.28.3</asyncapi.htmltemplate.version>
    </properties>
+
+   <profiles>
+      <profile>
+         <!-- if dependencies not installed use mvn -Pinstall-node-dependencies -->
+         <id>install-node-dependencies</id>
+         <build>
+            <plugins>
+
+               <plugin>
+                  <groupId>com.github.eirslett</groupId>
+                  <artifactId>frontend-maven-plugin</artifactId>
+                  <!-- Use the latest released version: https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
+                  <version>${frontend-maven-plugin.version}</version>
+                  <configuration>
+                     <nodeVersion>${node.version}</nodeVersion>
+                     <installDirectory>${node.installation.path}</installDirectory>
+                     <workingDirectory>${node.installation.path}</workingDirectory>
+                  </configuration>
+                  <executions>
+                     <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                           <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                     </execution>
+                     <execution>
+                        <id>install @asyncapi/generator globally</id>
+                        <goals>
+                           <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                           <arguments>install @asyncapi/generator@${asyncapi.generator.version}</arguments>
+                        </configuration>
+                     </execution>
+
+                  </executions>
+               </plugin>
+
+
+               <plugin>
+                  <artifactId>maven-clean-plugin</artifactId>
+                  <version>3.1.0</version>
+                  <configuration>
+                     <filesets>
+                        <fileset>
+                           <directory>${node.installation.path}</directory>
+                        </fileset>
+                     </filesets>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+
+
+   </profiles>
 
    <build>
       <plugins>
-         <plugin>
-            <groupId>com.github.eirslett</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <!-- Use the latest released version: https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
-            <version>${frontend-maven-plugin.version}</version>
-            <configuration>
-               <nodeVersion>${node.version}</nodeVersion>
-               <installDirectory>${node.installation.path}</installDirectory>
-               <workingDirectory>${node.installation.path}</workingDirectory>
-            </configuration>
-            <executions>
-               <execution>
-                  <id>install node and npm</id>
-                  <goals>
-                     <goal>install-node-and-npm</goal>
-                  </goals>
-                  <phase>generate-resources</phase>
-               </execution>
-               <execution>
-                  <id>install @asyncapi/generator globally</id>
-                  <goals>
-                     <goal>npm</goal>
-                  </goals>
-                  <configuration>
-                     <arguments>install
-                        @asyncapi/generator@${asyncapi.generator.version}</arguments>
-                  </configuration>
-               </execution>
-            </executions>
-         </plugin>
 
          <plugin>
             <groupId>org.codehaus.mojo</groupId>
@@ -62,25 +90,32 @@
                      <goal>exec</goal>
                   </goals>
                   <phase>generate-resources</phase>
-
                   <configuration>
                      <!-- Access binary file in node_modules because it doesn't work on windows otherwise. -->
-
-                     <executable>${node.modules.installation.path}/${ag.binary.name}</executable>
+                     <executable>${node.installation.path}${file.separator}${node.binary.name}</executable>
                      <commandlineArgs>
-                        ${project.basedir}/src/docs/asyncapi/asyncapi.yaml
-                        @asyncapi/html-template@${asyncapi.htmltemplate.version} -p
-                        sidebarOrganization=byTags -p
-                        version=${project.version} -o ${asyncapi.generation.dir}
+                        ${node.modules.installation.path}${file.separator}@asyncapi${file.separator}generator${file.separator}cli.js
+                        ${project.basedir}/src/asyncapi/TMF925-TroubleTicket-v4.0.0.asyncapi-x-parser.yml
+                        @asyncapi/java-spring-template
+                        -o ${asyncapi.generation.dir}
+                        --debug
+                        --force-write
                      </commandlineArgs>
                   </configuration>
                </execution>
             </executions>
          </plugin>
 
+         <!-- ${project.basedir}/src/asyncapi/TMF925-TroubleTicket-v4.0.0.asyncapi-x-parser.yml -->
+         <!-- @asyncapi/html-template@${asyncapi.htmltemplate.version} -p -->
+         <!-- sidebarOrganization=byTags -p -->
+         <!-- version=${project.version} -o -->
+         <!-- ${asyncapi.generation.dir} -->
+
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
+            <version>3.3.1</version>
             <executions>
                <execution>
                   <id>copy-resources</id>
@@ -100,25 +135,6 @@
                </execution>
             </executions>
          </plugin>
-
-
-
-         <plugin>
-            <artifactId>maven-clean-plugin</artifactId>
-            <version>3.1.0</version>
-            <configuration>
-               <filesets>
-                  <fileset>
-                     <directory>node</directory>
-                  </fileset>
-                  <fileset>
-                     <directory>node_modules</directory>
-                  </fileset>
-               </filesets>
-            </configuration>
-         </plugin>
-
-
 
       </plugins>
    </build>

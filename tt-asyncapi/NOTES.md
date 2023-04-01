@@ -26,6 +26,12 @@ https://github.com/asyncapi/java-spring-template/issues/203# Don't generate Anon
  
 comment : Regardless of which implementation we end up with, I would highly recommend you explicitly set a unique identifier through either $id (not optimal) or x-parser-schema-id so the schema has a unique identifier for tools 
 
+### java kafka generator doesnt work with model 
+
+### spring-cloud generator 
+generates anonymous classes and fails to load
+
+### spring-java generator works wut needs work around for anonymous classes
 
 ### allOf problems
 

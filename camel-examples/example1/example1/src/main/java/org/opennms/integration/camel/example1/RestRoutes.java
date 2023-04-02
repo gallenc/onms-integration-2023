@@ -13,15 +13,15 @@ public class RestRoutes extends RouteBuilder {
 		System.out.println("inside routebuilder"+RestRoutes.class);
 		
 	    from( "direct:getUsers")
-	    .log(LoggingLevel.INFO, ">> In here ... Getting all Users")
-	    .transform()
-	    .simple("Hello ${in.body.name}")
-	    .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200));
+	    .log(LoggingLevel.ERROR, ">> In here ... Getting all Users");
+//	    .transform()
+//	    .simple("Hello ${in.body.name}")
+//	    .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200));
 	    
 	    from( "direct:createUser")
-	    .log(LoggingLevel.INFO, ">> In here ... Creating a User")
-	    .transform()
-	    .simple("Hello creating a user ${in.body.name}")
-	    .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200));
+	    .log(LoggingLevel.ERROR, ">> In here ... Creating a User");
+//	    .transform()
+//	    .simple("Hello creating a user ${in.body.name}")
+//	    .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200));
 	 }
 }

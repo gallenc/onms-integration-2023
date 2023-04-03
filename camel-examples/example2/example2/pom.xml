@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.opennms.integration.camel.example1</groupId>
-	<artifactId>example1</artifactId>
+	<artifactId>example2</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 
@@ -102,6 +102,14 @@
 			<artifactId>camel-servlet-starter</artifactId>
 			<version>3.16.0</version>
 		</dependency>
+		
+		<!-- for time -->
+		<dependency>
+           <groupId>org.threeten</groupId>
+           <artifactId>threetenbp</artifactId>
+           <version>0.7.2</version>
+        </dependency>
+        
 	</dependencies>
 
 	<build>
@@ -120,11 +128,11 @@
 						</goals>
 						<configuration>
 							<!--suppress UnresolvedMavenProperty -->
-							<specificationUri>${project.build.resources[0].directory}/apispec/apidefinition.json</specificationUri>
+							<specificationUri>${project.build.resources[0].directory}/apispec/TMF621-TroubleTicket-v4.0.0.swagger.json</specificationUri>
 							<outputDirectory>${project.build.directory}/generated-sources/openapi/src/main/java</outputDirectory>
-							<packageName>xyz.aruva.routes</packageName>
+							<packageName>org.opennms.generated.tmf925</packageName>
 							<modelOutput>${project.build.directory}/generated-sources/openapi</modelOutput>
-							<modelPackage>xyz.aruva.dto</modelPackage>
+							<modelPackage>org.opennms.generated.tmf925.dto</modelPackage>
 						</configuration>
 					</execution>
 				</executions>

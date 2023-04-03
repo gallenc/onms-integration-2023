@@ -39,7 +39,8 @@
 
                         <apiPackage>org.opennms.integration.tmf621.camel.api</apiPackage>
                         <modelPackage>org.opennms.integration.tmf621.camel.model</modelPackage>
-                        <invokerPackage>org.opennms.integration.tmf621.camel.invoker</invokerPackage>
+                        <!-- need to generate in api package -->
+                        <invokerPackage>org.opennms.integration.tmf621.camel.api</invokerPackage>
                         <!-- <packageName>org.opennms.integration.tmf621.camel.package</packageName> -->
 
                         <camelRestBindingMode>auto</camelRestBindingMode>

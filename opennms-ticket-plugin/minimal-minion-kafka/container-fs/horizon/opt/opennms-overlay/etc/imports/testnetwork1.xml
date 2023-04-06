@@ -1,0 +1,46 @@
+<model-import xmlns="http://xmlns.opennms.org/xsd/config/model-import" date-stamp="2023-01-20T06:19:53.674-05:00" foreign-source="testnetwork1" last-import="2023-01-20T06:23:50.388-05:00">
+
+   <node foreign-id="database" node-label="database">
+      <interface ip-addr="172.20.0.2" status="1" snmp-primary="N">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+      <category name="system"/>
+   </node>
+   
+   <node foreign-id="zookeeper" node-label="zookeeper">
+      <interface ip-addr="172.20.0.3" status="1" snmp-primary="N">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+      <category name="system"/>
+   </node>
+   
+   <node foreign-id="broker" node-label="broker">
+      <interface ip-addr="172.20.0.4" status="1" snmp-primary="N">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+      <category name="system"/>
+   </node>
+   
+   <node foreign-id="kafka-ui" node-label="kafka-ui">
+      <interface ip-addr="172.20.0.5" status="1" snmp-primary="N">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="HTTP-8080"/>
+      </interface>
+      <category name="system"/>
+   </node>
+
+   <node foreign-id="cameranetsnmp1" node-label="cameranetsnmp1">
+      <interface ip-addr="172.20.0.30" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="cameras"/>
+   </node>
+   <node foreign-id="cameranetsnmp2" node-label="cameranetsnmp2">
+      <interface ip-addr="172.20.0.31" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+      <category name="cameras"/>
+   </node>
+</model-import>

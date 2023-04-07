@@ -22,10 +22,13 @@ https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-ge
 ## running example
 
 to run try
+
 ```
 mvn clean install
 
 mvn spring-boot:run
 
 ```
+
+trouble ticket should be at http://localhost:8080/api/v1/troubleTicket/1
 

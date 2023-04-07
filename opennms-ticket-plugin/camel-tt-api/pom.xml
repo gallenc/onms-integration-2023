@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>camel-tt-api</artifactId>
+
     <groupId>org.opennms.integration.camel</groupId>
+    <artifactId>camel-tt-api</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <name>OpenNMS :: Plugins :: camel-tt-api :: Parent</name>
     <packaging>pom</packaging>
 
@@ -30,7 +34,6 @@
         <slf4j-api.version>1.7.30</slf4j-api.version>
     </properties>
 
-    <version>1.0-SNAPSHOT</version>
 
     <dependencyManagement>
         <dependencies>
@@ -114,7 +117,8 @@
                     <extensions>true</extensions>
                     <configuration>
                         <instructions>
-                            <Bundle-RequiredExecutionEnvironment>JavaSE-${java.version}</Bundle-RequiredExecutionEnvironment>
+                            <Bundle-RequiredExecutionEnvironment>
+                                JavaSE-${java.version}</Bundle-RequiredExecutionEnvironment>
                         </instructions>
                     </configuration>
                 </plugin>

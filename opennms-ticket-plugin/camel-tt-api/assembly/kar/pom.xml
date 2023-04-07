@@ -1,51 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>org.opennms.integration.camel</groupId>
-        <artifactId>assembly</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>kar</artifactId>
-    <name>OpenNMS :: Plugins :: camel-tt-api :: Assembly :: KAR</name>
-    <packaging>kar</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <parent>
+      <groupId>org.opennms.integration.camel</groupId>
+      <artifactId>assembly</artifactId>
+      <version>1.0-SNAPSHOT</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <artifactId>camel-tt-api-kar</artifactId>
+   <name>OpenNMS :: Plugins :: camel-tt-api :: Assembly :: KAR</name>
+   <packaging>kar</packaging>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.karaf.tooling</groupId>
-                <artifactId>karaf-maven-plugin</artifactId>
-                <version>${karaf.version}</version>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>create-kar</id>
-                        <goals>
-                            <goal>kar</goal>
-                        </goals>
-                        <configuration>
-                            <featuresFile>mvn:org.opennms.integration.camel/karaf-features/${project.version}/xml</featuresFile>
-                            <finalName>opennms-camel-tt-api-plugin</finalName>
-                            <ignoreDependencyFlag>true</ignoreDependencyFlag>
-                            <archive>
-                              <manifestEntries>
-                                <Karaf-Feature-Start>false</Karaf-Feature-Start>
-                              </manifestEntries>
-                            </archive>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.karaf.tooling</groupId>
+            <artifactId>karaf-maven-plugin</artifactId>
+            <version>${karaf.version}</version>
+            <extensions>true</extensions>
+            <executions>
+               <execution>
+                  <id>create-kar</id>
+                  <goals>
+                     <goal>kar</goal>
+                  </goals>
+                  <configuration>
+                     <featuresFile>mvn:org.opennms.integration.camel/karaf-features/${project.version}/xml</featuresFile>
+                     <finalName>opennms-camel-tt-api-plugin</finalName>
+                     <ignoreDependencyFlag>true</ignoreDependencyFlag>
+                     <archive>
+                        <manifestEntries>
+                           <Karaf-Feature-Start>false</Karaf-Feature-Start>
+                        </manifestEntries>
+                     </archive>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.opennms.integration.camel</groupId>
-            <artifactId>karaf-features</artifactId>
-            <version>${project.version}</version>
-            <type>xml</type>
-            <scope>provided</scope>
-     </dependency>
-    </dependencies>
+         <!-- this plugin just allows the project to load in eclipse without execution errors -->
+         <plugin>
+            <groupId>org.eclipse.m2e</groupId>
+            <artifactId>lifecycle-mapping</artifactId>
+            <version>1.0.0</version>
+            <configuration>
+               <lifecycleMappingMetadata>
+
+
+                  <pluginExecutions>
+                     <pluginExecution>
+                        <pluginExecutionFilter>
+                           <groupId>org.apache.karaf.tooling</groupId>
+                           <artifactId>karaf-maven-plugin</artifactId>
+                           <versionRange>[1.0,)</versionRange>
+                           <goals>
+                              <goal>kar</goal>
+                              <goal>verify</goal>
+                              <goal>default-verify</goal>
+                           </goals>
+                        </pluginExecutionFilter>
+                        <action>
+                           <execute />
+                        </action>
+                     </pluginExecution>
+                     <pluginExecution>
+                        <pluginExecutionFilter>
+                           <groupId>org.apache.camel</groupId>
+                           <artifactId>camel-restdsl-openapi-plugin</artifactId>
+                           <versionRange>[1.0,)</versionRange>
+                           <goals>
+                              <goal>generate-with-dto</goal>
+                           </goals>
+                        </pluginExecutionFilter>
+                        <action>
+                           <execute />
+                        </action>
+                     </pluginExecution>
+                     <pluginExecution>
+                        <pluginExecutionFilter>
+                           <groupId>org.codehaus.mojo</groupId>
+                           <artifactId>build-helper-maven-plugin</artifactId>
+                           <version>[3.0,)</version>
+                           <goals>
+                              <goal>add-source</goal>
+                              <goal>add-test-source</goal>
+                           </goals>
+                        </pluginExecutionFilter>
+                        <action>
+                           <execute />
+                        </action>
+                     </pluginExecution>
+                  </pluginExecutions>
+               </lifecycleMappingMetadata>
+            </configuration>
+         </plugin>
+
+      </plugins>
+   </build>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.opennms.integration.camel</groupId>
+         <artifactId>karaf-features</artifactId>
+         <version>${project.version}</version>
+         <type>xml</type>
+         <scope>provided</scope>
+      </dependency>
+   </dependencies>
 </project>

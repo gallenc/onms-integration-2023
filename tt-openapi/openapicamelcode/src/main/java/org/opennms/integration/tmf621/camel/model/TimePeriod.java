@@ -11,11 +11,8 @@ import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.xml.bind.annotation.*;
 
 import java.util.*;
 import javax.annotation.Generated;
@@ -25,18 +22,12 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "TimePeriod", description = "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both")
-@JacksonXmlRootElement(localName = "TimePeriod")
-@XmlRootElement(name = "TimePeriod")
-@XmlAccessorType(XmlAccessType.FIELD)
-
-@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T13:45:44.384647300+01:00[Europe/London]")
+@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T21:44:00.636857800+01:00[Europe/London]")
 public class TimePeriod {
 
-  @JacksonXmlProperty(localName = "endDateTime")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private Date endDateTime;
 
-  @JacksonXmlProperty(localName = "startDateTime")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private Date startDateTime;
 

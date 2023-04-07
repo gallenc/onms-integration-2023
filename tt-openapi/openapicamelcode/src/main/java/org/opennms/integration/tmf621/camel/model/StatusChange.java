@@ -12,11 +12,8 @@ import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.xml.bind.annotation.*;
 
 import java.util.*;
 import javax.annotation.Generated;
@@ -26,30 +23,20 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "StatusChange", description = "Holds the status notification reasons and associated date the status changed, populated by the server")
-@JacksonXmlRootElement(localName = "StatusChange")
-@XmlRootElement(name = "StatusChange")
-@XmlAccessorType(XmlAccessType.FIELD)
-
-@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T13:45:44.384647300+01:00[Europe/London]")
+@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T21:44:00.636857800+01:00[Europe/London]")
 public class StatusChange {
 
-  @JacksonXmlProperty(localName = "changeDate")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private Date changeDate;
 
-  @JacksonXmlProperty(localName = "changeReason")
   private String changeReason;
 
-  @JacksonXmlProperty(localName = "status")
   private String status;
 
-  @JacksonXmlProperty(localName = "@baseType")
   private String atBaseType;
 
-  @JacksonXmlProperty(localName = "@schemaLocation")
   private URI atSchemaLocation;
 
-  @JacksonXmlProperty(localName = "@type")
   private String atType;
 
   public StatusChange changeDate(Date changeDate) {

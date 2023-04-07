@@ -10,11 +10,8 @@ import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.xml.bind.annotation.*;
 
 import java.util.*;
 import javax.annotation.Generated;
@@ -24,35 +21,23 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "Error", description = "Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)")
-@JacksonXmlRootElement(localName = "Error")
-@XmlRootElement(name = "Error")
-@XmlAccessorType(XmlAccessType.FIELD)
-
-@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T13:45:44.384647300+01:00[Europe/London]")
+@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T21:44:00.636857800+01:00[Europe/London]")
 public class Error {
 
-  @JacksonXmlProperty(localName = "code")
   private String code;
 
-  @JacksonXmlProperty(localName = "reason")
   private String reason;
 
-  @JacksonXmlProperty(localName = "message")
   private String message;
 
-  @JacksonXmlProperty(localName = "status")
   private String status;
 
-  @JacksonXmlProperty(localName = "referenceError")
   private URI referenceError;
 
-  @JacksonXmlProperty(localName = "@baseType")
   private String atBaseType;
 
-  @JacksonXmlProperty(localName = "@schemaLocation")
   private URI atSchemaLocation;
 
-  @JacksonXmlProperty(localName = "@type")
   private String atType;
 
   /**

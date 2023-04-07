@@ -24,11 +24,8 @@ import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.xml.bind.annotation.*;
 
 import java.util.*;
 import javax.annotation.Generated;
@@ -39,95 +36,67 @@ import javax.annotation.Generated;
 
 @Schema(name = "TroubleTicket_Create", description = "A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system Skipped properties: id,href")
 @JsonTypeName("TroubleTicket_Create")
-@JacksonXmlRootElement(localName = "TroubleTicketCreate")
-@XmlRootElement(name = "TroubleTicketCreate")
-@XmlAccessorType(XmlAccessType.FIELD)
-
-@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T13:45:44.384647300+01:00[Europe/London]")
+@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T21:44:00.636857800+01:00[Europe/London]")
 public class TroubleTicketCreate {
 
-  @JacksonXmlProperty(localName = "creationDate")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private Date creationDate;
 
-  @JacksonXmlProperty(localName = "description")
   private String description;
 
-  @JacksonXmlProperty(localName = "expectedResolutionDate")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private Date expectedResolutionDate;
 
-  @JacksonXmlProperty(localName = "externalId")
   private String externalId;
 
-  @JacksonXmlProperty(localName = "lastUpdate")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private Date lastUpdate;
 
-  @JacksonXmlProperty(localName = "name")
   private String name;
 
-  @JacksonXmlProperty(localName = "priority")
   private String priority;
 
-  @JacksonXmlProperty(localName = "requestedResolutionDate")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private Date requestedResolutionDate;
 
-  @JacksonXmlProperty(localName = "resolutionDate")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private Date resolutionDate;
 
-  @JacksonXmlProperty(localName = "severity")
   private String severity;
 
-  @JacksonXmlProperty(localName = "statusChangeDate")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private Date statusChangeDate;
 
-  @JacksonXmlProperty(localName = "statusChangeReason")
   private String statusChangeReason;
 
-  @JacksonXmlProperty(localName = "ticketType")
   private String ticketType;
 
-  @JacksonXmlProperty(localName = "attachment")
   @Valid
   private List<@Valid AttachmentRefOrValue> attachment;
 
-  @JacksonXmlProperty(localName = "channel")
   private ChannelRef channel;
 
-  @JacksonXmlProperty(localName = "note")
   @Valid
   private List<@Valid Note> note;
 
-  @JacksonXmlProperty(localName = "relatedEntity")
   @Valid
   private List<@Valid RelatedEntity> relatedEntity;
 
-  @JacksonXmlProperty(localName = "relatedParty")
   @Valid
   private List<@Valid RelatedParty> relatedParty;
 
-  @JacksonXmlProperty(localName = "status")
   private TroubleTicketStatusType status;
 
-  @JacksonXmlProperty(localName = "statusChange")
   @Valid
   private List<@Valid StatusChange> statusChange;
 
-  @JacksonXmlProperty(localName = "troubleTicketRelationship")
   @Valid
   private List<@Valid TroubleTicketRelationship> troubleTicketRelationship;
 
-  @JacksonXmlProperty(localName = "@baseType")
   private String atBaseType;
 
-  @JacksonXmlProperty(localName = "@schemaLocation")
   private URI atSchemaLocation;
 
-  @JacksonXmlProperty(localName = "@type")
   private String atType;
 
   /**

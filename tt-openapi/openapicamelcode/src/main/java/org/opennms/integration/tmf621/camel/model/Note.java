@@ -12,11 +12,8 @@ import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.xml.bind.annotation.*;
 
 import java.util.*;
 import javax.annotation.Generated;
@@ -26,33 +23,22 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "Note", description = "Extra information about a given entity")
-@JacksonXmlRootElement(localName = "Note")
-@XmlRootElement(name = "Note")
-@XmlAccessorType(XmlAccessType.FIELD)
-
-@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T13:45:44.384647300+01:00[Europe/London]")
+@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T21:44:00.636857800+01:00[Europe/London]")
 public class Note {
 
-  @JacksonXmlProperty(localName = "id")
   private String id;
 
-  @JacksonXmlProperty(localName = "author")
   private String author;
 
-  @JacksonXmlProperty(localName = "date")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private Date date;
 
-  @JacksonXmlProperty(localName = "text")
   private String text;
 
-  @JacksonXmlProperty(localName = "@baseType")
   private String atBaseType;
 
-  @JacksonXmlProperty(localName = "@schemaLocation")
   private URI atSchemaLocation;
 
-  @JacksonXmlProperty(localName = "@type")
   private String atType;
 
   public Note id(String id) {

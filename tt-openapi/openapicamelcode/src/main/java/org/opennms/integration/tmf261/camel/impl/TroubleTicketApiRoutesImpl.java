@@ -3,7 +3,7 @@
 * https://openapi-generator.tech
 * Do not edit the class manually.
 */
-package org.opennms.integration.tmf621.camel.api;
+package org.opennms.integration.tmf261.camel.impl;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;

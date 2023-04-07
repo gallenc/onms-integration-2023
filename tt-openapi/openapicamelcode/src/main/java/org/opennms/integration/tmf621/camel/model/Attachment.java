@@ -12,11 +12,8 @@ import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.xml.bind.annotation.*;
 
 import java.util.*;
 import javax.annotation.Generated;
@@ -26,50 +23,33 @@ import javax.annotation.Generated;
  */
 
 @Schema(name = "Attachment", description = "Complements the description of an element (for instance a product) through video, pictures...")
-@JacksonXmlRootElement(localName = "Attachment")
-@XmlRootElement(name = "Attachment")
-@XmlAccessorType(XmlAccessType.FIELD)
-
-@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T13:45:44.384647300+01:00[Europe/London]")
+@Generated(value = "org.openapitools.codegen.languages.JavaCamelServerCodegen", date = "2023-04-07T21:44:00.636857800+01:00[Europe/London]")
 public class Attachment {
 
-  @JacksonXmlProperty(localName = "id")
   private String id;
 
-  @JacksonXmlProperty(localName = "href")
   private String href;
 
-  @JacksonXmlProperty(localName = "attachmentType")
   private String attachmentType;
 
-  @JacksonXmlProperty(localName = "content")
   private String content;
 
-  @JacksonXmlProperty(localName = "description")
   private String description;
 
-  @JacksonXmlProperty(localName = "mimeType")
   private String mimeType;
 
-  @JacksonXmlProperty(localName = "name")
   private String name;
 
-  @JacksonXmlProperty(localName = "url")
   private String url;
 
-  @JacksonXmlProperty(localName = "size")
   private Quantity size;
 
-  @JacksonXmlProperty(localName = "validFor")
   private TimePeriod validFor;
 
-  @JacksonXmlProperty(localName = "@baseType")
   private String atBaseType;
 
-  @JacksonXmlProperty(localName = "@schemaLocation")
   private URI atSchemaLocation;
 
-  @JacksonXmlProperty(localName = "@type")
   private String atType;
 
   public Attachment id(String id) {

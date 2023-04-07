@@ -1,4 +1,4 @@
-package org.opennms.integration.tmf621.camel.api;
+package org.opennms.integration.camel.tmf261;
 
 import com.fasterxml.jackson.databind.Module;
 import org.openapitools.jackson.nullable.JsonNullableModule;
@@ -13,7 +13,11 @@ import org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGe
     nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class
 )
 @ComponentScan(
-    basePackages = {"org.opennms.integration.tmf621.camel.api", "org.opennms.integration.tmf621.camel.api" , "org.openapitools.configuration"},
+    basePackages = {"org.opennms.integration.camel.tmf261",
+    		"org.opennms.integration.tmf261.camel.impl",
+            "org.opennms.integration.tmf621.camel.api",
+            "org.opennms.integration.tmf621.camel.model",
+            "org.openapitools.configuration"},
     nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class
 )
 public class OpenApiGeneratorApplication {

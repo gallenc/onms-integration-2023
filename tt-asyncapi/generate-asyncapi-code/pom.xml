@@ -1,22 +1,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.opennms.integration.asyncapi</groupId>
    <artifactId>generate-asyncapi-code</artifactId>
    <version>0.0.1-SNAPSHOT</version>
-   <packaging>pom</packaging>
+   <packaging>jar</packaging>
 
    <!-- see example https://www.asyncapi.com/casestudies/adeogroup -->
 
    <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
       <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
       <node.installation.path>${project.basedir}\node\node</node.installation.path>
       <node.modules.installation.path>${project.basedir}\node\node_modules</node.modules.installation.path>
       <node.binary.name>node.exe</node.binary.name>
       <node.version>v12.18.4</node.version>
-      <asyncapi.generator.version>1.9.17</asyncapi.generator.version>
+      <asyncapi.generator.version>1.9.18</asyncapi.generator.version>
       <asyncapi.generation.dir>${project.build.directory}\generated-project</asyncapi.generation.dir>
       <asyncapi.htmltemplate.version>0.28.3</asyncapi.htmltemplate.version>
+
+      <spring.boot-version>2.2.6.RELEASE</spring.boot-version>
    </properties>
 
    <profiles>
@@ -39,18 +43,29 @@
                   <executions>
                      <execution>
                         <id>install node and npm</id>
+                        <phase>initialize</phase>
                         <goals>
                            <goal>install-node-and-npm</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                      </execution>
                      <execution>
                         <id>install @asyncapi/generator globally</id>
+                        <phase>initialize</phase>
                         <goals>
                            <goal>npm</goal>
                         </goals>
                         <configuration>
                            <arguments>install @asyncapi/generator@${asyncapi.generator.version}</arguments>
+                        </configuration>
+                     </execution>
+                      <execution>
+                        <id>install @asyncapi/java-spring-template globally</id>
+                        <phase>initialize</phase>
+                        <goals>
+                           <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                           <arguments>install @asyncapi/java-spring-template@0.28.0</arguments>
                         </configuration>
                      </execution>
 
@@ -76,7 +91,10 @@
 
    </profiles>
 
+
    <build>
+
+
       <plugins>
 
          <plugin>
@@ -89,14 +107,17 @@
                   <goals>
                      <goal>exec</goal>
                   </goals>
-                  <phase>generate-resources</phase>
+                  <phase>generate-sources</phase>
                   <configuration>
                      <!-- Access binary file in node_modules because it doesn't work on windows otherwise. -->
-                     <executable>${node.installation.path}${file.separator}${node.binary.name}</executable>
+                     <executable>${node.installation.path}${file.separator}node${file.separator}${node.binary.name}</executable>
                      <commandlineArgs>
                         ${node.modules.installation.path}${file.separator}@asyncapi${file.separator}generator${file.separator}cli.js
-                        ${project.basedir}/src/asyncapi/TMF925-TroubleTicket-v4.0.0.asyncapi-x-parser.yml
+                        ${project.basedir}/src/asyncapi/TMF925-TroubleTicket-v4.0.0.asyncapi-id.yml
                         @asyncapi/java-spring-template
+                        -p
+                        javaPackage=org.opennms.integration.tmf925.api
+                        -p disableEqualsHashCode=true
                         -o ${asyncapi.generation.dir}
                         --debug
                         --force-write
@@ -112,23 +133,81 @@
          <!-- version=${project.version} -o -->
          <!-- ${asyncapi.generation.dir} -->
 
+         <!-- <plugin> -->
+         <!-- <groupId>org.apache.maven.plugins</groupId> -->
+         <!-- <artifactId>maven-resources-plugin</artifactId> -->
+         <!-- <version>3.3.1</version> -->
+         <!-- <executions> -->
+         <!-- <execution> -->
+         <!-- <id>copy-resources</id> -->
+         <!-- <phase>generate-resources</phase> -->
+         <!-- <goals> -->
+         <!-- <goal>copy-resources</goal> -->
+         <!-- </goals> -->
+         <!-- <configuration> -->
+         <!-- <outputDirectory>${asyncapi.generation.dir}/assets</outputDirectory> -->
+         <!-- <resources> -->
+         <!-- <resource> -->
+         <!-- <directory>src/docs/asyncapi/assets</directory> -->
+         <!-- <filtering>true</filtering> -->
+         <!-- </resource> -->
+         <!-- </resources> -->
+         <!-- </configuration> -->
+         <!-- </execution> -->
+         <!-- </executions> -->
+         <!-- </plugin> -->
+
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>3.3.1</version>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+               <source>1.8</source>
+               <target>1.8</target>
+               <proc>none</proc>
+            </configuration>
+         </plugin>
+
+
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.3.0</version>
             <executions>
                <execution>
-                  <id>copy-resources</id>
-                  <phase>generate-resources</phase>
+                  <id>add-source</id>
+                  <phase>generate-sources</phase>
                   <goals>
-                     <goal>copy-resources</goal>
+                     <goal>add-source</goal>
                   </goals>
                   <configuration>
-                     <outputDirectory>${asyncapi.generation.dir}/assets</outputDirectory>
+                     <sources>
+                        <source>${project.build.directory}/generated-project/src/main/java</source>
+                     </sources>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>add-test-source</id>
+                  <phase>generate-test-sources</phase>
+                  <goals>
+                     <goal>add-test-source</goal>
+                  </goals>
+                  <configuration>
+                     <sources>
+                        <source>${project.build.directory}/generated-project/src/test/java</source>
+                     </sources>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>add-resource</id>
+                  <phase>generate-resources</phase>
+                  <goals>
+                     <goal>add-resource</goal>
+                  </goals>
+                  <configuration>
                      <resources>
                         <resource>
-                           <directory>src/docs/asyncapi/assets</directory>
-                           <filtering>true</filtering>
+                           <directory>${project.build.directory}/generated-project/src/main/resources</directory>
                         </resource>
                      </resources>
                   </configuration>
@@ -136,8 +215,147 @@
             </executions>
          </plugin>
 
+         <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${spring.boot-version}</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>repackage</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+
       </plugins>
+
+      <pluginManagement>
+         <!-- this plugin just allows the project to load in eclipse without execution errors -->
+         <plugins>
+            <plugin>
+               <groupId>org.eclipse.m2e</groupId>
+               <artifactId>lifecycle-mapping</artifactId>
+               <version>1.0.0</version>
+               <configuration>
+                  <lifecycleMappingMetadata>
+                     <pluginExecutions>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>org.codehaus.mojo</groupId>
+                              <artifactId>exec-maven-plugin</artifactId>
+                              <versionRange>[1.0,)</versionRange>
+                              <goals>
+                                 <goal>exec</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <execute />
+                           </action>
+                        </pluginExecution>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>org.codehaus.mojo</groupId>
+                              <artifactId>build-helper-maven-plugin</artifactId>
+                              <version>[3.0,)</version>
+                              <goals>
+                                 <goal>add-source</goal>
+                                 <goal>add-test-source</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <execute />
+                           </action>
+                        </pluginExecution>
+                     </pluginExecutions>
+                  </lifecycleMappingMetadata>
+               </configuration>
+            </plugin>
+         </plugins>
+      </pluginManagement>
    </build>
 
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>${spring.boot-version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+
+   <dependencies>
+
+      <!-- implementation('org.springframework.kafka:spring-kafka') testImplementation('org.springframework.kafka:spring-kafka-test') testImplementation('junit:junit:4.12') 
+         testCompile('org.testcontainers:kafka:1.16.3') implementation('com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider') implementation('com.fasterxml.jackson.datatype:jackson-datatype-jsr310') 
+         implementation('javax.validation:validation-api') implementation('org.springframework.boot:spring-boot-starter-integration') testImplementation('org.springframework.boot:spring-boot-starter-test') 
+         testCompile('org.testcontainers:testcontainers:1.16.3') -->
+
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>
+
+
+      <dependency>
+         <groupId>org.springframework.kafka</groupId>
+         <artifactId>spring-kafka</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.springframework.kafka</groupId>
+         <artifactId>spring-kafka-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>com.fasterxml.jackson.jaxrs</groupId>
+         <artifactId>jackson-jaxrs-json-provider</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>com.fasterxml.jackson.datatype</groupId>
+         <artifactId>jackson-datatype-jsr310</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>javax.validation</groupId>
+         <artifactId>validation-api</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.testcontainers</groupId>
+         <artifactId>kafka</artifactId>
+         <version>1.16.3</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.testcontainers</groupId>
+         <artifactId>testcontainers</artifactId>
+         <version>1.16.3</version>
+      </dependency>
+
+
+   </dependencies>
 
 </project>

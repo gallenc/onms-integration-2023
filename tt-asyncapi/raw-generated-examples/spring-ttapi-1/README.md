@@ -15,6 +15,7 @@ ag TMF925-TroubleTicket-v4.0.0.asyncapi-x-parser.yml @asyncapi/java-spring-templ
 ```
 
 output
+
 ```
 PS C:\devel\gitrepos\onms-integration-2023\tt-asyncapi> asyncapi generate fromTemplate TMF925-TroubleTicket-v4.0.0.asyncapi.yml @asyncapi/java-spring-template
 Generation in progress. Keep calm and wait a bit... done

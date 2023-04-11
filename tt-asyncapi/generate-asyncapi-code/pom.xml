@@ -15,7 +15,7 @@
       <node.installation.path>${project.basedir}\node\node</node.installation.path>
       <node.modules.installation.path>${project.basedir}\node\node_modules</node.modules.installation.path>
       <node.binary.name>node.exe</node.binary.name>
-      <node.version>v12.18.4</node.version>
+      <node.version>v18.5.0</node.version>
       <asyncapi.generator.version>1.9.18</asyncapi.generator.version>
       <asyncapi.generation.dir>${project.build.directory}\generated-project</asyncapi.generation.dir>
       <asyncapi.htmltemplate.version>0.28.3</asyncapi.htmltemplate.version>
@@ -55,17 +55,27 @@
                            <goal>npm</goal>
                         </goals>
                         <configuration>
-                           <arguments>install @asyncapi/generator@${asyncapi.generator.version}</arguments>
+                           <arguments>install  --verbose -g @asyncapi/generator@${asyncapi.generator.version}</arguments>
                         </configuration>
                      </execution>
-                      <execution>
+                     <execution>
+                        <id>install @asyncapi/cli  globally</id>
+                        <phase>initialize</phase>
+                        <goals>
+                           <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                           <arguments>install --verbose -g @asyncapi/cli</arguments>
+                        </configuration>
+                     </execution>
+                     <execution>
                         <id>install @asyncapi/java-spring-template globally</id>
                         <phase>initialize</phase>
                         <goals>
                            <goal>npm</goal>
                         </goals>
                         <configuration>
-                           <arguments>install @asyncapi/java-spring-template@0.28.0</arguments>
+                           <arguments>install --verbose  -g @asyncapi/java-spring-template@0.28.0</arguments>
                         </configuration>
                      </execution>
 
@@ -113,7 +123,7 @@
                      <executable>${node.installation.path}${file.separator}node${file.separator}${node.binary.name}</executable>
                      <commandlineArgs>
                         ${node.modules.installation.path}${file.separator}@asyncapi${file.separator}generator${file.separator}cli.js
-                        ${project.basedir}/src/asyncapi/TMF925-TroubleTicket-v4.0.0.asyncapi-id.yml
+                        ${project.basedir}/src/asyncapi/TMF925-TroubleTicket-v4.0.0.asyncapi-id-oneoff.yml
                         @asyncapi/java-spring-template
                         -p
                         javaPackage=org.opennms.integration.tmf925.api
@@ -304,12 +314,6 @@
          <artifactId>spring-boot-starter-test</artifactId>
          <scope>test</scope>
       </dependency>
-      
-      <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-web</artifactId>
-      </dependency>
-
 
       <dependency>
          <groupId>org.springframework.kafka</groupId>

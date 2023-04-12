@@ -12,12 +12,12 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
       <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-      <node.installation.path>${project.basedir}\node\node</node.installation.path>
-      <node.modules.installation.path>${project.basedir}\node\node_modules</node.modules.installation.path>
+      <node.installation.path>node</node.installation.path>
+      <node.modules.installation.path>node/node/node_modules</node.modules.installation.path>
       <node.binary.name>node.exe</node.binary.name>
       <node.version>v18.5.0</node.version>
       <asyncapi.generator.version>1.9.18</asyncapi.generator.version>
-      <asyncapi.generation.dir>${project.build.directory}\generated-project</asyncapi.generation.dir>
+      <asyncapi.generation.dir>${project.build.directory}/generated-project</asyncapi.generation.dir>
       <asyncapi.htmltemplate.version>0.28.3</asyncapi.htmltemplate.version>
 
       <spring.boot-version>2.2.6.RELEASE</spring.boot-version>
@@ -55,7 +55,8 @@
                            <goal>npm</goal>
                         </goals>
                         <configuration>
-                           <arguments>install  --verbose -g @asyncapi/generator@${asyncapi.generator.version}</arguments>
+                           <arguments>install --verbose -g
+                              @asyncapi/generator@${asyncapi.generator.version}</arguments>
                         </configuration>
                      </execution>
                      <execution>
@@ -75,7 +76,8 @@
                            <goal>npm</goal>
                         </goals>
                         <configuration>
-                           <arguments>install --verbose  -g @asyncapi/java-spring-template@0.28.0</arguments>
+                           <arguments>install --verbose -g
+                              @asyncapi/java-spring-template@0.28.0</arguments>
                         </configuration>
                      </execution>
 
@@ -186,7 +188,8 @@
             <executions>
                <execution>
                   <id>add-source</id>
-                  <phase>generate-sources</phase>
+                  <!-- <phase>generate-sources</phase> -->
+                  <phase>initialize</phase>
                   <goals>
                      <goal>add-source</goal>
                   </goals>
@@ -198,7 +201,8 @@
                </execution>
                <execution>
                   <id>add-test-source</id>
-                  <phase>generate-test-sources</phase>
+                  <!-- <phase>generate-test-sources</phase> -->
+                  <phase>initialize</phase>
                   <goals>
                      <goal>add-test-source</goal>
                   </goals>
@@ -210,7 +214,8 @@
                </execution>
                <execution>
                   <id>add-resource</id>
-                  <phase>generate-resources</phase>
+                  <!-- <phase>generate-resources</phase> -->
+                  <phase>initialize</phase>
                   <goals>
                      <goal>add-resource</goal>
                   </goals>
@@ -243,45 +248,46 @@
       <pluginManagement>
          <!-- this plugin just allows the project to load in eclipse without execution errors -->
          <plugins>
-            <plugin>
-               <groupId>org.eclipse.m2e</groupId>
-               <artifactId>lifecycle-mapping</artifactId>
-               <version>1.0.0</version>
-               <configuration>
-                  <lifecycleMappingMetadata>
-                     <pluginExecutions>
-                        <pluginExecution>
-                           <pluginExecutionFilter>
-                              <groupId>org.codehaus.mojo</groupId>
-                              <artifactId>exec-maven-plugin</artifactId>
-                              <versionRange>[1.0,)</versionRange>
-                              <goals>
-                                 <goal>exec</goal>
-                              </goals>
-                           </pluginExecutionFilter>
-                           <action>
-                              <execute />
-                           </action>
-                        </pluginExecution>
-                        <pluginExecution>
-                           <pluginExecutionFilter>
-                              <groupId>org.codehaus.mojo</groupId>
-                              <artifactId>build-helper-maven-plugin</artifactId>
-                              <version>[3.0,)</version>
-                              <goals>
-                                 <goal>add-source</goal>
-                                 <goal>add-test-source</goal>
-                              </goals>
-                           </pluginExecutionFilter>
-                           <action>
-                              <execute />
-                           </action>
-                        </pluginExecution>
-                     </pluginExecutions>
-                  </lifecycleMappingMetadata>
-               </configuration>
-            </plugin>
+            <!-- <plugin> -->
+            <!-- <groupId>org.eclipse.m2e</groupId> -->
+            <!-- <artifactId>lifecycle-mapping</artifactId> -->
+            <!-- <version>1.0.0</version> -->
+            <!-- <configuration> -->
+            <!-- <lifecycleMappingMetadata> -->
+            <!-- <pluginExecutions> -->
+            <!-- <pluginExecution> -->
+            <!-- <pluginExecutionFilter> -->
+            <!-- <groupId>org.codehaus.mojo</groupId> -->
+            <!-- <artifactId>exec-maven-plugin</artifactId> -->
+            <!-- <versionRange>[1.0,)</versionRange> -->
+            <!-- <goals> -->
+            <!-- <goal>exec</goal> -->
+            <!-- </goals> -->
+            <!-- </pluginExecutionFilter> -->
+            <!-- <action> -->
+            <!-- <execute /> -->
+            <!-- </action> -->
+            <!-- </pluginExecution> -->
+            <!-- <pluginExecution> -->
+            <!-- <pluginExecutionFilter> -->
+            <!-- <groupId>org.codehaus.mojo</groupId> -->
+            <!-- <artifactId>build-helper-maven-plugin</artifactId> -->
+            <!-- <version>[3.0,)</version> -->
+            <!-- <goals> -->
+            <!-- <goal>add-source</goal> -->
+            <!-- <goal>add-test-source</goal> -->
+            <!-- </goals> -->
+            <!-- </pluginExecutionFilter> -->
+            <!-- <action> -->
+            <!-- <execute /> -->
+            <!-- </action> -->
+            <!-- </pluginExecution> -->
+            <!-- </pluginExecutions> -->
+            <!-- </lifecycleMappingMetadata> -->
+            <!-- </configuration> -->
+            <!-- </plugin> -->
          </plugins>
+
       </pluginManagement>
    </build>
 
@@ -305,10 +311,10 @@
          testCompile('org.testcontainers:testcontainers:1.16.3') -->
 
       <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-web</artifactId>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web</artifactId>
       </dependency>
-      
+
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-test</artifactId>

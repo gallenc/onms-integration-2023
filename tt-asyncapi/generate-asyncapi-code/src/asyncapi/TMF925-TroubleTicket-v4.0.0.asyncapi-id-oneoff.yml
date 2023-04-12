@@ -1266,6 +1266,129 @@ components:
       required:
         - statusCode
         - body
+        
+#    Pet:
+#      $id: Pet
+#      type: object
+#      discriminator: petType
+#      properties:
+#        name:
+#          type: string
+#        petType:
+#          type: string
+#      required:
+#        - name
+#        - petType
+#
+#    CatSchema:  ## "Cat" will be used as the discriminator value
+#      description: A representation of a cat
+#      allOf:
+#        - $ref: '#/components/schemas/Pet'
+#        - type: object
+#          $id: Cat
+#          properties:
+#            huntingSkill:
+#              type: string
+#              description: The measured skill for hunting
+#              enum:
+#                - clueless
+#                - lazy
+#                - adventurous
+#                - aggressive
+#          required:
+#            - huntingSkill
+#            
+#
+#    DogSchema:  ## "Dog" will be used as the discriminator value
+#      description: A representation of a dog
+#      $id: Dogs
+#      allOf:
+#        - $ref: '#/components/schemas/Pet'
+#        - type: object
+#          $id: Dog
+#          properties:
+#            packSize:
+#              type: integer
+#              format: int32
+#              description: the size of the pack the dog is from
+#              minimum: 0
+#          required:
+#            - packSize
+#        
+#    Pony:
+#      $id: Pony
+#      type: object
+##      discriminator:
+##        propertyName: ponyType
+##        type: string
+##        mapping:
+##          pegasi: "#/components/schemas/Pegasi"
+##          unicorn: "#/components/schemas/Unicorn"
+#      properties:
+#        name:
+#          type: string
+#        ponyType:
+#          type: string
+#
+#    Pegasi:
+#      $id: Pegasi
+#      allOf:
+#        - $ref: "#/components/schemas/Pony"
+#        - type: "object"
+#          $id: PegasiProperties
+#          properties:
+#            wingsColors:
+#              type: "string"
+#              default: "RED"
+#    Unicorn:
+#      $id: Unicorn
+#      allOf:
+#        - $ref: "#/components/schemas/Pony"
+#        - type: "object"
+#          $id: UnicornProperties
+#          properties:
+#            cornSize:
+#              type: "integer"
+#              default: 10
+#              
+#    objectWithKey:
+#      type: object
+#      properties:
+#        key:
+#          allOf:
+#            - $ref: "#/components/schemas/objectWithKey3"
+#            - $ref: "#/components/schemas/objectWithKey2"
+#    objectWithKey2:
+#      type: object
+#      properties:
+#        key2:
+#          type: string
+#    objectWithKey3:
+#      type: object
+#      properties:
+#        key3:
+#          allOf:
+#            - $ref: "#/components/schemas/objectWithKey4"
+#            - type: string
+#    objectWithKey4:
+#      type: object
+#      properties:
+#        key4:
+#          type: string
+        
+    ResponsePayload:
+      type: object
+      properties:
+        body:      	
+          allOf:
+            - $ref: '#/components/schemas/BadRequestResponse'
+            - $ref: '#/components/schemas/UnauthorizedResponse'
+            - $ref: '#/components/schemas/ForbiddenResponse'
+            - $ref: '#/components/schemas/NotFoundResponse'
+            - $ref: '#/components/schemas/MethodNotAllowedResponse'
+            - $ref: '#/components/schemas/ConflictResponse'
+            - $ref: '#/components/schemas/InternalServerErrorResponse'
+
     RetrieveTroubleTicketResponsePayload:
       oneOf:
         - $ref: '#/components/schemas/RetrieveTroubleTicketSuccess'

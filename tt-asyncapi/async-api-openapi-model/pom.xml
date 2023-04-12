@@ -167,60 +167,60 @@
 
       <pluginManagement>
          <!-- this plugin just allows the project to load in eclipse without execution errors -->
-         <plugins>
-            <plugin>
-               <groupId>org.eclipse.m2e</groupId>
-               <artifactId>lifecycle-mapping</artifactId>
-               <version>1.0.0</version>
-               <configuration>
-                  <lifecycleMappingMetadata>
-                     <pluginExecutions>
-                        <pluginExecution>
-                           <pluginExecutionFilter>
-                              <groupId>org.openapitools</groupId>
-                              <artifactId>openapi-generator-maven-plugin</artifactId>
-                              <versionRange>[1.0,)</versionRange>
-                              <goals>
-                                 <goal>generate</goal>
-                                 <goal>generate-sources</goal>
-                              </goals>
-                           </pluginExecutionFilter>
-                           <action>
-                              <execute />
-                           </action>
-                        </pluginExecution>
-                        <pluginExecution>
-                           <pluginExecutionFilter>
-                              <groupId>org.codehaus.mojo</groupId>
-                              <artifactId>exec-maven-plugin</artifactId>
-                              <versionRange>[1.0,)</versionRange>
-                              <goals>
-                                 <goal>exec</goal>
-                              </goals>
-                           </pluginExecutionFilter>
-                           <action>
-                              <execute />
-                           </action>
-                        </pluginExecution>
-                        <pluginExecution>
-                           <pluginExecutionFilter>
-                              <groupId>org.codehaus.mojo</groupId>
-                              <artifactId>build-helper-maven-plugin</artifactId>
-                              <version>[3.0,)</version>
-                              <goals>
-                                 <goal>add-source</goal>
-                                 <goal>add-test-source</goal>
-                              </goals>
-                           </pluginExecutionFilter>
-                           <action>
-                              <execute />
-                           </action>
-                        </pluginExecution>
-                     </pluginExecutions>
-                  </lifecycleMappingMetadata>
-               </configuration>
-            </plugin>
-         </plugins>
+<!--         <plugins>-->
+<!--            <plugin>-->
+<!--               <groupId>org.eclipse.m2e</groupId>-->
+<!--               <artifactId>lifecycle-mapping</artifactId>-->
+<!--               <version>1.0.0</version>-->
+<!--               <configuration>-->
+<!--                  <lifecycleMappingMetadata>-->
+<!--                     <pluginExecutions>-->
+<!--                        <pluginExecution>-->
+<!--                           <pluginExecutionFilter>-->
+<!--                              <groupId>org.openapitools</groupId>-->
+<!--                              <artifactId>openapi-generator-maven-plugin</artifactId>-->
+<!--                              <versionRange>[1.0,)</versionRange>-->
+<!--                              <goals>-->
+<!--                                 <goal>generate</goal>-->
+<!--                                 <goal>generate-sources</goal>-->
+<!--                              </goals>-->
+<!--                           </pluginExecutionFilter>-->
+<!--                           <action>-->
+<!--                              <execute />-->
+<!--                           </action>-->
+<!--                        </pluginExecution>-->
+<!--                        <pluginExecution>-->
+<!--                           <pluginExecutionFilter>-->
+<!--                              <groupId>org.codehaus.mojo</groupId>-->
+<!--                              <artifactId>exec-maven-plugin</artifactId>-->
+<!--                              <versionRange>[1.0,)</versionRange>-->
+<!--                              <goals>-->
+<!--                                 <goal>exec</goal>-->
+<!--                              </goals>-->
+<!--                           </pluginExecutionFilter>-->
+<!--                           <action>-->
+<!--                              <execute />-->
+<!--                           </action>-->
+<!--                        </pluginExecution>-->
+<!--                        <pluginExecution>-->
+<!--                           <pluginExecutionFilter>-->
+<!--                              <groupId>org.codehaus.mojo</groupId>-->
+<!--                              <artifactId>build-helper-maven-plugin</artifactId>-->
+<!--                              <version>[3.0,)</version>-->
+<!--                              <goals>-->
+<!--                                 <goal>add-source</goal>-->
+<!--                                 <goal>add-test-source</goal>-->
+<!--                              </goals>-->
+<!--                           </pluginExecutionFilter>-->
+<!--                           <action>-->
+<!--                              <execute />-->
+<!--                           </action>-->
+<!--                        </pluginExecution>-->
+<!--                     </pluginExecutions>-->
+<!--                  </lifecycleMappingMetadata>-->
+<!--               </configuration>-->
+<!--            </plugin>-->
+<!--         </plugins>-->
       </pluginManagement>
 
    </build>

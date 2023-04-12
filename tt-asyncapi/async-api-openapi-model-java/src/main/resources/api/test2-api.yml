@@ -1,0 +1,52 @@
+# example at https://github.com/OpenAPITools/openapi-generator/issues/5381
+openapi: "3.0.2"
+info:
+  version: 1.0.0
+  title: Polymorphism
+paths:
+  /pets:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/Cat'
+                - $ref: '#/components/schemas/Dog'
+              discriminator:
+                propertyName: pet_type
+      responses:
+        '200':
+          description: created
+components:
+  schemas:
+    # Parent
+    Pet:
+      type: object
+      required:
+        - pet_type      
+      properties:
+        pet_type:
+          type: string
+        eats:
+          type: string
+      discriminator:
+        propertyName: pet_type
+    # Child 1
+    Dog:
+      allOf:
+        - $ref: '#/components/schemas/Pet'
+        - type: object
+          # all other properties specific to a `Dog`
+          properties:
+            bark:
+              type: boolean
+    # Child 2
+    Cat:
+      allOf:
+        - $ref: '#/components/schemas/Pet'
+        - type: object
+          # all other properties specific to a `Cat`
+          properties:
+            climbs:
+              type: boolean

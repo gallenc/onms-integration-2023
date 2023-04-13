@@ -32,10 +32,13 @@ import org.opennms.integration.tmf925.openapi.model.TroubleTicketCreate;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import org.instancio.Instancio;
 
 /**
  * Model tests for CreateTroubleTicketRequestPayload
@@ -107,7 +110,28 @@ public class CreateTroubleTicketRequestPayloadTest {
 	 */
 	@Test
 	public void bodyTest() {
-		// TODO: test body
+		//CreateTroubleTicketRequestPayload model = new CreateTroubleTicketRequestPayload();
+		//TroubleTicketCreate body = new TroubleTicketCreate();
+		//body.setExternalId(UUID.randomUUID().toString());
+		//model.setBody(body);
+		
+		CreateTroubleTicketRequestPayload model = org.instancio.Instancio.of(CreateTroubleTicketRequestPayload.class).create();
+		
+		JSON json = new JSON();
+
+		String jsonString = null;
+		try {
+			jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
+			System.out.println("serialised object: " + jsonString);
+			
+			CreateTroubleTicketRequestPayload obj = json.getMapper().readValue(jsonString,	CreateTroubleTicketRequestPayload.class);
+			
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
 	}
 
 }

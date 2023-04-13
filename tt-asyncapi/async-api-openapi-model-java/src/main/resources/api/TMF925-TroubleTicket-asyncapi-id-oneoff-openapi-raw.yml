@@ -1,12 +1,12 @@
-asyncapi: 2.4.0
-id: 'urn:tmforum:com:TMF621:TroubleTicket:Application'
+openapi: '3.0.3'
+# id: 'urn:tmforum:com:TMF621:TroubleTicket:Application'
 info:
   title: Trouble Ticke AsyncAPI
   contact:
     name: API Support
     url: 'https://www.tmforum.org/contact-us/'
     email: info@tmforum.org
-  description: "**TMF API Reference : TMF - 621 Trouble Ticket**\n\n**Release : 19.0 - June 2019**\n\nThe Trouble Ticket API provides a standardized client interface to Trouble Ticket Management Systems for creating, tracking and managing trouble tickets as a result of an issue or problem identified by a customer or another system. \nExamples of Trouble Ticket API originators (clients) include CRM applications, network management or fault management systems, or other Trouble Ticket management systems (e.g. B2B).\n\nThe API supports the ability to send requests to create a new trouble ticket specifying the nature and severity of the trouble or issue as well as all necessary related information. The API also includes mechanisms to search for and update existing trouble tickets. Notifications are defined to provide information when a trouble ticket has been updated, including status changes. A basic set of states of a trouble ticket has been specified (as an example) to handle trouble ticket lifecycle management.\nTrouble Ticketing API manages trouble ticket resource:\n\n  -\tA trouble ticket represents a record, or an issue raised by requestor that need to be solved, used for reporting and managing the resolution of problems, incidents or request -\tMain trouble ticket attributes are its description, severity, type, related dates (creation, expected resolution, resolution), state and related information (change reason and change date), related parties (originator, owner, reviser, etc.), related entities (product, product order, customer bill) and notes Trouble Ticket API performs the following operations on trouble ticket -\tRetrieval of a trouble ticket or a collection of trouble ticket depending on filter criteria -\tPartial update of a trouble ticket -\tCreation of a trouble ticket -\tNotification of events on trouble ticket: o\tTrouble ticket state change o\tTrouble ticket change o\tTrouble ticket resoled o\tTrouble ticket created o\tTrouble ticket Information required\n\n\n\nCopyright © TM Forum 2019. All Rights Reserved\n\n\n"
+  description: '**TMF API Reference : TMF - 621 Trouble Ticket**\n\n**Release : 19.0 - June 2019**\n\nThe Trouble Ticket API provides a standardized client interface to Trouble Ticket Management Systems for creating, tracking and managing trouble tickets as a result of an issue or problem identified by a customer or another system. \nExamples of Trouble Ticket API originators (clients) include CRM applications, network management or fault management systems, or other Trouble Ticket management systems (e.g. B2B).\n\nThe API supports the ability to send requests to create a new trouble ticket specifying the nature and severity of the trouble or issue as well as all necessary related information. The API also includes mechanisms to search for and update existing trouble tickets. Notifications are defined to provide information when a trouble ticket has been updated, including status changes. A basic set of states of a trouble ticket has been specified (as an example) to handle trouble ticket lifecycle management.\nTrouble Ticketing API manages trouble ticket resource:\n\n  -\tA trouble ticket represents a record, or an issue raised by requestor that need to be solved, used for reporting and managing the resolution of problems, incidents or request -\tMain trouble ticket attributes are its description, severity, type, related dates (creation, expected resolution, resolution), state and related information (change reason and change date), related parties (originator, owner, reviser, etc.), related entities (product, product order, customer bill) and notes Trouble Ticket API performs the following operations on trouble ticket -\tRetrieval of a trouble ticket or a collection of trouble ticket depending on filter criteria -\tPartial update of a trouble ticket -\tCreation of a trouble ticket -\tNotification of events on trouble ticket: o\tTrouble ticket state change o\tTrouble ticket change o\tTrouble ticket resoled o\tTrouble ticket created o\tTrouble ticket Information required\n\n\n\nCopyright © TM Forum 2019. All Rights Reserved\n\n\n'
   version: 4.0.0
 externalDocs:
   description: TMForum Open API
@@ -14,225 +14,28 @@ externalDocs:
 tags:
   - name: troubleTicket
 servers:
-  development:
-    url: development.tmforum.com
-    description: Development Kafka server
-    protocol: kafka
-  staging:
-    url: staging.tmforum.com
-    description: Development Kafka server
-    protocol: kafka
-  production:
-    url: production.tmforum.com
-    description: Development Kafka server
-    protocol: kafka
-defaultContentType: application/json
-channels:
-  tmfapi.TroubleTicket.v4.retrieveTroubleTicket.commandRequest:
-    publish:
-      operationId: retrieveTroubleTicketRequest
-      summary: Retrieves a TroubleTicket by ID
+  - url: 'http://localhost:8080/'
+paths:
+  /notused:
+    get:
       tags:
-        - name: troubleTicket
-      description: >-
-        This operation retrieves a TroubleTicket entity. Attribute selection is
-        enabled for all first level attributes.
-      message:
-        $ref: '#/components/messages/RetrieveTroubleTicketRequest'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  tmfapi.TroubleTicket.v4.retrieveTroubleTicket.commandReply:
-    subscribe:
-      operationId: retrieveTroubleTicketResponse
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/RetrieveTroubleTicketResponse'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  'tmfapi.TroubleTicket.v4.retrieveTroubleTicket.{application}.commandReply':
-    parameters:
-      application:
-        description: Calling application.
-        schema:
-          type: string
-    subscribe:
-      operationId: retrieveTroubleTicketResponseMultiTopic
-      description: >-
-        Optional approach to use the  ReturnAddress Pattern. Each {Application}
-        has it's own reply topic. The {Application} parameter represents the
-        calling application identifier.
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/RetrieveTroubleTicketResponse'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  tmfapi.TroubleTicket.v4.listTroubleTicket.commandRequest:
-    publish:
-      operationId: listTroubleTicketRequest
-      summary: List or find TroubleTicket objects
-      tags:
-        - name: troubleTicket
-      description: This operation list or find TroubleTicket entities
-      message:
-        $ref: '#/components/messages/ListTroubleTicketRequest'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  tmfapi.TroubleTicket.v4.listTroubleTicket.commandReply:
-    subscribe:
-      operationId: listTroubleTicketResponse
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/ListTroubleTicketResponse'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  'tmfapi.TroubleTicket.v4.listTroubleTicket.{application}.commandReply':
-    parameters:
-      application:
-        description: Calling application.
-        schema:
-          type: string
-    subscribe:
-      operationId: listTroubleTicketResponseMultiTopic
-      description: >-
-        Optional approach to use the  ReturnAddress Pattern. Each {Application}
-        has it's own reply topic. The {Application} parameter represents the
-        calling application identifier.
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/ListTroubleTicketResponse'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  tmfapi.TroubleTicket.v4.createTroubleTicket.commandRequest:
-    publish:
-      operationId: createTroubleTicketRequest
-      summary: Creates a TroubleTicket
-      tags:
-        - name: troubleTicket
-      description: This operation creates a TroubleTicket entity.
-      message:
-        $ref: '#/components/messages/CreateTroubleTicketRequest'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  tmfapi.TroubleTicket.v4.createTroubleTicket.commandReply:
-    subscribe:
-      operationId: createTroubleTicketResponse
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/CreateTroubleTicketResponse'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  'tmfapi.TroubleTicket.v4.createTroubleTicket.{application}.commandReply':
-    parameters:
-      application:
-        description: Calling application.
-        schema:
-          type: string
-    subscribe:
-      operationId: createTroubleTicketResponseMultiTopic
-      description: >-
-        Optional approach to use the  ReturnAddress Pattern. Each {Application}
-        has it's own reply topic. The {Application} parameter represents the
-        calling application identifier.
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/CreateTroubleTicketResponse'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  tmfapi.TroubleTicket.v4.patchTroubleTicket.commandRequest:
-    publish:
-      operationId: patchTroubleTicketRequest
-      summary: Updates partially a TroubleTicket
-      tags:
-        - name: troubleTicket
-      description: This operation updates partially a TroubleTicket entity.
-      message:
-        $ref: '#/components/messages/PatchTroubleTicketRequest'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  tmfapi.TroubleTicket.v4.patchTroubleTicket.commandReply:
-    subscribe:
-      operationId: patchTroubleTicketResponse
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/PatchTroubleTicketResponse'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  'tmfapi.TroubleTicket.v4.patchTroubleTicket.{application}.commandReply':
-    parameters:
-      application:
-        description: Calling application.
-        schema:
-          type: string
-    subscribe:
-      operationId: patchTroubleTicketResponseMultiTopic
-      description: >-
-        Optional approach to use the  ReturnAddress Pattern. Each {Application}
-        has it's own reply topic. The {Application} parameter represents the
-        calling application identifier.
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/PatchTroubleTicketResponse'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  tmfapi.TroubleTicket.v4.deleteTroubleTicket.commandRequest:
-    publish:
-      operationId: deleteTroubleTicketRequest
-      summary: Deletes a TroubleTicket
-      tags:
-        - name: troubleTicket
-      description: This operation deletes a TroubleTicket entity.
-      message:
-        $ref: '#/components/messages/DeleteTroubleTicketRequest'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  tmfapi.TroubleTicket.v4.deleteTroubleTicket.commandReply:
-    subscribe:
-      operationId: deleteTroubleTicketResponse
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/DeleteTroubleTicketResponse'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  'tmfapi.TroubleTicket.v4.deleteTroubleTicket.{application}.commandReply':
-    parameters:
-      application:
-        description: Calling application.
-        schema:
-          type: string
-    subscribe:
-      operationId: deleteTroubleTicketResponseTopic
-      description: >-
-        Optional approach to use the  ReturnAddress Pattern. Each {Application}
-        has it's own reply topic. The {Application} parameter represents the
-        calling application identifier.
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/DeleteTroubleTicketResponse'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
-  tmfapi.TroubleTicket.v4.notificationEvent:
-    subscribe:
-      operationId: troubleTicketNotification
-      tags:
-        - name: troubleTicket
-      message:
-        $ref: '#/components/messages/TroubleTicketNotification'
-      traits:
-        - $ref: '#/components/operationTraits/kafka'
+        - 'notused'
+      summary: 'get'
+      operationId: 'getUsingGET'
+      responses:
+        '200':
+          description: 'OK'
+        '401':
+          description: 'Unauthorized'
+        '403':
+          description: 'Forbidden'
+        '404':
+          description: 'Not Found'
+
 components:
   schemas:
     AttachmentRefOrValue:
-      $id: AttachmentRefOrValue
+#     $id: AttachmentRefOrValue
       type: object
       description: >-
         An attachment by value or by reference. An attachment complements the
@@ -301,7 +104,7 @@ components:
           description: The period of time for which the attachment is valid
           $ref: '#/components/schemas/TimePeriod'
     ReferredType:
-      $id: ReferredType
+#     $id: ReferredType
       type: object
       description: A referred entity
       properties:
@@ -311,7 +114,7 @@ components:
             The actual type of the target instance when needed for
             disambiguation.
     RelatedParty:
-      $id: RelatedParty
+#     $id: RelatedParty
       type: object
       description: >-
         Related Entity reference. A related party defines party or party role
@@ -351,7 +154,7 @@ components:
           type: string
           description: Role played by the related party
     RelatedEntity:
-      $id: RelatedEntity
+#     $id: RelatedEntity
       type: object
       description: >-
         A reference to an entity, where the type of the entity is not known in
@@ -392,7 +195,7 @@ components:
           type: string
           description: The role of an entity.
     StatusChange:
-      $id: StatusChange
+#     $id: StatusChange
       type: object
       description: >-
         Holds the status notification reasons and associated date the status
@@ -428,7 +231,7 @@ components:
           type: string
           description: The status of the trouble ticket
     Attachment:
-      $id: Attachment
+#     $id: Attachment
       type: object
       description: >-
         Complements the description of an element (for instance a product)
@@ -491,7 +294,7 @@ components:
           description: The period of time for which the attachment is valid
           $ref: '#/components/schemas/TimePeriod'
     Note:
-      $id: Note
+#     $id: Note
       type: object
       description: Extra information about a given entity
       properties:
@@ -529,7 +332,7 @@ components:
           example:
             - This is important
     TimePeriod:
-      $id: TimePeriod
+#     $id: TimePeriod
       type: object
       description: >-
         A period of time, either as a deadline (endDateTime only) a
@@ -546,7 +349,7 @@ components:
           description: 'Start of the time period, using IETC-RFC-3339 format'
           example: '1985-04-12T23:20:50.52Z'
     AttachmentRef:
-      $id: AttachmentRef
+#     $id: AttachmentRef
       type: object
       description: >-
         Attachment reference. An attachment complements the description of an
@@ -589,7 +392,7 @@ components:
           format: uri
           description: Link to the attachment media/content
     Error:
-      $id: Error
+#     $id: Error
       type: object
       description: >-
         Used when an API throws an Error, typically with a HTTP error
@@ -631,7 +434,7 @@ components:
           type: string
           description: HTTP Error code extension
     EntityRef:
-      $id: EntityRef
+#     $id: EntityRef
       type: object
       description: Entity reference schema to be use for all entityRef class.
       required:
@@ -665,7 +468,7 @@ components:
           type: string
           description: Name of the related entity.
     Quantity:
-      $id: Quantity
+#     $id: Quantity
       type: object
       description: An amount in a given unit
       properties:
@@ -678,7 +481,7 @@ components:
           type: string
           description: Unit
     TroubleTicketRelationship:
-      $id: TroubleTicketRelationship
+#     $id: TroubleTicketRelationship
       type: object
       description: Represents a relationship between trouble Trouble Tickets
       properties:
@@ -709,7 +512,7 @@ components:
             Type of the  Trouble Ticket relationship can be isChiled, dependent
             etc...
     TroubleTicket:
-      $id: TroubleTicket
+#     $id: TroubleTicket
       type: object
       description: >-
         A trouble ticket is a record of an issue that is created, tracked, and
@@ -836,7 +639,7 @@ components:
             A list of trouble ticket relationships (TroubleTicketRelationship
             [*]). Represents a relationship between trouble tickets
     ChannelRef:
-      $id: ChannelRef
+#     $id: ChannelRef
       type: object
       description: >-
         The channel to which the resource reference to. e.g. channel for selling
@@ -872,7 +675,7 @@ components:
           type: string
           description: Name of the channel.
     TroubleTicketStatusType:
-      $id: TroubleTicketStatusType
+#     $id: TroubleTicketStatusType
       type: string
       description: Possible values for the status of the trouble ticket
       enum:
@@ -885,7 +688,7 @@ components:
         - closed
         - resolved
     Entity:
-      $id: Entity
+#     $id: Entity
       type: object
       description: Base entity schema for use in TMForum Open-APIs
       properties:
@@ -909,7 +712,7 @@ components:
           type: string
           description: 'When sub-classing, this defines the sub-class Extensible name'
     Extensible:
-      $id: Extensible
+#     $id: Extensible
       type: object
       description: Base Extensible schema for use in TMForum Open-APIs
       properties:
@@ -926,7 +729,7 @@ components:
           type: string
           description: 'When sub-classing, this defines the sub-class Extensible name'
     Addressable:
-      $id: Addressable
+#     $id: Addressable
       type: object
       description: Base schema for adressable entities
       properties:
@@ -938,7 +741,7 @@ components:
           type: string
           description: unique identifier
     TroubleTicketCreate:
-      $id: TroubleTicketCreate
+#     $id: TroubleTicketCreate
       type: object
       description: >-
         A trouble ticket is a record of an issue that is created, tracked, and
@@ -1065,7 +868,7 @@ components:
             A list of trouble ticket relationships (TroubleTicketRelationship
             [*]). Represents a relationship between trouble tickets
     TroubleTicketUpdate:
-      $id: TroubleTicketUpdate
+#     $id: TroubleTicketUpdate
       type: object
       description: >-
         A trouble ticket is a record of an issue that is created, tracked, and
@@ -1170,11 +973,11 @@ components:
             A list of trouble ticket relationships (TroubleTicketRelationship
             [*]). Represents a relationship between trouble tickets
     RetrieveTroubleTicketSuccess:
-      $id: RetrieveTroubleTicketSuccess
+#     $id: RetrieveTroubleTicketSuccess
       description: Success
       properties:
         statusCode:
-          const: 200
+          default: 200
           type: integer
         body:
           $ref: '#/components/schemas/TroubleTicket'
@@ -1185,7 +988,7 @@ components:
       description: Bad Request
       properties:
         statusCode:
-          const: 400
+          default: 400
           type: integer
         body:
           $ref: '#/components/schemas/Error'
@@ -1196,7 +999,7 @@ components:
       description: Unauthorized
       properties:
         statusCode:
-          const: 401
+          default: 401
           type: integer
         body:
           $ref: '#/components/schemas/Error'
@@ -1207,7 +1010,7 @@ components:
       description: Forbidden
       properties:
         statusCode:
-          const: 403
+          default: 403
           type: integer
         body:
           $ref: '#/components/schemas/Error'
@@ -1218,7 +1021,7 @@ components:
       description: Not Found
       properties:
         statusCode:
-          const: 404
+          default: 404
           type: integer
         body:
           $ref: '#/components/schemas/Error'
@@ -1229,7 +1032,7 @@ components:
       description: Method Not allowed
       properties:
         statusCode:
-          const: 405
+          default: 405
           type: integer
         body:
           $ref: '#/components/schemas/Error'
@@ -1240,7 +1043,7 @@ components:
       description: Conflict
       properties:
         statusCode:
-          const: 409
+          default: 409
           type: integer
         body:
           $ref: '#/components/schemas/Error'
@@ -1251,7 +1054,7 @@ components:
       description: Internal Server Error
       properties:
         statusCode:
-          const: 500
+          default: 500
           type: integer
         body:
           $ref: '#/components/schemas/Error'
@@ -1269,11 +1072,11 @@ components:
         - $ref: '#/components/schemas/ConflictResponse'
         - $ref: '#/components/schemas/InternalServerErrorResponse'
     RetrieveTroubleTicketRequestPayload:
-      $id: RetrieveTroubleTicketRequestPayload
+#     $id: RetrieveTroubleTicketRequestPayload
       type: object
       properties:
         parameters:
-          $id: RetrieveTroubleTicketRequestPayloadParameters
+    #     $id: RetrieveTroubleTicketRequestPayloadParameters
           type: object
           properties:
             id:
@@ -1285,7 +1088,7 @@ components:
           required:
             - id
         filters:
-          $id: RetrieveTroubleTicketRequestPayloadFilters
+    #     $id: RetrieveTroubleTicketRequestPayloadFilters
           type: object
           additionalProperties:
             type: string
@@ -1295,7 +1098,7 @@ components:
       description: Success
       properties:
         statusCode:
-          const: 200
+          default: 200
           type: integer
         body:
           type: array
@@ -1323,11 +1126,11 @@ components:
         - $ref: '#/components/schemas/ConflictResponse'
         - $ref: '#/components/schemas/InternalServerErrorResponse'
     ListTroubleTicketRequestPayload:
-      $id: ListTroubleTicketRequestPayload
+#     $id: ListTroubleTicketRequestPayload
       type: object
       properties:
         parameters:
-          $id: ListTroubleTicketRequestPayloadParameters
+    #     $id: ListTroubleTicketRequestPayloadParameters
           type: object
           properties:
             fields:
@@ -1343,7 +1146,7 @@ components:
               type: integer
           required: []
         filters:
-          $id: ListTroubleTicketRequestPayloadFilters
+    #     $id: ListTroubleTicketRequestPayloadFilters
           type: object
           additionalProperties:
             type: string
@@ -1353,7 +1156,7 @@ components:
       description: Created
       properties:
         statusCode:
-          const: 201
+          default: 201
           type: integer
         body:
           $ref: '#/components/schemas/TroubleTicket'
@@ -1370,7 +1173,7 @@ components:
         - $ref: '#/components/schemas/ConflictResponse'
         - $ref: '#/components/schemas/InternalServerErrorResponse'
     CreateTroubleTicketRequestPayload:
-      $id: CreateTroubleTicketRequestPayload
+#     $id: CreateTroubleTicketRequestPayload
       type: object
       properties:
         body:
@@ -1381,7 +1184,7 @@ components:
       description: Updated
       properties:
         statusCode:
-          const: 200
+          default: 200
           type: integer
         body:
           $ref: '#/components/schemas/TroubleTicket'
@@ -1399,13 +1202,13 @@ components:
         - $ref: '#/components/schemas/ConflictResponse'
         - $ref: '#/components/schemas/InternalServerErrorResponse'
     PatchTroubleTicketRequestPayload:
-      $id: PatchTroubleTicketRequestPayload
+#     $id: PatchTroubleTicketRequestPayload
       type: object
       properties:
         body:
           $ref: '#/components/schemas/TroubleTicketUpdate'
         parameters:
-          $id: PatchTroubleTicketRequestPayloadParameters
+    #     $id: PatchTroubleTicketRequestPayloadParameters
           type: object
           properties:
             id:
@@ -1420,7 +1223,7 @@ components:
       description: Deleted
       properties:
         statusCode:
-          const: 204
+          default: 204
           type: integer
       required:
         - statusCode
@@ -1435,11 +1238,11 @@ components:
         - $ref: '#/components/schemas/ConflictResponse'
         - $ref: '#/components/schemas/InternalServerErrorResponse'
     DeleteTroubleTicketRequestPayload:
-      $id: DeleteTroubleTicketRequestPayload
+#     $id: DeleteTroubleTicketRequestPayload
       type: object
       properties:
         parameters:
-          $id: DeleteTroubleTicketRequestPayloadParameters
+    #     $id: DeleteTroubleTicketRequestPayloadParameters
           type: object
           properties:
             id:
@@ -1450,7 +1253,7 @@ components:
       required:
         - parameters
     TroubleTicketEventPayload:
-      $id: TroubleTicketEventPayload
+#     $id: TroubleTicketEventPayload
       type: object
       description: The event data structure
       properties:
@@ -1458,7 +1261,7 @@ components:
           description: The involved resource data for the event
           $ref: '#/components/schemas/TroubleTicket'
     TroubleTicketCreateEvent:
-      $id: TroubleTicketCreateEvent
+#     $id: TroubleTicketCreateEvent
       type: object
       description: The notification data structure
       properties:
@@ -1484,7 +1287,7 @@ components:
         eventType:
           description: The type of the notification.
           type: string
-          const: "create"
+          default: "create"
         priority:
           description: A priority.
           type: string
@@ -1496,7 +1299,7 @@ components:
           description: The title of the event.
           type: string
     TroubleTicketDeleteEvent:
-      $id: TroubleTicketDeleteEvent
+#     $id: TroubleTicketDeleteEvent
       type: object
       description: The notification data structure
       properties:
@@ -1522,7 +1325,7 @@ components:
         eventType:
           description: The type of the notification.
           type: string
-          const: "detele"
+          default: "detele"
         priority:
           description: A priority.
           type: string
@@ -1534,7 +1337,7 @@ components:
           description: The title of the event.
           type: string
     TroubleTicketChangeEvent:
-      $id: TTroubleTicketChangeEvent
+#     $id: TTroubleTicketChangeEvent
       type: object
       description: The notification data structure
       properties:
@@ -1560,7 +1363,7 @@ components:
         eventType:
           description: The type of the notification.
           type: string
-          const: "change"
+          default: "change"
         priority:
           description: A priority.
           type: string
@@ -1572,7 +1375,7 @@ components:
           description: The title of the event.
           type: string
     TroubleTicketInformationRequiredEvent:
-      $id: TroubleTicketInformationRequiredEvent
+#     $id: TroubleTicketInformationRequiredEvent
       type: object
       description: The notification data structure
       properties:
@@ -1598,7 +1401,7 @@ components:
         eventType:
           description: The type of the notification.
           type: string
-          const: "informationRequired"
+          default: "informationRequired"
         priority:
           description: A priority.
           type: string
@@ -1611,7 +1414,7 @@ components:
           type: string
 
     TroubleTicketBaseEvent:
-      $id: TroubleTicketBaseEvent
+#     $id: TroubleTicketBaseEvent
       type: object
       description: The notification data structure
       properties:
@@ -1653,7 +1456,7 @@ components:
           description: The title of the event.
           type: string
     TroubleTicketBasePlusEvent:
-      $id: TroubleTicketBasePlusEvent
+#     $id: TroubleTicketBasePlusEvent
       type: object
       description: The notification data structure
       properties:
@@ -1704,7 +1507,7 @@ components:
         - $ref: '#/components/schemas/TroubleTicketChangeEvent'
         - $ref: '#/components/schemas/TroubleTicketInformationRequiredEvent'
     CorrelationHeader:
-      $id: CorrelationHeader
+#     $id: CorrelationHeader
       type: object
       properties:
         CORRELATION_ID:
@@ -1716,7 +1519,7 @@ components:
     RequestHeaders:
       allOf:
         - type: object
-          $id: RequestHeadersAPPLICATION
+#         $id: RequestHeadersAPPLICATION
           properties:
             APPLICATION:
               type: string
@@ -1724,526 +1527,526 @@ components:
           required:
             - APPLICATION
         - $ref: '#/components/schemas/CorrelationHeader'
-  messages:
-    RetrieveTroubleTicketRequest:
-      name: RetrieveTroubleTicketRequest
-      headers:
-        $ref: '#/components/schemas/RequestHeaders'
-      payload:
-        $ref: '#/components/schemas/RetrieveTroubleTicketRequestPayload'
-      examples:
-        - name: Simple retrieval requests
-          summary: A simple Trouble Ticket Retrieve example message
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            parameters:
-              id: 7219a44c-4e48-43ad-be68-56c0e4876263
-              fields: 'name, status, severity'
-    RetrieveTroubleTicketResponse:
-      name: RetrieveTroubleTicketResponse
-      headers:
-        $ref: '#/components/schemas/CorrelationHeader'
-      payload:
-        $ref: '#/components/schemas/RetrieveTroubleTicketResponsePayload'
-      examples:
-        - name: Simple trouble ticket response
-          summary: A simple Trouble Ticket retrieve response
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            statusCode: 200
-            body:
-              id: 7219a44c-4e48-43ad-be68-56c0e4876263
-              description: >-
-                I do not accept the last VOD charge, since the movie was
-                constantly interrupted, I had to quick watching the movie in the
-                middle
-              expectedResolutionDate: '2019-06-10T07:34:45.968Z'
-              lastUpdate: '2019-05-31T07:34:45.968Z'
-              name: Compliant over last bill
-              requestedResolutionDate: '2019-05-31T07:34:45.968Z'
-              severity: Urgent
-              status: InProgress
-              ticketType: Bill Dispute
-              attachment:
-                - description: Scanned disputed bill
-                  mimeType: image/png
-                  name: March Bill
-                  url: 'https://mycsp.com:7070/docloader?docnum=3534555'
-              channel:
-                id: '8774'
-                name: self service
-                '@type': Channel
-              note:
-                - id: '77456'
-                  author: Jack Smith
-                  date: '2019-05-31T07:34:45.968Z'
-                  text: 'This is quite important, please aproch me as soon as posible'
-                  '@type': Note
-              relatedEntity:
-                - id: '3472'
-                  href: >-
-                    https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
-                  name: March 2019 Bill
-                  role: disputedBill
-                  '@type': RelatedEntity
-                  '@referredType': CustomerBill
-              relatedParty:
-                - id: '9866'
-                  href: >-
-                    https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
-                  name: Sandy Smith
-                  role: member
-                  '@referredType': Individual
-                - id: '9176'
-                  href: 'https://host:port/partyManagement/v1/customer/9176'
-                  name: Jack Smith
-                  role: customer
-                  '@referredType': Customer
-    ListTroubleTicketRequest:
-      name: ListTroubleTicketRequest
-      headers:
-        $ref: '#/components/schemas/RequestHeaders'
-      payload:
-        $ref: '#/components/schemas/ListTroubleTicketRequestPayload'
-      examples:
-        - name: Simple trouble ticket list
-          summary: A simple Trouble Ticket list
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            parameters:
-              offset: '10'
-              limit: '10'
-            filters:
-              status: InProgress
-    ListTroubleTicketResponse:
-      name: ListTroubleTicketResponse
-      headers:
-        $ref: '#/components/schemas/CorrelationHeader'
-      payload:
-        $ref: '#/components/schemas/ListTroubleTicketResponsePayload'
-      examples:
-        - name: Trouble Ticket List Response
-          summary: Sample Trouble Ticket List
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            statusCode: 200
-            body:
-              - id: 7219a44c-4e48-43ad-be68-56c0e4876263
-                description: >-
-                  I do not accept the last VOD charge, since the movie was
-                  constantly interrupted, I had to quick watching the movie in
-                  the middle
-                expectedResolutionDate: '2019-06-10T07:34:45.968Z'
-                lastUpdate: '2019-05-31T07:34:45.968Z'
-                name: Compliant over last bill
-                requestedResolutionDate: '2019-05-31T07:34:45.968Z'
-                severity: Urgent
-                status: InProgress
-                ticketType: Bill Dispute
-                attachment:
-                  - description: Scanned disputed bill
-                    mimeType: image/png
-                    name: March Bill
-                    url: 'https://mycsp.com:7070/docloader?docnum=3534555'
-                channel:
-                  id: '8774'
-                  name: self service
-                  '@type': Channel
-                note:
-                  - id: '77456'
-                    author: Jack Smith
-                    date: '2019-05-31T07:34:45.968Z'
-                    text: >-
-                      This is quite important, please aproch me as soon as
-                      posible
-                    '@type': Note
-                relatedEntity:
-                  - id: '3472'
-                    href: >-
-                      https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
-                    name: March 2019 Bill
-                    role: disputedBill
-                    '@type': RelatedEntity
-                    '@referredType': CustomerBill
-                relatedParty:
-                  - id: '9866'
-                    href: >-
-                      https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
-                    name: Sandy Smith
-                    role: member
-                    '@referredType': Individual
-                  - id: '9176'
-                    href: 'https://host:port/partyManagement/v1/customer/9176'
-                    name: Jack Smith
-                    role: customer
-                    '@referredType': Customer
-              - id: 6acdd831-2461-4e63-864d-cfb329f9dd78
-                description: Service not working
-                expectedResolutionDate: '2019-06-10T07:34:45.968Z'
-                lastUpdate: '2019-05-31T07:34:45.968Z'
-                name: Compliant over last bill
-                requestedResolutionDate: '2019-05-31T07:34:45.968Z'
-                severity: Urgent
-                status: InProgress
-                ticketType: Bill Dispute
-                attachment:
-                  - description: Scanned disputed bill
-                    mimeType: image/png
-                    name: March Bill
-                    url: 'https://mycsp.com:7070/docloader?docnum=3534555'
-                channel:
-                  id: '8774'
-                  name: self service
-                  '@type': Channel
-                note:
-                  - id: '77456'
-                    author: Jack Smith
-                    date: '2019-05-31T07:34:45.968Z'
-                    text: >-
-                      This is quite important, please aproch me as soon as
-                      posible
-                    '@type': Note
-                relatedEntity:
-                  - id: '3472'
-                    href: >-
-                      https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
-                    name: March 2019 Bill
-                    role: disputedBill
-                    '@type': RelatedEntity
-                    '@referredType': CustomerBill
-                relatedParty:
-                  - id: '9866'
-                    href: >-
-                      https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
-                    name: Sandy Smith
-                    role: member
-                    '@referredType': Individual
-                  - id: '9176'
-                    href: 'https://host:port/partyManagement/v1/customer/9176'
-                    name: Jack Smith
-                    role: customer
-                    '@referredType': Customer
-    CreateTroubleTicketRequest:
-      name: CreateTroubleTicketRequest
-      headers:
-        $ref: '#/components/schemas/RequestHeaders'
-      payload:
-        $ref: '#/components/schemas/CreateTroubleTicketRequestPayload'
-      examples:
-        - name: Simple trouble ticket response
-          summary: A simple Trouble Ticket retrieve response
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            body:
-              description: >-
-                I do not accept the last VOD charge, since the movie was
-                constantly interrupted, I had to quick watching the movie in the
-                middle 
-              expectedResolutionDate: '2019-06-10T07:34:45.968Z'
-              lastUpdate: '2019-05-31T07:34:45.968Z'
-              name: Compliant over last bill
-              requestedResolutionDate: '2019-05-31T07:34:45.968Z'
-              severity: Urgent
-              status: InProgress
-              ticketType: Bill Dispute
-              attachment:
-                - description: Scanned disputed bill
-                  mimeType: image/png
-                  name: March Bill
-                  url: 'https://mycsp.com:7070/docloader?docnum=3534555'
-              channel:
-                id: '8774'
-                name: self service
-                '@type': Channel
-              note:
-                - id: '77456'
-                  author: Jack Smith
-                  date: '2019-05-31T07:34:45.968Z'
-                  text: 'This is quite important, please aproch me as soon as posible'
-                  '@type': Note
-              relatedEntity:
-                - id: '3472'
-                  href: >-
-                    https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
-                  name: March 2019 Bill
-                  role: disputedBill
-                  '@type': RelatedEntity
-                  '@referredType': CustomerBill
-              relatedParty:
-                - id: '9866'
-                  href: >-
-                    https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
-                  name: Sandy Smith
-                  role: member
-                  '@referredType': Individual
-                - id: '9176'
-                  href: 'https://host:port/partyManagement/v1/customer/9176'
-                  name: Jack Smith
-                  role: customer
-                  '@referredType': Customer
-              '@type': TroubleTicket
-    CreateTroubleTicketResponse:
-      name: CreateTroubleTicketResponse
-      headers:
-        $ref: '#/components/schemas/CorrelationHeader'
-      payload:
-        $ref: '#/components/schemas/CreateTroubleTicketResponsePayload'
-      examples:
-        - name: Create Trouble Ticket Response
-          summary: A sample Create Trouble Ticket response
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            statusCode: 201
-            body:
-              id: 7219a44c-4e48-43ad-be68-56c0e4876263
-              description: >-
-                I do not accept the last VOD charge, since the movie was
-                constantly interrupted, I had to quick watching the movie in the
-                middle
-              expectedResolutionDate: '2019-06-10T07:34:45.968Z'
-              lastUpdate: '2019-05-31T07:34:45.968Z'
-              name: Compliant over last bill
-              requestedResolutionDate: '2019-05-31T07:34:45.968Z'
-              severity: Urgent
-              status: InProgress
-              ticketType: Bill Dispute
-              attachment:
-                - description: Scanned disputed bill
-                  mimeType: image/png
-                  name: March Bill
-                  url: 'https://mycsp.com:7070/docloader?docnum=3534555'
-              channel:
-                id: '8774'
-                name: self service
-                '@type': Channel
-              note:
-                - id: '77456'
-                  author: Jack Smith
-                  date: '2019-05-31T07:34:45.968Z'
-                  text: 'This is quite important, please aproch me as soon as posible'
-                  '@type': Note
-              relatedEntity:
-                - id: '3472'
-                  href: >-
-                    https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
-                  name: March 2019 Bill
-                  role: disputedBill
-                  '@type': RelatedEntity
-                  '@referredType': CustomerBill
-              relatedParty:
-                - id: '9866'
-                  href: >-
-                    https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
-                  name: Sandy Smith
-                  role: member
-                  '@referredType': Individual
-                - id: '9176'
-                  href: 'https://host:port/partyManagement/v1/customer/9176'
-                  name: Jack Smith
-                  role: customer
-                  '@referredType': Customer
-    PatchTroubleTicketRequest:
-      name: PatchTroubleTicketRequest
-      headers:
-        $ref: '#/components/schemas/RequestHeaders'
-      payload:
-        $ref: '#/components/schemas/PatchTroubleTicketRequestPayload'
-      examples:
-        - name: TroubleTicketPatch
-          summary: A simple Trouble Ticket Patch using json-merge
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            parameters:
-              id: 7219a44c-4e48-43ad-be68-56c0e4876263
-            body:
-              status: Closed
-              statusChangeReason: Issue Solved
-    PatchTroubleTicketResponse:
-      name: PatchTroubleTicketResponse
-      headers:
-        $ref: '#/components/schemas/CorrelationHeader'
-      payload:
-        $ref: '#/components/schemas/PatchTroubleTicketResponsePayload'
-      examples:
-        - name: TroubleTicketPatch Response
-          summary: A simple Trouble Ticket Patch response with payload
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            statusCode: 200
-            body:
-              id: 7219a44c-4e48-43ad-be68-56c0e4876263
-              description: >-
-                I do not accept the last VOD charge, since the movie was
-                constantly interrupted, I had to quick watching the movie in the
-                middle
-              expectedResolutionDate: '2019-06-10T07:34:45.968Z'
-              lastUpdate: '2019-05-31T07:34:45.968Z'
-              name: Compliant over last bill
-              requestedResolutionDate: '2019-05-31T07:34:45.968Z'
-              severity: Urgent
-              status: closed
-              statusChangeReason: Issue Solved
-              ticketType: Bill Dispute
-              attachment:
-                - description: Scanned disputed bill
-                  mimeType: image/png
-                  name: March Bill
-                  url: 'https://mycsp.com:7070/docloader?docnum=3534555'
-              channel:
-                id: '8774'
-                name: self service
-                '@type': Channel
-              note:
-                - id: '77456'
-                  author: Jack Smith
-                  date: '2019-05-31T07:34:45.968Z'
-                  text: 'This is quite important, please aproch me as soon as posible'
-                  '@type': Note
-              relatedEntity:
-                - id: '3472'
-                  href: >-
-                    https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
-                  name: March 2019 Bill
-                  role: disputedBill
-                  '@type': RelatedEntity
-                  '@referredType': CustomerBill
-              relatedParty:
-                - id: '9866'
-                  href: >-
-                    https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
-                  name: Sandy Smith
-                  role: member
-                  '@referredType': Individual
-                - id: '9176'
-                  href: 'https://host:port/partyManagement/v1/customer/9176'
-                  name: Jack Smith
-                  role: customer
-                  '@referredType': Customer
-    DeleteTroubleTicketRequest:
-      name: DeleteTroubleTicketRequest
-      headers:
-        $ref: '#/components/schemas/RequestHeaders'
-      payload:
-        $ref: '#/components/schemas/DeleteTroubleTicketRequestPayload'
-      examples:
-        - name: 'TroubleTicketDelete Request Command Example '
-          summary: A simple Trouble Ticket Delete Request
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            parameters:
-              id: 7219a44c-4e48-43ad-be68-56c0e4876263
-    DeleteTroubleTicketResponse:
-      name: DeleteTroubleTicketResponse
-      headers:
-        $ref: '#/components/schemas/CorrelationHeader'
-      payload:
-        $ref: '#/components/schemas/DeleteTroubleTicketResponsePayload'
-      examples:
-        - name: 'TroubleTicketDelete Response Command Example '
-          summary: A simple Trouble Ticket Delete Response
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            statusCode: '204'
-    TroubleTicketNotification:
-      name: TroubleTicketNotification
-      payload:
-        $ref: '#/components/schemas/TroubleTicketNotificationPayload'
-      examples:
-        - name: TroubleTicket Event
-          summary: Example for a Trouble Ticket Create Event
-          headers:
-            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
-            APPLICATION: ApplicationInstanceOne
-          payload:
-            correlationId: 7f483581-254f-4a5d-8555-4ea394be2e44
-            description: New trouble ticket created
-            domain: Customer Care
-            eventId: 64fa8527-c75a-4a66-ba58-c1fe0536e177
-            eventTime: '2022-08-24T14:15:22Z'
-            eventType: create
-            priority: high
-            timeOcurred: '2022-08-24T14:15:22Z'
-            event:
-              id: 7219a44c-4e48-43ad-be68-56c0e4876263
-              description: >-
-                I do not accept the last VOD charge, since the movie was
-                constantly interrupted, I had to quick watching the movie in the
-                middle
-              expectedResolutionDate: '2019-06-10T07:34:45.968Z'
-              lastUpdate: '2019-05-31T07:34:45.968Z'
-              name: Compliant over last bill
-              requestedResolutionDate: '2019-05-31T07:34:45.968Z'
-              severity: Urgent
-              status: InProgress
-              ticketType: Bill Dispute
-              attachment:
-                - description: Scanned disputed bill
-                  mimeType: image/png
-                  name: March Bill
-                  url: 'https://mycsp.com:7070/docloader?docnum=3534555'
-              channel:
-                id: '8774'
-                name: self service
-                '@type': Channel
-              note:
-                - id: '77456'
-                  author: Jack Smith
-                  date: '2019-05-31T07:34:45.968Z'
-                  text: 'This is quite important, please aproch me as soon as posible'
-                  '@type': Note
-              relatedEntity:
-                - id: '3472'
-                  href: >-
-                    https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
-                  name: March 2019 Bill
-                  role: disputedBill
-                  '@type': RelatedEntity
-                  '@referredType': CustomerBill
-              relatedParty:
-                - id: '9866'
-                  href: >-
-                    https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
-                  name: Sandy Smith
-                  role: member
-                  '@referredType': Individual
-                - id: '9176'
-                  href: 'https://host:port/partyManagement/v1/customer/9176'
-                  name: Jack Smith
-                  role: customer
-                  '@referredType': Customer
-  correlationIds:   
-    default:
-      description: Default Correlation ID
-      location: '$message.header#/CORRELATION_ID'
-  operationTraits:
-    kafka:
-      bindings:
-        kafka:
-          key:
-            type: string
-            description: An optional message key
-          clientId:
-            type: string
-            description: >-
-              An optional identifier of a Kafka consumer (in a consumer group)
-              that is passed to a Kafka broker with every request.
+#  messages:
+#    RetrieveTroubleTicketRequest:
+#      name: RetrieveTroubleTicketRequest
+#      headers:
+#        $ref: '#/components/schemas/RequestHeaders'
+#      payload:
+#        $ref: '#/components/schemas/RetrieveTroubleTicketRequestPayload'
+#      examples:
+#        - name: Simple retrieval requests
+#          summary: A simple Trouble Ticket Retrieve example message
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            parameters:
+#              id: 7219a44c-4e48-43ad-be68-56c0e4876263
+#              fields: 'name, status, severity'
+#    RetrieveTroubleTicketResponse:
+#      name: RetrieveTroubleTicketResponse
+#      headers:
+#        $ref: '#/components/schemas/CorrelationHeader'
+#      payload:
+#        $ref: '#/components/schemas/RetrieveTroubleTicketResponsePayload'
+#      examples:
+#        - name: Simple trouble ticket response
+#          summary: A simple Trouble Ticket retrieve response
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            statusCode: 200
+#            body:
+#              id: 7219a44c-4e48-43ad-be68-56c0e4876263
+#              description: >-
+#                I do not accept the last VOD charge, since the movie was
+#                constantly interrupted, I had to quick watching the movie in the
+#                middle
+#              expectedResolutionDate: '2019-06-10T07:34:45.968Z'
+#              lastUpdate: '2019-05-31T07:34:45.968Z'
+#              name: Compliant over last bill
+#              requestedResolutionDate: '2019-05-31T07:34:45.968Z'
+#              severity: Urgent
+#              status: InProgress
+#              ticketType: Bill Dispute
+#              attachment:
+#                - description: Scanned disputed bill
+#                  mimeType: image/png
+#                  name: March Bill
+#                  url: 'https://mycsp.com:7070/docloader?docnum=3534555'
+#              channel:
+#                id: '8774'
+#                name: self service
+#                '@type': Channel
+#              note:
+#                - id: '77456'
+#                  author: Jack Smith
+#                  date: '2019-05-31T07:34:45.968Z'
+#                  text: 'This is quite important, please aproch me as soon as posible'
+#                  '@type': Note
+#              relatedEntity:
+#                - id: '3472'
+#                  href: >-
+#                    https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
+#                  name: March 2019 Bill
+#                  role: disputedBill
+#                  '@type': RelatedEntity
+#                  '@referredType': CustomerBill
+#              relatedParty:
+#                - id: '9866'
+#                  href: >-
+#                    https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
+#                  name: Sandy Smith
+#                  role: member
+#                  '@referredType': Individual
+#                - id: '9176'
+#                  href: 'https://host:port/partyManagement/v1/customer/9176'
+#                  name: Jack Smith
+#                  role: customer
+#                  '@referredType': Customer
+#    ListTroubleTicketRequest:
+#      name: ListTroubleTicketRequest
+#      headers:
+#        $ref: '#/components/schemas/RequestHeaders'
+#      payload:
+#        $ref: '#/components/schemas/ListTroubleTicketRequestPayload'
+#      examples:
+#        - name: Simple trouble ticket list
+#          summary: A simple Trouble Ticket list
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            parameters:
+#              offset: '10'
+#              limit: '10'
+#            filters:
+#              status: InProgress
+#    ListTroubleTicketResponse:
+#      name: ListTroubleTicketResponse
+#      headers:
+#        $ref: '#/components/schemas/CorrelationHeader'
+#      payload:
+#        $ref: '#/components/schemas/ListTroubleTicketResponsePayload'
+#      examples:
+#        - name: Trouble Ticket List Response
+#          summary: Sample Trouble Ticket List
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            statusCode: 200
+#            body:
+#              - id: 7219a44c-4e48-43ad-be68-56c0e4876263
+#                description: >-
+#                  I do not accept the last VOD charge, since the movie was
+#                  constantly interrupted, I had to quick watching the movie in
+#                  the middle
+#                expectedResolutionDate: '2019-06-10T07:34:45.968Z'
+#                lastUpdate: '2019-05-31T07:34:45.968Z'
+#                name: Compliant over last bill
+#                requestedResolutionDate: '2019-05-31T07:34:45.968Z'
+#                severity: Urgent
+#                status: InProgress
+#                ticketType: Bill Dispute
+#                attachment:
+#                  - description: Scanned disputed bill
+#                    mimeType: image/png
+#                    name: March Bill
+#                    url: 'https://mycsp.com:7070/docloader?docnum=3534555'
+#                channel:
+#                  id: '8774'
+#                  name: self service
+#                  '@type': Channel
+#                note:
+#                  - id: '77456'
+#                    author: Jack Smith
+#                    date: '2019-05-31T07:34:45.968Z'
+#                    text: >-
+#                      This is quite important, please aproch me as soon as
+#                      posible
+#                    '@type': Note
+#                relatedEntity:
+#                  - id: '3472'
+#                    href: >-
+#                      https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
+#                    name: March 2019 Bill
+#                    role: disputedBill
+#                    '@type': RelatedEntity
+#                    '@referredType': CustomerBill
+#                relatedParty:
+#                  - id: '9866'
+#                    href: >-
+#                      https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
+#                    name: Sandy Smith
+#                    role: member
+#                    '@referredType': Individual
+#                  - id: '9176'
+#                    href: 'https://host:port/partyManagement/v1/customer/9176'
+#                    name: Jack Smith
+#                    role: customer
+#                    '@referredType': Customer
+#              - id: 6acdd831-2461-4e63-864d-cfb329f9dd78
+#                description: Service not working
+#                expectedResolutionDate: '2019-06-10T07:34:45.968Z'
+#                lastUpdate: '2019-05-31T07:34:45.968Z'
+#                name: Compliant over last bill
+#                requestedResolutionDate: '2019-05-31T07:34:45.968Z'
+#                severity: Urgent
+#                status: InProgress
+#                ticketType: Bill Dispute
+#                attachment:
+#                  - description: Scanned disputed bill
+#                    mimeType: image/png
+#                    name: March Bill
+#                    url: 'https://mycsp.com:7070/docloader?docnum=3534555'
+#                channel:
+#                  id: '8774'
+#                  name: self service
+#                  '@type': Channel
+#                note:
+#                  - id: '77456'
+#                    author: Jack Smith
+#                    date: '2019-05-31T07:34:45.968Z'
+#                    text: >-
+#                      This is quite important, please aproch me as soon as
+#                      posible
+#                    '@type': Note
+#                relatedEntity:
+#                  - id: '3472'
+#                    href: >-
+#                      https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
+#                    name: March 2019 Bill
+#                    role: disputedBill
+#                    '@type': RelatedEntity
+#                    '@referredType': CustomerBill
+#                relatedParty:
+#                  - id: '9866'
+#                    href: >-
+#                      https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
+#                    name: Sandy Smith
+#                    role: member
+#                    '@referredType': Individual
+#                  - id: '9176'
+#                    href: 'https://host:port/partyManagement/v1/customer/9176'
+#                    name: Jack Smith
+#                    role: customer
+#                    '@referredType': Customer
+#    CreateTroubleTicketRequest:
+#      name: CreateTroubleTicketRequest
+#      headers:
+#        $ref: '#/components/schemas/RequestHeaders'
+#      payload:
+#        $ref: '#/components/schemas/CreateTroubleTicketRequestPayload'
+#      examples:
+#        - name: Simple trouble ticket response
+#          summary: A simple Trouble Ticket retrieve response
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            body:
+#              description: >-
+#                I do not accept the last VOD charge, since the movie was
+#                constantly interrupted, I had to quick watching the movie in the
+#                middle 
+#              expectedResolutionDate: '2019-06-10T07:34:45.968Z'
+#              lastUpdate: '2019-05-31T07:34:45.968Z'
+#              name: Compliant over last bill
+#              requestedResolutionDate: '2019-05-31T07:34:45.968Z'
+#              severity: Urgent
+#              status: InProgress
+#              ticketType: Bill Dispute
+#              attachment:
+#                - description: Scanned disputed bill
+#                  mimeType: image/png
+#                  name: March Bill
+#                  url: 'https://mycsp.com:7070/docloader?docnum=3534555'
+#              channel:
+#                id: '8774'
+#                name: self service
+#                '@type': Channel
+#              note:
+#                - id: '77456'
+#                  author: Jack Smith
+#                  date: '2019-05-31T07:34:45.968Z'
+#                  text: 'This is quite important, please aproch me as soon as posible'
+#                  '@type': Note
+#              relatedEntity:
+#                - id: '3472'
+#                  href: >-
+#                    https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
+#                  name: March 2019 Bill
+#                  role: disputedBill
+#                  '@type': RelatedEntity
+#                  '@referredType': CustomerBill
+#              relatedParty:
+#                - id: '9866'
+#                  href: >-
+#                    https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
+#                  name: Sandy Smith
+#                  role: member
+#                  '@referredType': Individual
+#                - id: '9176'
+#                  href: 'https://host:port/partyManagement/v1/customer/9176'
+#                  name: Jack Smith
+#                  role: customer
+#                  '@referredType': Customer
+#              '@type': TroubleTicket
+#    CreateTroubleTicketResponse:
+#      name: CreateTroubleTicketResponse
+#      headers:
+#        $ref: '#/components/schemas/CorrelationHeader'
+#      payload:
+#        $ref: '#/components/schemas/CreateTroubleTicketResponsePayload'
+#      examples:
+#        - name: Create Trouble Ticket Response
+#          summary: A sample Create Trouble Ticket response
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            statusCode: 201
+#            body:
+#              id: 7219a44c-4e48-43ad-be68-56c0e4876263
+#              description: >-
+#                I do not accept the last VOD charge, since the movie was
+#                constantly interrupted, I had to quick watching the movie in the
+#                middle
+#              expectedResolutionDate: '2019-06-10T07:34:45.968Z'
+#              lastUpdate: '2019-05-31T07:34:45.968Z'
+#              name: Compliant over last bill
+#              requestedResolutionDate: '2019-05-31T07:34:45.968Z'
+#              severity: Urgent
+#              status: InProgress
+#              ticketType: Bill Dispute
+#              attachment:
+#                - description: Scanned disputed bill
+#                  mimeType: image/png
+#                  name: March Bill
+#                  url: 'https://mycsp.com:7070/docloader?docnum=3534555'
+#              channel:
+#                id: '8774'
+#                name: self service
+#                '@type': Channel
+#              note:
+#                - id: '77456'
+#                  author: Jack Smith
+#                  date: '2019-05-31T07:34:45.968Z'
+#                  text: 'This is quite important, please aproch me as soon as posible'
+#                  '@type': Note
+#              relatedEntity:
+#                - id: '3472'
+#                  href: >-
+#                    https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
+#                  name: March 2019 Bill
+#                  role: disputedBill
+#                  '@type': RelatedEntity
+#                  '@referredType': CustomerBill
+#              relatedParty:
+#                - id: '9866'
+#                  href: >-
+#                    https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
+#                  name: Sandy Smith
+#                  role: member
+#                  '@referredType': Individual
+#                - id: '9176'
+#                  href: 'https://host:port/partyManagement/v1/customer/9176'
+#                  name: Jack Smith
+#                  role: customer
+#                  '@referredType': Customer
+#    PatchTroubleTicketRequest:
+#      name: PatchTroubleTicketRequest
+#      headers:
+#        $ref: '#/components/schemas/RequestHeaders'
+#      payload:
+#        $ref: '#/components/schemas/PatchTroubleTicketRequestPayload'
+#      examples:
+#        - name: TroubleTicketPatch
+#          summary: A simple Trouble Ticket Patch using json-merge
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            parameters:
+#              id: 7219a44c-4e48-43ad-be68-56c0e4876263
+#            body:
+#              status: Closed
+#              statusChangeReason: Issue Solved
+#    PatchTroubleTicketResponse:
+#      name: PatchTroubleTicketResponse
+#      headers:
+#        $ref: '#/components/schemas/CorrelationHeader'
+#      payload:
+#        $ref: '#/components/schemas/PatchTroubleTicketResponsePayload'
+#      examples:
+#        - name: TroubleTicketPatch Response
+#          summary: A simple Trouble Ticket Patch response with payload
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            statusCode: 200
+#            body:
+#              id: 7219a44c-4e48-43ad-be68-56c0e4876263
+#              description: >-
+#                I do not accept the last VOD charge, since the movie was
+#                constantly interrupted, I had to quick watching the movie in the
+#                middle
+#              expectedResolutionDate: '2019-06-10T07:34:45.968Z'
+#              lastUpdate: '2019-05-31T07:34:45.968Z'
+#              name: Compliant over last bill
+#              requestedResolutionDate: '2019-05-31T07:34:45.968Z'
+#              severity: Urgent
+#              status: closed
+#              statusChangeReason: Issue Solved
+#              ticketType: Bill Dispute
+#              attachment:
+#                - description: Scanned disputed bill
+#                  mimeType: image/png
+#                  name: March Bill
+#                  url: 'https://mycsp.com:7070/docloader?docnum=3534555'
+#              channel:
+#                id: '8774'
+#                name: self service
+#                '@type': Channel
+#              note:
+#                - id: '77456'
+#                  author: Jack Smith
+#                  date: '2019-05-31T07:34:45.968Z'
+#                  text: 'This is quite important, please aproch me as soon as posible'
+#                  '@type': Note
+#              relatedEntity:
+#                - id: '3472'
+#                  href: >-
+#                    https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
+#                  name: March 2019 Bill
+#                  role: disputedBill
+#                  '@type': RelatedEntity
+#                  '@referredType': CustomerBill
+#              relatedParty:
+#                - id: '9866'
+#                  href: >-
+#                    https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
+#                  name: Sandy Smith
+#                  role: member
+#                  '@referredType': Individual
+#                - id: '9176'
+#                  href: 'https://host:port/partyManagement/v1/customer/9176'
+#                  name: Jack Smith
+#                  role: customer
+#                  '@referredType': Customer
+#    DeleteTroubleTicketRequest:
+#      name: DeleteTroubleTicketRequest
+#      headers:
+#        $ref: '#/components/schemas/RequestHeaders'
+#      payload:
+#        $ref: '#/components/schemas/DeleteTroubleTicketRequestPayload'
+#      examples:
+#        - name: 'TroubleTicketDelete Request Command Example '
+#          summary: A simple Trouble Ticket Delete Request
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            parameters:
+#              id: 7219a44c-4e48-43ad-be68-56c0e4876263
+#    DeleteTroubleTicketResponse:
+#      name: DeleteTroubleTicketResponse
+#      headers:
+#        $ref: '#/components/schemas/CorrelationHeader'
+#      payload:
+#        $ref: '#/components/schemas/DeleteTroubleTicketResponsePayload'
+#      examples:
+#        - name: 'TroubleTicketDelete Response Command Example '
+#          summary: A simple Trouble Ticket Delete Response
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            statusCode: '204'
+#    TroubleTicketNotification:
+#      name: TroubleTicketNotification
+#      payload:
+#        $ref: '#/components/schemas/TroubleTicketNotificationPayload'
+#      examples:
+#        - name: TroubleTicket Event
+#          summary: Example for a Trouble Ticket Create Event
+#          headers:
+#            CORRELATION_ID: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            APPLICATION: ApplicationInstanceOne
+#          payload:
+#            correlationId: 7f483581-254f-4a5d-8555-4ea394be2e44
+#            description: New trouble ticket created
+#            domain: Customer Care
+#            eventId: 64fa8527-c75a-4a66-ba58-c1fe0536e177
+#            eventTime: '2022-08-24T14:15:22Z'
+#            eventType: create
+#            priority: high
+#            timeOcurred: '2022-08-24T14:15:22Z'
+#            event:
+#              id: 7219a44c-4e48-43ad-be68-56c0e4876263
+#              description: >-
+#                I do not accept the last VOD charge, since the movie was
+#                constantly interrupted, I had to quick watching the movie in the
+#                middle
+#              expectedResolutionDate: '2019-06-10T07:34:45.968Z'
+#              lastUpdate: '2019-05-31T07:34:45.968Z'
+#              name: Compliant over last bill
+#              requestedResolutionDate: '2019-05-31T07:34:45.968Z'
+#              severity: Urgent
+#              status: InProgress
+#              ticketType: Bill Dispute
+#              attachment:
+#                - description: Scanned disputed bill
+#                  mimeType: image/png
+#                  name: March Bill
+#                  url: 'https://mycsp.com:7070/docloader?docnum=3534555'
+#              channel:
+#                id: '8774'
+#                name: self service
+#                '@type': Channel
+#              note:
+#                - id: '77456'
+#                  author: Jack Smith
+#                  date: '2019-05-31T07:34:45.968Z'
+#                  text: 'This is quite important, please aproch me as soon as posible'
+#                  '@type': Note
+#              relatedEntity:
+#                - id: '3472'
+#                  href: >-
+#                    https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297
+#                  name: March 2019 Bill
+#                  role: disputedBill
+#                  '@type': RelatedEntity
+#                  '@referredType': CustomerBill
+#              relatedParty:
+#                - id: '9866'
+#                  href: >-
+#                    https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866
+#                  name: Sandy Smith
+#                  role: member
+#                  '@referredType': Individual
+#                - id: '9176'
+#                  href: 'https://host:port/partyManagement/v1/customer/9176'
+#                  name: Jack Smith
+#                  role: customer
+#                  '@referredType': Customer
+#  correlationIds:   
+#    default:
+#      description: Default Correlation ID
+#      location: '$message.header#/CORRELATION_ID'
+#  operationTraits:
+#    kafka:
+#      bindings:
+#        kafka:
+#          key:
+#            type: string
+#            description: An optional message key
+#          clientId:
+#            type: string
+#            description: >-
+#              An optional identifier of a Kafka consumer (in a consumer group)
+#              that is passed to a Kafka broker with every request.

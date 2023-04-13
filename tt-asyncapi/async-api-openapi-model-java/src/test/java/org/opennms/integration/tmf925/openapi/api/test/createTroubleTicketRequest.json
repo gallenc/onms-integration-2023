@@ -1,0 +1,64 @@
+{
+  "payload": {
+    "statusCode": 201,
+    "body": {
+      "id": "7219a44c-4e48-43ad-be68-56c0e4876263",
+      "description": "I do not accept the last VOD charge, since the movie was constantly interrupted, I had to quick watching the movie in the middle",
+      "expectedResolutionDate": "2019-06-10T07:34:45.968Z",
+      "lastUpdate": "2019-05-31T07:34:45.968Z",
+      "name": "Compliant over last bill",
+      "requestedResolutionDate": "2019-05-31T07:34:45.968Z",
+      "severity": "Urgent",
+      "status": "InProgress",
+      "ticketType": "Bill Dispute",
+      "attachment": [
+        {
+          "description": "Scanned disputed bill",
+          "mimeType": "image/png",
+          "name": "March Bill",
+          "url": "https://mycsp.com:7070/docloader?docnum=3534555"
+        }
+      ],
+      "channel": {
+        "id": "8774",
+        "name": "self service",
+        "@type": "Channel"
+      },
+      "note": [
+        {
+          "id": "77456",
+          "author": "Jack Smith",
+          "date": "2019-05-31T07:34:45.968Z",
+          "text": "This is quite important, please aproch me as soon as posible",
+          "@type": "Note"
+        }
+      ],
+      "relatedEntity": [
+        {
+          "id": "3472",
+          "href": "https://mycsp.com:8080/tmf-api/customerBillManagement/v4/customerBill/8297",
+          "name": "March 2019 Bill",
+          "role": "disputedBill",
+          "@type": "RelatedEntity",
+          "@referredType": "CustomerBill"
+        }
+      ],
+      "relatedParty": [
+        {
+          "id": "9866",
+          "href": "https://mycsp.com:8080/tmf-api/partyManagement/v1/individual/9866",
+          "name": "Sandy Smith",
+          "role": "member",
+          "@referredType": "Individual"
+        },
+        {
+          "id": "9176",
+          "href": "https://host:port/partyManagement/v1/customer/9176",
+          "name": "Jack Smith",
+          "role": "customer",
+          "@referredType": "Customer"
+        }
+      ]
+    }
+  }
+}

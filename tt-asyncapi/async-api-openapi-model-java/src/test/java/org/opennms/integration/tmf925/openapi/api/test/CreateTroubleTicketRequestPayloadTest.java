@@ -66,7 +66,7 @@ public class CreateTroubleTicketRequestPayloadTest {
 			JsonNode rootNode = mapper.readTree(src);
 			String str = mapper.writeValueAsString(rootNode);
 			System.out.println(str);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -92,7 +92,7 @@ public class CreateTroubleTicketRequestPayloadTest {
 		try {
 			jsonString = json.getMapper().writeValueAsString(model);
 			System.out.println("serialised object: " + jsonString);
-		} catch (JsonProcessingException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -115,18 +115,19 @@ public class CreateTroubleTicketRequestPayloadTest {
 		//body.setExternalId(UUID.randomUUID().toString());
 		//model.setBody(body);
 		
-		CreateTroubleTicketRequestPayload model = org.instancio.Instancio.of(CreateTroubleTicketRequestPayload.class).create();
-		
-		JSON json = new JSON();
+
 
 		String jsonString = null;
 		try {
+			CreateTroubleTicketRequestPayload model = org.instancio.Instancio.of(CreateTroubleTicketRequestPayload.class).create();
+			
+			JSON json = new JSON();
 			jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
 			System.out.println("serialised object: " + jsonString);
 			
 			CreateTroubleTicketRequestPayload obj = json.getMapper().readValue(jsonString,	CreateTroubleTicketRequestPayload.class);
 			
-		} catch (JsonProcessingException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

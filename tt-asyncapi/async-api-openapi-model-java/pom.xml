@@ -480,16 +480,23 @@
     $1 model = org.instancio.Instancio.of($1.class).create();${line.separator}
     
     /**
-    * test injected by maven build
+    * BASIC TESTS INJECTED TO OPENAPI GENERATED CODE BY MAVEN BUILD IN TARGET DIRECTORY
+    * YOU MAY NEED TO EXCLUDE GENERATED TESTS IF MODEL IS NOT POPULATED PROPERLY BY EXTANTIO
+    * COPY AND MODIFY THESE TESTS IN YOUR PROJECT
+    */
+    
+    /**
+    * simple test that we can write the randomly populated json model object
     */
     @Test
     public void simple$1Test() {
         ${TMF925basePackage}.invoker.JSON json = new ${TMF925basePackage}.invoker.JSON();
         String jsonString = null;
         java.io.FileWriter fileWriter = null;
+		LOG.debug("check we create a randomly populated object and serialise it to a file");
         try {
             jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
-            System.out.println("serialised object: \n" + jsonString);
+            LOG.debug("serialised object: \n" + jsonString);
             
             java.io.File f  = new java.io.File("target/json/$1.json");
             f.getParentFile().mkdirs(); 
@@ -498,18 +505,84 @@
             fileWriter.write(jsonString);
             fileWriter.close();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOG.error("problem serialising object",e);
         } finally {
             if (fileWriter!=null)
                 try {
                     fileWriter.close();
                 } catch (Exception ex) {
-                    // TODO Auto-generated catch block
-                    ex.printStackTrace();
                 }
         }
     }
+
+
+	/**
+	 * Model tests for $1
+     * For your own real example message tests make sure src file path points to example data and not generated data
+     * if class loader uses the test class (class.getResourceAsStream), 
+     * the classloader will start search for file relative to the directory of the class
+	 */
+	@Test
+	public void testModel$1() {
+		${TMF925basePackage}.invoker.JSON json = new ${TMF925basePackage}.invoker.JSON();
+
+		java.io.InputStream src = null;
+
+		// check we can parse json file to simple json model
+		LOG.debug("check we can parse example json file to simple json model");
+		try {
+            // will load from classpath relative to referenced class
+			//src = $1ExampleTest.class.getResourceAsStream("$1.json"); 
+         
+            // will load from classpath relative to build directory
+			src = $1Test.class.getClassLoader().getResourceAsStream("json/$1.json");
+			Assertions.assertNotNull(src);
+			
+			com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+
+			com.fasterxml.jackson.databind.JsonNode rootNode = mapper.readTree(src);
+			String str = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+			LOG.debug("simple json payload: \n" + str);
+
+            src.close();
+		} catch (Exception e) {
+        	LOG.error("problem parsing json example to JsonNode",e);
+		} finally {
+			try {
+				if (src != null)
+					src.close();
+			} catch (Exception ex) {
+			}
+		}
+
+		LOG.debug("check we can parse example json file to correct model object");
+		try {
+            // will load from classpath relative to referenced class
+            //src = $1ExampleTest.class.getResourceAsStream("$1.json"); 
+         
+            // will load from classpath relative to build directory
+            src = $1Test.class.getClassLoader().getResourceAsStream("json/$1.json");
+			Assertions.assertNotNull(src);
+
+			$1 obj = json.getMapper().readValue(src, $1.class);
+
+			String jsonString = null;
+			jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+			LOG.debug("serialised object after parsing: \n" + jsonString);
+		} catch (Exception e) {
+        	LOG.error("problem parsing json example to model object",e);
+		} finally {
+			try {
+				if (src != null)
+					src.close();
+			} catch (Exception ex) {
+			}
+		}
+	}
+   
+    /**
+    * TEST STUBBS CREATED BY OPENAPI GENERATOR
+    */
 
                                    ]]></value>
                         </replacement>

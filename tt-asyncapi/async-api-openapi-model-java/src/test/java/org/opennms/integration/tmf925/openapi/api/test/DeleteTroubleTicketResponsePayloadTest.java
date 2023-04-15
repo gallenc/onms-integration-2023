@@ -20,74 +20,143 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.opennms.integration.tmf925.openapi.model.BadRequestResponse;
 import org.opennms.integration.tmf925.openapi.model.ConflictResponse;
-import org.opennms.integration.tmf925.openapi.model.CreateTroubleTicketCreated;
-import org.opennms.integration.tmf925.openapi.model.CreateTroubleTicketResponsePayload;
+import org.opennms.integration.tmf925.openapi.model.DeleteTroubleTicketDeleted;
 import org.opennms.integration.tmf925.openapi.model.Error;
 import org.opennms.integration.tmf925.openapi.model.ForbiddenResponse;
 import org.opennms.integration.tmf925.openapi.model.InternalServerErrorResponse;
 import org.opennms.integration.tmf925.openapi.model.MethodNotAllowedResponse;
+import org.opennms.integration.tmf925.openapi.model.NotFoundResponse;
 import org.opennms.integration.tmf925.openapi.model.UnauthorizedResponse;
-
-
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Model tests for CreateTroubleTicketResponsePayload
+ * Model tests for DeleteTroubleTicketResponsePayload
  */
-public class CreateTroubleTicketResponseExamplePayloadTest {
-    CreateTroubleTicketResponsePayload model = org.instancio.Instancio.of(CreateTroubleTicketResponsePayload.class).create();
+public class DeleteTroubleTicketResponsePayloadTest {
+    private static final  org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(DeleteTroubleTicketResponsePayload.class);
 
+    DeleteTroubleTicketResponsePayload model = org.instancio.Instancio.of(DeleteTroubleTicketResponsePayload.class).create();
+
+    
     /**
-    * test injected by maven build
+    * BASIC TESTS INJECTED TO OPENAPI GENERATED CODE BY MAVEN BUILD IN TARGET DIRECTORY
+    * YOU MAY NEED TO EXCLUDE GENERATED TESTS IF MODEL IS NOT POPULATED PROPERLY BY EXTANTIO
+    * COPY AND MODIFY THESE TESTS IN YOUR PROJECT
+    */
+    
+    /**
+    * simple test that we can write the randomly populated json model object
     */
     @Test
-    public void simpleCreateTroubleTicketResponsePayloadTest() {
+    public void simpleDeleteTroubleTicketResponsePayloadTest() {
         org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
         String jsonString = null;
         java.io.FileWriter fileWriter = null;
+		LOG.debug("check we create a randomly populated object and serialise it to a file");
         try {
-        	
-        	CreateTroubleTicketCreated created = org.instancio.Instancio.of(CreateTroubleTicketCreated.class).create();
-            model.setActualInstance(created);
-            
-            
-            assertTrue(model.getActualInstance() instanceof CreateTroubleTicketCreated);
-        	
-        	System.out.println("model object toString: \n" + model);
-        	
             jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
-            System.out.println("serialised object: \n" + jsonString);
+            LOG.debug("serialised object: n" + jsonString);
             
-            java.io.File f  = new java.io.File("target/json/CreateTroubleTicketResponsePayload.json");
+            // putting directly in test classes because resources plugin won't see them before tests
+            java.io.File f  = new java.io.File("target/json/DeleteTroubleTicketResponsePayload.json");
             f.getParentFile().mkdirs(); 
             f.createNewFile();
             fileWriter = new java.io.FileWriter(f);
             fileWriter.write(jsonString);
             fileWriter.close();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOG.error("problem serialising object",e);
         } finally {
             if (fileWriter!=null)
                 try {
                     fileWriter.close();
                 } catch (Exception ex) {
-                    // TODO Auto-generated catch block
-                    ex.printStackTrace();
                 }
         }
     }
 
+
+	/**
+	 * Model tests for DeleteTroubleTicketResponsePayload
+     * For your own real example message tests make sure src file path points to example data and not generated data
+     * if class loader uses the test class (class.getResourceAsStream), 
+     * the classloader will start search for file relative to the directory of the class
+	 */
+	@Test
+	public void testModelDeleteTroubleTicketResponsePayload() {
+		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
+
+		java.io.InputStream src = null;
+
+		// check we can parse json file to simple json model
+		LOG.debug("check we can parse example json file to simple json model");
+		try {
+            // will load from classpath relative to referenced class
+			//src = DeleteTroubleTicketResponsePayloadExampleTest.class.getResourceAsStream("DeleteTroubleTicketResponsePayload.json"); 
+
+            // will load from generated random data json file
+            java.io.File f = new java.io.File("target/json/DeleteTroubleTicketResponsePayload.json");
+            src = new java.io.FileInputStream(f);
+            
+            Assertions.assertNotNull(src);
+			
+			com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+
+			com.fasterxml.jackson.databind.JsonNode rootNode = mapper.readTree(src);
+			String str = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+			LOG.debug("simple json payload: n" + str);
+
+            src.close();
+		} catch (Exception e) {
+        	LOG.error("problem parsing json example to JsonNode",e);
+		} finally {
+			try {
+				if (src != null)
+					src.close();
+			} catch (Exception ex) {
+			}
+		}
+
+		LOG.debug("check we can parse example json file to correct model object");
+		try {
+            // will load from classpath relative to referenced class
+            //src = DeleteTroubleTicketResponsePayloadExampleTest.class.getResourceAsStream("DeleteTroubleTicketResponsePayload.json"); 
+         
+            // will load from generated random data json file
+            java.io.File f = new java.io.File("target/json/DeleteTroubleTicketResponsePayload.json");
+            src = new java.io.FileInputStream(f);
+            
+            Assertions.assertNotNull(src);
+
+			DeleteTroubleTicketResponsePayload obj = json.getMapper().readValue(src, DeleteTroubleTicketResponsePayload.class);
+
+			String jsonString = null;
+			jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+			LOG.debug("serialised object after parsing: n" + jsonString);
+		} catch (Exception e) {
+        	LOG.error("problem parsing json example to model object",e);
+		} finally {
+			try {
+				if (src != null)
+					src.close();
+			} catch (Exception ex) {
+			}
+		}
+	}
+   
     /**
-     * Model tests for CreateTroubleTicketResponsePayload
+    * TEST STUBBS CREATED BY OPENAPI GENERATOR
+    */
+
+    /**
+     * Model tests for DeleteTroubleTicketResponsePayload
      */
     @Test
-    public void testCreateTroubleTicketResponsePayload() {
-        // TODO: test CreateTroubleTicketResponsePayload
+    public void testDeleteTroubleTicketResponsePayload() {
+        // TODO: test DeleteTroubleTicketResponsePayload
     }
 
     /**

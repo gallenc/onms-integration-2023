@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+
 package org.opennms.integration.tmf925.openapi.api.test;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -17,43 +18,40 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-
-import org.opennms.integration.tmf925.openapi.invoker.JSON;
-import org.opennms.integration.tmf925.openapi.model.CreateTroubleTicketRequestPayload;
-import org.opennms.integration.tmf925.openapi.model.TroubleTicketCreate;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.DateFormat;
-import java.util.UUID;
+import org.opennms.integration.tmf925.openapi.model.BadRequestResponse;
+import org.opennms.integration.tmf925.openapi.model.ConflictResponse;
+import org.opennms.integration.tmf925.openapi.model.Error;
+import org.opennms.integration.tmf925.openapi.model.ForbiddenResponse;
+import org.opennms.integration.tmf925.openapi.model.InternalServerErrorResponse;
+import org.opennms.integration.tmf925.openapi.model.MethodNotAllowedResponse;
+import org.opennms.integration.tmf925.openapi.model.NotFoundResponse;
+import org.opennms.integration.tmf925.openapi.model.PatchTroubleTicketUpdated;
+import org.opennms.integration.tmf925.openapi.model.UnauthorizedResponse;
 
 import org.junit.jupiter.api.Assertions;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import org.instancio.Instancio;
-
 /**
- * Model tests for CreateTroubleTicketRequestPayload
+ * Model tests for PatchTroubleTicketResponsePayload
  */
-public class CreateTroubleTicketRequestPayloadExampleTest {
-	private static final  org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(CreateTroubleTicketRequestPayloadExampleTest.class);
+public class PatchTroubleTicketResponsePayloadTest {
+    private static final  org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(PatchTroubleTicketResponsePayload.class);
 
-    CreateTroubleTicketRequestPayload model = org.instancio.Instancio.of(CreateTroubleTicketRequestPayload.class).create();
+    PatchTroubleTicketResponsePayload model = org.instancio.Instancio.of(PatchTroubleTicketResponsePayload.class).create();
 
+    
     /**
-    * test injected by maven build
+    * BASIC TESTS INJECTED TO OPENAPI GENERATED CODE BY MAVEN BUILD IN TARGET DIRECTORY
+    * YOU MAY NEED TO EXCLUDE GENERATED TESTS IF MODEL IS NOT POPULATED PROPERLY BY EXTANTIO
+    * COPY AND MODIFY THESE TESTS IN YOUR PROJECT
+    */
+    
+    /**
+    * simple test that we can write the randomly populated json model object
     */
     @Test
-    public void simpleCreateTroubleTicketRequestPayloadTest() {
+    public void simplePatchTroubleTicketResponsePayloadTest() {
         org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
         String jsonString = null;
         java.io.FileWriter fileWriter = null;
@@ -62,7 +60,8 @@ public class CreateTroubleTicketRequestPayloadExampleTest {
             jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
             LOG.debug("serialised object: n" + jsonString);
             
-            java.io.File f  = new java.io.File("target/json/CreateTroubleTicketRequestPayload.json");
+            // putting directly in test classes because resources plugin won't see them before tests
+            java.io.File f  = new java.io.File("target/json/PatchTroubleTicketResponsePayload.json");
             f.getParentFile().mkdirs(); 
             f.createNewFile();
             fileWriter = new java.io.FileWriter(f);
@@ -81,25 +80,36 @@ public class CreateTroubleTicketRequestPayloadExampleTest {
 
 
 	/**
-	 * Model tests for CreateTroubleTicketRequestPayload
+	 * Model tests for PatchTroubleTicketResponsePayload
+     * For your own real example message tests make sure src file path points to example data and not generated data
+     * if class loader uses the test class (class.getResourceAsStream), 
+     * the classloader will start search for file relative to the directory of the class
 	 */
 	@Test
-	public void testCreateTroubleTicketRequestPayload() {
-		JSON json = new JSON();
+	public void testModelPatchTroubleTicketResponsePayload() {
+		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
 
-		InputStream src = null;
+		java.io.InputStream src = null;
 
 		// check we can parse json file to simple json model
 		LOG.debug("check we can parse example json file to simple json model");
 		try {
-			src = CreateTroubleTicketRequestPayloadExampleTest.class.getResourceAsStream("createTroubleTicketRequestExample.json");
-			assertNotNull(src);
-			
-			ObjectMapper mapper = new ObjectMapper();
+            // will load from classpath relative to referenced class
+			//src = PatchTroubleTicketResponsePayloadExampleTest.class.getResourceAsStream("PatchTroubleTicketResponsePayload.json"); 
 
-			JsonNode rootNode = mapper.readTree(src);
+            // will load from generated random data json file
+            java.io.File f = new java.io.File("target/json/PatchTroubleTicketResponsePayload.json");
+            src = new java.io.FileInputStream(f);
+            
+            Assertions.assertNotNull(src);
+			
+			com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+
+			com.fasterxml.jackson.databind.JsonNode rootNode = mapper.readTree(src);
 			String str = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
-			LOG.debug("simple json payload: \n" + str);
+			LOG.debug("simple json payload: n" + str);
+
+            src.close();
 		} catch (Exception e) {
         	LOG.error("problem parsing json example to JsonNode",e);
 		} finally {
@@ -110,20 +120,22 @@ public class CreateTroubleTicketRequestPayloadExampleTest {
 			}
 		}
 
-		// check we can parse file to model object
-		// for real message tests make sure file path points to example data and not generated data
-		// if class loader uses the test class (class.getResourceAsStream), the classloader will start search for file relative to the directory of the class
 		LOG.debug("check we can parse example json file to correct model object");
 		try {
-			src = CreateTroubleTicketRequestPayloadExampleTest.class.getResourceAsStream("createTroubleTicketRequestExample.json");
-			//src = CreateTroubleTicketRequestPayloadExampleTest.class.getClassLoader().getResourceAsStream("json/CreateTroubleTicketRequestExample.json");
-			assertNotNull(src);
+            // will load from classpath relative to referenced class
+            //src = PatchTroubleTicketResponsePayloadExampleTest.class.getResourceAsStream("PatchTroubleTicketResponsePayload.json"); 
+         
+            // will load from generated random data json file
+            java.io.File f = new java.io.File("target/json/PatchTroubleTicketResponsePayload.json");
+            src = new java.io.FileInputStream(f);
+            
+            Assertions.assertNotNull(src);
 
-			CreateTroubleTicketRequestPayload obj = json.getMapper().readValue(src,	CreateTroubleTicketRequestPayload.class);
+			PatchTroubleTicketResponsePayload obj = json.getMapper().readValue(src, PatchTroubleTicketResponsePayload.class);
 
 			String jsonString = null;
 			jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(obj);
-			LOG.debug("serialised object after parsing: \n" + jsonString);
+			LOG.debug("serialised object after parsing: n" + jsonString);
 		} catch (Exception e) {
         	LOG.error("problem parsing json example to model object",e);
 		} finally {
@@ -134,5 +146,33 @@ public class CreateTroubleTicketRequestPayloadExampleTest {
 			}
 		}
 	}
+   
+    /**
+    * TEST STUBBS CREATED BY OPENAPI GENERATOR
+    */
+
+    /**
+     * Model tests for PatchTroubleTicketResponsePayload
+     */
+    @Test
+    public void testPatchTroubleTicketResponsePayload() {
+        // TODO: test PatchTroubleTicketResponsePayload
+    }
+
+    /**
+     * Test the property 'statusCode'
+     */
+    @Test
+    public void statusCodeTest() {
+        // TODO: test statusCode
+    }
+
+    /**
+     * Test the property 'body'
+     */
+    @Test
+    public void bodyTest() {
+        // TODO: test body
+    }
 
 }

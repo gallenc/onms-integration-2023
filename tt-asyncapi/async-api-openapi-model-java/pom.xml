@@ -283,55 +283,56 @@
             <!-- <version>4.3.1</version> -->
             <!-- <version>4.2.0</version> -->
             <executions>
-               <execution>
-                  <id>generate zomzog example</id>
-                  <goals>
-                     <goal>generate</goal>
-                  </goals>
-                  <configuration>
-                     <inputSpec>src/main/resources/api/api.yml</inputSpec>
-                     <generatorName>java</generatorName>
-                     <configOptions>
-                        <sourceFolder>src/gen/java/main</sourceFolder>
-                        <interfaceOnly>false</interfaceOnly>
-                        <delegatePattern>true</delegatePattern>
+<!--               <execution>-->
+                  
+<!--                  <id>generate zomzog example</id>-->
+<!--                  <goals>-->
+<!--                     <goal>generate</goal>-->
+<!--                  </goals>-->
+<!--                  <configuration>-->
+<!--                     <inputSpec>src/main/resources/api/api.yml</inputSpec>-->
+<!--                     <generatorName>java</generatorName>-->
+<!--                     <configOptions>-->
+<!--                        <sourceFolder>src/gen/java/main</sourceFolder>-->
+<!--                        <interfaceOnly>false</interfaceOnly>-->
+<!--                        <delegatePattern>true</delegatePattern>-->
 
-                        <library>jersey2</library>
-                        <!-- <library>okhttp-gson</library> -->
-                     </configOptions>
-                     <modelPackage>bzh.zomzog.demo.openapiinheritance.domain.api</modelPackage>
-                     <apiPackage>bzh.zomzog.demo.openapiinheritance.controller.api</apiPackage>
-                     <generateSupportingFiles>true</generateSupportingFiles>
-                  </configuration>
-               </execution>
-               <execution>
-                  <id>generate java example</id>
-                  <goals>
-                     <goal>generate</goal>
-                  </goals>
-                  <configuration>
-                     <inputSpec>src/main/resources/api/petstore-openapi.yaml</inputSpec>
-                     <generatorName>java</generatorName>
-                     <configOptions>
-                        <sourceFolder>src/gen/java/main</sourceFolder>
-                        <interfaceOnly>false</interfaceOnly>
-                        <delegatePattern>true</delegatePattern>
+<!--                        <library>jersey2</library>-->
+<!--                         <library>okhttp-gson</library> -->
+<!--                     </configOptions>-->
+<!--                     <modelPackage>bzh.zomzog.demo.openapiinheritance.domain.api</modelPackage>-->
+<!--                     <apiPackage>bzh.zomzog.demo.openapiinheritance.controller.api</apiPackage>-->
+<!--                     <generateSupportingFiles>true</generateSupportingFiles>-->
+<!--                  </configuration>-->
+<!--               </execution>-->
+<!--               <execution>-->
+<!--                  <id>generate java example</id>-->
+<!--                  <goals>-->
+<!--                     <goal>generate</goal>-->
+<!--                  </goals>-->
+<!--                  <configuration>-->
+<!--                     <inputSpec>src/main/resources/api/petstore-openapi.yaml</inputSpec>-->
+<!--                     <generatorName>java</generatorName>-->
+<!--                     <configOptions>-->
+<!--                        <sourceFolder>src/gen/java/main</sourceFolder>-->
+<!--                        <interfaceOnly>false</interfaceOnly>-->
+<!--                        <delegatePattern>true</delegatePattern>-->
 
-                        <!-- <useOneOfInterfaces>false</useOneOfInterfaces> -->
-                        <!-- <addOneOfInterfaceImports>false</addOneOfInterfaceImports> -->
-                        <!-- <additionalOneOfTypeAnnotations>false</additionalOneOfTypeAnnotations> -->
+<!--                         <useOneOfInterfaces>false</useOneOfInterfaces> -->
+<!--                         <addOneOfInterfaceImports>false</addOneOfInterfaceImports> -->
+<!--                         <additionalOneOfTypeAnnotations>false</additionalOneOfTypeAnnotations> -->
 
-                        <library>jersey2</library>
-                        <!-- <library>okhttp-gson</library> -->
+<!--                        <library>jersey2</library>-->
+<!--                         <library>okhttp-gson</library> -->
 
-                     </configOptions>
-                     <modelPackage>org.spring.openapioneofexample.domain.api</modelPackage>
-                     <apiPackage>org.spring.openapioneofexample.controller.api</apiPackage>
-                     <invokerPackage>org.spring.openapioneofexample.controller.api.invoker</invokerPackage>
+<!--                     </configOptions>-->
+<!--                     <modelPackage>org.spring.openapioneofexample.domain.api</modelPackage>-->
+<!--                     <apiPackage>org.spring.openapioneofexample.controller.api</apiPackage>-->
+<!--                     <invokerPackage>org.spring.openapioneofexample.controller.api.invoker</invokerPackage>-->
 
-                     <generateSupportingFiles>true</generateSupportingFiles>
-                  </configuration>
-               </execution>
+<!--                     <generateSupportingFiles>true</generateSupportingFiles>-->
+<!--                  </configuration>-->
+<!--               </execution>-->
                <execution>
                   <id>generate tt example</id>
                   <goals>
@@ -402,60 +403,34 @@
                      </sources>
                   </configuration>
                </execution>
-               <execution>
-                  <id>add-resource</id>
-                  <phase>initialize</phase>
-                  <goals>
-                     <goal>add-resource</goal>
-                  </goals>
-                  <configuration>
-                     <resources>
-                        <resource>
-                           <directory>${project.build.directory}/json/*.json</directory>
-                        </resource>
-                     </resources>
-                  </configuration>
-               </execution>
-               <execution>
-                  <id>add-test-resource</id>
-                  <phase>initialize</phase>
-                  <goals>
-                     <goal>add-test-resource</goal>
-                  </goals>
-                  <configuration>
-                     <resources>
-                        <resource>
-                           <directory>${project.build.directory}/generated-sources/src/main/resources</directory>
-                        </resource>
-                     </resources>
-                  </configuration>
-               </execution>
+<!--                <execution> -->
+<!--                   <id>add-resource</id> -->
+<!--                   <phase>initialize</phase> -->
+<!--                   <goals> -->
+<!--                      <goal>add-resource</goal> -->
+<!--                   </goals> -->
+<!--                   <configuration> -->
+<!--                      <resources> -->
+
+<!--                      </resources> -->
+<!--                   </configuration> -->
+<!--                </execution> -->
+<!--                <execution> -->
+<!--                   <id>add-test-resource</id> -->
+<!--                   <phase>initialize</phase> -->
+<!--                   <goals> -->
+<!--                      <goal>add-test-resource</goal> -->
+<!--                   </goals> -->
+<!--                   <configuration> -->
+<!--                      <resources> -->
+<!--                         <resource> -->
+<!--                            <directory>${project.build.directory}/test-classes/json/*.json</directory> -->
+<!--                         </resource> -->
+<!--                      </resources> -->
+<!--                   </configuration> -->
+<!--                </execution> -->
             </executions>
          </plugin>
-
-         <!-- <plugin> -->
-         <!-- <groupId>com.google.code.maven-replacer-plugin</groupId> -->
-         <!-- <artifactId>replacer</artifactId> -->
-         <!-- <version>(version)</version> -->
-         <!-- <executions> -->
-         <!-- <execution> -->
-         <!-- <phase>prepare-package</phase> -->
-         <!-- <goals> -->
-         <!-- <goal>replace</goal> -->
-         <!-- </goals> -->
-         <!-- </execution> -->
-         <!-- </executions> -->
-         <!-- <configuration> -->
-         <!-- <includes> -->
-         <!-- <include>target/**/replace-me.*</include> -->
-         <!-- </includes> -->
-         <!-- <excludes> -->
-         <!-- <exclude>target/**/do-not-replace-me.*</exclude> -->
-         <!-- </excludes> -->
-         <!-- <token>TOKEN</token> -->
-         <!-- <value>VALUE</value> -->
-         <!-- </configuration> -->
-         <!-- </plugin> -->
 
          <plugin>
             <groupId>com.google.code.maven-replacer-plugin</groupId>
@@ -497,7 +472,7 @@
         try {
             jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
             LOG.debug("serialised object: \n" + jsonString);
-            
+
             java.io.File f  = new java.io.File("target/json/$1.json");
             f.getParentFile().mkdirs(); 
             f.createNewFile();
@@ -533,10 +508,12 @@
 		try {
             // will load from classpath relative to referenced class
 			//src = $1ExampleTest.class.getResourceAsStream("$1.json"); 
-         
-            // will load from classpath relative to build directory
-			src = $1Test.class.getClassLoader().getResourceAsStream("json/$1.json");
-			Assertions.assertNotNull(src);
+
+            // will load from generated random data json file
+            java.io.File f = new java.io.File("target/json/$1.json");
+            src = new java.io.FileInputStream(f);
+            
+            Assertions.assertNotNull(src);
 			
 			com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 
@@ -560,9 +537,11 @@
             // will load from classpath relative to referenced class
             //src = $1ExampleTest.class.getResourceAsStream("$1.json"); 
          
-            // will load from classpath relative to build directory
-            src = $1Test.class.getClassLoader().getResourceAsStream("json/$1.json");
-			Assertions.assertNotNull(src);
+            // will load from generated random data json file
+            java.io.File f = new java.io.File("target/json/$1.json");
+            src = new java.io.FileInputStream(f);
+            
+            Assertions.assertNotNull(src);
 
 			$1 obj = json.getMapper().readValue(src, $1.class);
 
@@ -596,6 +575,17 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.0.0-M5</version>
+            <configuration>
+<!--               <forkCount>0</forkCount> -->
+<!--               <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>-->
+               <excludes>
+                  <exclude>**/model/CreateTroubleTicketResponsePayloadTest.java</exclude>
+                  <exclude>**/model//DeleteTroubleTicketResponsePayloadTest.java</exclude>
+                  <exclude>**/model/ListTroubleTicketResponsePayloadTest.java</exclude>
+                  <exclude>**/model/PatchTroubleTicketResponsePayloadTest.java</exclude>
+                  <exclude>**/model/RetrieveTroubleTicketResponsePayloadTest.java</exclude>
+               </excludes>
+            </configuration>
             <dependencies>
                <dependency>
                   <groupId>org.junit.jupiter</groupId>

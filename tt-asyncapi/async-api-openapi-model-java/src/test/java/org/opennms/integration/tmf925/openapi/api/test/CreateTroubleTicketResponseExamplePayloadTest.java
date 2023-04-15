@@ -28,15 +28,59 @@ import org.opennms.integration.tmf925.openapi.model.InternalServerErrorResponse;
 import org.opennms.integration.tmf925.openapi.model.MethodNotAllowedResponse;
 import org.opennms.integration.tmf925.openapi.model.UnauthorizedResponse;
 
+
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Model tests for CreateTroubleTicketResponsePayload
  */
-public class CreateTroubleTicketResponsePayloadTest {
-    private final CreateTroubleTicketResponsePayload model = new CreateTroubleTicketResponsePayload();
+public class CreateTroubleTicketResponseExamplePayloadTest {
+    CreateTroubleTicketResponsePayload model = org.instancio.Instancio.of(CreateTroubleTicketResponsePayload.class).create();
+
+    /**
+    * test injected by maven build
+    */
+    @Test
+    public void simpleCreateTroubleTicketResponsePayloadTest() {
+        org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
+        String jsonString = null;
+        java.io.FileWriter fileWriter = null;
+        try {
+        	
+        	CreateTroubleTicketCreated created = org.instancio.Instancio.of(CreateTroubleTicketCreated.class).create();
+            model.setActualInstance(created);
+            
+            
+            assertTrue(model.getActualInstance() instanceof CreateTroubleTicketCreated);
+        	
+        	System.out.println("model object toString: \n" + model);
+        	
+            jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
+            System.out.println("serialised object: \n" + jsonString);
+            
+            java.io.File f  = new java.io.File("target/json/CreateTroubleTicketResponsePayload.json");
+            f.getParentFile().mkdirs(); 
+            f.createNewFile();
+            fileWriter = new java.io.FileWriter(f);
+            fileWriter.write(jsonString);
+            fileWriter.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            if (fileWriter!=null)
+                try {
+                    fileWriter.close();
+                } catch (Exception ex) {
+                    // TODO Auto-generated catch block
+                    ex.printStackTrace();
+                }
+        }
+    }
 
     /**
      * Model tests for CreateTroubleTicketResponsePayload

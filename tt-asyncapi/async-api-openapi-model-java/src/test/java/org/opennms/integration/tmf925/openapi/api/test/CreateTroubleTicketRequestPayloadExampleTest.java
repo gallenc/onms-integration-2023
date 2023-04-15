@@ -35,6 +35,7 @@ import java.text.DateFormat;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -43,58 +44,65 @@ import org.instancio.Instancio;
 /**
  * Model tests for CreateTroubleTicketRequestPayload
  */
-public class CreateTroubleTicketRequestPayloadTest {
-	private final CreateTroubleTicketRequestPayload model = new CreateTroubleTicketRequestPayload();
+public class CreateTroubleTicketRequestPayloadExampleTest {
+	private static final  org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(CreateTroubleTicketRequestPayloadExampleTest.class);
+
+    CreateTroubleTicketRequestPayload model = org.instancio.Instancio.of(CreateTroubleTicketRequestPayload.class).create();
+
+    /**
+    * test injected by maven build
+    */
+    @Test
+    public void simpleCreateTroubleTicketRequestPayloadTest() {
+        org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
+        String jsonString = null;
+        java.io.FileWriter fileWriter = null;
+		LOG.debug("check we create a randomly populated object and serialise it to a file");
+        try {
+            jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
+            LOG.debug("serialised object: n" + jsonString);
+            
+            java.io.File f  = new java.io.File("target/json/CreateTroubleTicketRequestPayload.json");
+            f.getParentFile().mkdirs(); 
+            f.createNewFile();
+            fileWriter = new java.io.FileWriter(f);
+            fileWriter.write(jsonString);
+            fileWriter.close();
+        } catch (Exception e) {
+            LOG.error("problem serialising object",e);
+        } finally {
+            if (fileWriter!=null)
+                try {
+                    fileWriter.close();
+                } catch (Exception ex) {
+                }
+        }
+    }
+
 
 	/**
 	 * Model tests for CreateTroubleTicketRequestPayload
 	 */
 	@Test
 	public void testCreateTroubleTicketRequestPayload() {
-
-		// TODO: test CreateTroubleTicketRequestPayload
 		JSON json = new JSON();
 
 		InputStream src = null;
 
-		// check we can parse to json model
+		// check we can parse json file to simple json model
+		LOG.debug("check we can parse example json file to simple json model");
 		try {
-			src = CreateTroubleTicketRequestPayloadTest.class.getResourceAsStream("createTroubleTicketRequest.json");
-
-			ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+			src = CreateTroubleTicketRequestPayloadExampleTest.class.getResourceAsStream("createTroubleTicketRequest.json");
+			//src = CreateTroubleTicketRequestPayloadTest.class.getClassLoader().getResourceAsStream("json/CreateTroubleTicketRequestPayload.json");
+			assertNotNull(src);
+			
+			ObjectMapper mapper = new ObjectMapper();
 
 			JsonNode rootNode = mapper.readTree(src);
-			String str = mapper.writeValueAsString(rootNode);
-			System.out.println(str);
+			String str = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+			LOG.debug("simple json payload: \n" + str);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-
-			try {
-				if (src != null)
-					src.close();
-			} catch (Exception ex) {
-			}
-		}
-
-		try {
-			src = CreateTroubleTicketRequestPayloadTest.class.getResourceAsStream("createTroubleTicketRequest.json");
-
-			CreateTroubleTicketRequestPayload obj = json.getMapper().readValue(src,
-					CreateTroubleTicketRequestPayload.class);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		String jsonString = null;
-		try {
-			jsonString = json.getMapper().writeValueAsString(model);
-			System.out.println("serialised object: " + jsonString);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+        	LOG.error("problem parsing json example to JsonNode",e);
 		} finally {
 			try {
 				if (src != null)
@@ -103,36 +111,29 @@ public class CreateTroubleTicketRequestPayloadTest {
 			}
 		}
 
-	}
-
-	/**
-	 * Test the property 'body'
-	 */
-	@Test
-	public void bodyTest() {
-		//CreateTroubleTicketRequestPayload model = new CreateTroubleTicketRequestPayload();
-		//TroubleTicketCreate body = new TroubleTicketCreate();
-		//body.setExternalId(UUID.randomUUID().toString());
-		//model.setBody(body);
-		
-
-
-		String jsonString = null;
+		// check we can parse file to model object
+		// for real message tests make sure file path points to example data and not generated data
+		// if class loader uses the test class (class.getResourceAsStream), the classloader will start search for file relative to the directory of the class
+		LOG.debug("check we can parse example json file to correct model object");
 		try {
-			CreateTroubleTicketRequestPayload model = org.instancio.Instancio.of(CreateTroubleTicketRequestPayload.class).create();
-			
-			JSON json = new JSON();
-			jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
-			System.out.println("serialised object: " + jsonString);
-			
-			CreateTroubleTicketRequestPayload obj = json.getMapper().readValue(jsonString,	CreateTroubleTicketRequestPayload.class);
-			
+			src = CreateTroubleTicketRequestPayloadExampleTest.class.getResourceAsStream("createTroubleTicketRequest.json");
+			//src = CreateTroubleTicketRequestPayloadTest.class.getClassLoader().getResourceAsStream("json/CreateTroubleTicketRequestPayload.json");
+			assertNotNull(src);
+
+			CreateTroubleTicketRequestPayload obj = json.getMapper().readValue(src,	CreateTroubleTicketRequestPayload.class);
+
+			String jsonString = null;
+			jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+			LOG.debug("serialised object after parsing: \n" + jsonString);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+        	LOG.error("problem parsing json example to model object",e);
+		} finally {
+			try {
+				if (src != null)
+					src.close();
+			} catch (Exception ex) {
+			}
 		}
-
-
 	}
 
 }

@@ -38,3 +38,5 @@ generates anonymous classes and fails to load
 https://github.com/OpenAPITools/openapi-generator/issues/2892  UNKNOWN BASE TYPE when using allOf in request body schema declaration 
 
 comment: The generator appears to lack a concept for creating base types for schemas being used in conjunction with allOf.
+
+mapping yaml values to json https://onlineyamltools.com/convert-yaml-to-json

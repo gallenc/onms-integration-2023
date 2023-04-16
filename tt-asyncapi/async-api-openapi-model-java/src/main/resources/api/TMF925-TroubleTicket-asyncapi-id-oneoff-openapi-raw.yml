@@ -1298,6 +1298,11 @@ components:
         title:
           description: The title of the event.
           type: string
+        "@type":
+          description: discriminator
+          type: string
+      required:
+      - '@type'
     TroubleTicketDeleteEvent:
 #     $id: TroubleTicketDeleteEvent
       type: object
@@ -1325,7 +1330,7 @@ components:
         eventType:
           description: The type of the notification.
           type: string
-          default: "detele"
+          default: "delete"
         priority:
           description: A priority.
           type: string
@@ -1336,6 +1341,11 @@ components:
         title:
           description: The title of the event.
           type: string
+        "@type":
+          description: discriminator
+          type: string
+      required:
+      - '@type'
     TroubleTicketChangeEvent:
 #     $id: TTroubleTicketChangeEvent
       type: object
@@ -1374,6 +1384,11 @@ components:
         title:
           description: The title of the event.
           type: string
+        "@type":
+          description: discriminator
+          type: string
+      required:
+      - '@type'
     TroubleTicketInformationRequiredEvent:
 #     $id: TroubleTicketInformationRequiredEvent
       type: object
@@ -1412,7 +1427,11 @@ components:
         title:
           description: The title of the event.
           type: string
-
+        "@type":
+          description: discriminator
+          type: string
+      required:
+      - '@type'
     TroubleTicketBaseEvent:
 #     $id: TroubleTicketBaseEvent
       type: object
@@ -1455,6 +1474,11 @@ components:
         title:
           description: The title of the event.
           type: string
+        "@type":
+          description: discriminator
+          type: string
+      required:
+      - '@type'
     TroubleTicketBasePlusEvent:
 #     $id: TroubleTicketBasePlusEvent
       type: object
@@ -1500,12 +1524,20 @@ components:
         event:
           description: The event payload linked to the involved resource object
           $ref: '#/components/schemas/TroubleTicketEventPayload'
+        "@type":
+          description: discriminator
+          type: string
+      required:
+      - '@type'
+## had to add discriminator to make work
     TroubleTicketNotificationPayload:
       oneOf:
         - $ref: '#/components/schemas/TroubleTicketCreateEvent'
         - $ref: '#/components/schemas/TroubleTicketDeleteEvent'
         - $ref: '#/components/schemas/TroubleTicketChangeEvent'
         - $ref: '#/components/schemas/TroubleTicketInformationRequiredEvent'
+      discriminator:
+        propertyName: "@type"
     CorrelationHeader:
 #     $id: CorrelationHeader
       type: object

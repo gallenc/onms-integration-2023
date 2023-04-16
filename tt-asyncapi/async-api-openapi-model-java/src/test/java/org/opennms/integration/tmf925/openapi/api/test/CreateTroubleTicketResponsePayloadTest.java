@@ -29,26 +29,49 @@ import org.opennms.integration.tmf925.openapi.model.MethodNotAllowedResponse;
 import org.opennms.integration.tmf925.openapi.model.UnauthorizedResponse;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
  * Model tests for CreateTroubleTicketResponsePayload
  */
+@org.junit.jupiter.api.TestMethodOrder(org.junit.jupiter.api.MethodOrderer.OrderAnnotation.class)
 public class CreateTroubleTicketResponsePayloadTest {
     private static final  org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(CreateTroubleTicketResponsePayload.class);
 
     CreateTroubleTicketResponsePayload model = org.instancio.Instancio.of(CreateTroubleTicketResponsePayload.class).create();
 
-    @BeforeEach
+
+	java.io.InputStream src = null;
+
+	/**
+	 * Modify this before method to pull in your test case
+     * For your own real example message tests make sure src file path points to example data and not generated data
+     * if class loader uses the test class (class.getResourceAsStream), 
+     * the classloader will start search for file relative to the directory of the class
+	 */
+	@org.junit.jupiter.api.BeforeEach
     public void before() {
-    	CreateTroubleTicketCreated createTroubleTicketCreated = org.instancio.Instancio.of(CreateTroubleTicketCreated.class).create();
-    	model.setActualInstance(createTroubleTicketCreated);
+
+        // will load from classpath relative to referenced class
+		// src = CreateTroubleTicketResponsePayloadPayloadExampleTest.class.getResourceAsStream("CreateTroubleTicketResponsePayloadExample.json"); 
+
+        // will load from generated random data json file
+        java.io.File f = new java.io.File("target/json/CreateTroubleTicketResponsePayload.json");
+        if(f.exists()) try {
+			src = new java.io.FileInputStream(f);
+	        Assertions.assertNotNull(src);
+		} catch (Exception e) {
+			LOG.error("cannot load test data",e);
+		}
+		
+        // inject model instance if required to make the class creation work
+        CreateTroubleTicketCreated actualInstance = org.instancio.Instancio.of(CreateTroubleTicketCreated.class).create();
+        model.setActualInstance(actualInstance);
+
     }
-    
-    
+
+
     /**
     * BASIC TESTS INJECTED TO OPENAPI GENERATED CODE BY MAVEN BUILD IN TARGET DIRECTORY
     * YOU MAY NEED TO EXCLUDE GENERATED TESTS IF MODEL IS NOT POPULATED PROPERLY BY EXTANTIO
@@ -59,8 +82,8 @@ public class CreateTroubleTicketResponsePayloadTest {
     * simple test that we can write the randomly populated json model object
     */
     @Test
+    @org.junit.jupiter.api.Order(1)
     public void simpleCreateTroubleTicketResponsePayloadTest() {
-
         org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
         String jsonString = null;
         java.io.FileWriter fileWriter = null;
@@ -68,8 +91,7 @@ public class CreateTroubleTicketResponsePayloadTest {
         try {
             jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
             LOG.debug("serialised object: n" + jsonString);
-            
-            // putting directly in test classes because resources plugin won't see them before tests
+
             java.io.File f  = new java.io.File("target/json/CreateTroubleTicketResponsePayload.json");
             f.getParentFile().mkdirs(); 
             f.createNewFile();
@@ -89,27 +111,20 @@ public class CreateTroubleTicketResponsePayloadTest {
 
 
 	/**
-	 * Model tests for CreateTroubleTicketResponsePayload
+	 * Model tests for CreateTroubleTicketResponsePayload with simple ObjectMapper
      * For your own real example message tests make sure src file path points to example data and not generated data
      * if class loader uses the test class (class.getResourceAsStream), 
      * the classloader will start search for file relative to the directory of the class
 	 */
 	@Test
-	public void testModelCreateTroubleTicketResponsePayload() {
+    @org.junit.jupiter.api.Order(2)
+	public void B_testModelCreateTroubleTicketResponsePayloadSimpleMapper() {
 		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
-
-		java.io.InputStream src = null;
 
 		// check we can parse json file to simple json model
 		LOG.debug("check we can parse example json file to simple json model");
 		try {
-            // will load from classpath relative to referenced class
-			//src = CreateTroubleTicketResponsePayloadExampleTest.class.getResourceAsStream("CreateTroubleTicketResponsePayload.json"); 
 
-            // will load from generated random data json file
-            java.io.File f = new java.io.File("target/json/CreateTroubleTicketResponsePayload.json");
-            src = new java.io.FileInputStream(f);
-            
             Assertions.assertNotNull(src);
 			
 			com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
@@ -128,16 +143,16 @@ public class CreateTroubleTicketResponsePayloadTest {
 			} catch (Exception ex) {
 			}
 		}
+	}
+	
+	@Test
+    @org.junit.jupiter.api.Order(3)
+	public void C_testModelCreateTroubleTicketResponsePayload() {
+		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
 
 		LOG.debug("check we can parse example json file to correct model object");
 		try {
-            // will load from classpath relative to referenced class
-            //src = CreateTroubleTicketResponsePayloadExampleTest.class.getResourceAsStream("CreateTroubleTicketResponsePayload.json"); 
-         
-            // will load from generated random data json file
-            java.io.File f = new java.io.File("target/json/CreateTroubleTicketResponsePayload.json");
-            src = new java.io.FileInputStream(f);
-            
+
             Assertions.assertNotNull(src);
 
 			CreateTroubleTicketResponsePayload obj = json.getMapper().readValue(src, CreateTroubleTicketResponsePayload.class);

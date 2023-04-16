@@ -18,29 +18,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import org.opennms.integration.tmf925.openapi.model.BadRequestResponse;
-import org.opennms.integration.tmf925.openapi.model.ConflictResponse;
-import org.opennms.integration.tmf925.openapi.model.Error;
-import org.opennms.integration.tmf925.openapi.model.ForbiddenResponse;
-import org.opennms.integration.tmf925.openapi.model.InternalServerErrorResponse;
-import org.opennms.integration.tmf925.openapi.model.MethodNotAllowedResponse;
-import org.opennms.integration.tmf925.openapi.model.NotFoundResponse;
-import org.opennms.integration.tmf925.openapi.model.RetrieveTroubleTicketResponsePayload;
-import org.opennms.integration.tmf925.openapi.model.RetrieveTroubleTicketSuccess;
-import org.opennms.integration.tmf925.openapi.model.UnauthorizedResponse;
-
+import java.time.OffsetDateTime;
+import org.opennms.integration.tmf925.openapi.model.TroubleTicketChangeEvent;
+import org.opennms.integration.tmf925.openapi.model.TroubleTicketCreateEvent;
+import org.opennms.integration.tmf925.openapi.model.TroubleTicketDeleteEvent;
+import org.opennms.integration.tmf925.openapi.model.TroubleTicketEventPayload;
+import org.opennms.integration.tmf925.openapi.model.TroubleTicketInformationRequiredEvent;
+import org.opennms.integration.tmf925.openapi.model.TroubleTicketNotificationPayload;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * Model tests for RetrieveTroubleTicketResponsePayload
+ * Model tests for TroubleTicketNotificationPayload
  */
 @org.junit.jupiter.api.TestMethodOrder(org.junit.jupiter.api.MethodOrderer.OrderAnnotation.class)
-public class RetrieveTroubleTicketResponsePayloadTest {
-    private static final  org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(RetrieveTroubleTicketResponsePayload.class);
+public class TroubleTicketNotificationPayloadTest {
+    private static final  org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(TroubleTicketNotificationPayload.class);
 
-    RetrieveTroubleTicketResponsePayload model = org.instancio.Instancio.of(RetrieveTroubleTicketResponsePayload.class).create();
+    TroubleTicketNotificationPayload model = org.instancio.Instancio.of(TroubleTicketNotificationPayload.class).create();
 
 
 	java.io.InputStream src = null;
@@ -55,19 +51,19 @@ public class RetrieveTroubleTicketResponsePayloadTest {
     public void before() {
 
         // will load from classpath relative to referenced class
-		// src = RetrieveTroubleTicketResponsePayloadPayloadExampleTest.class.getResourceAsStream("RetrieveTroubleTicketResponsePayloadExample.json"); 
+		// src = TroubleTicketNotificationPayloadPayloadExampleTest.class.getResourceAsStream("TroubleTicketNotificationPayloadExample.json"); 
 
         // will load from generated random data json file
-        java.io.File f = new java.io.File("target/json/RetrieveTroubleTicketResponsePayload.json");
+        java.io.File f = new java.io.File("target/json/TroubleTicketNotificationPayload.json");
         if(f.exists()) try {
-			src = new java.io.FileInputStream(f);
-	        Assertions.assertNotNull(src);
-		} catch (Exception e) {
-			LOG.error("cannot load test data",e);
-		}
+            src = new java.io.FileInputStream(f);
+            Assertions.assertNotNull(src);
+        } catch (Exception e) {
+            LOG.error("cannot load test data",e);
+        }
 		
         // inject model instance if required to make the class creation work
-        RetrieveTroubleTicketSuccess actualInstance = org.instancio.Instancio.of(RetrieveTroubleTicketSuccess.class).create();
+        TroubleTicketCreateEvent actualInstance = org.instancio.Instancio.of(TroubleTicketCreateEvent.class).create();
         model.setActualInstance(actualInstance);
 
     }
@@ -84,7 +80,7 @@ public class RetrieveTroubleTicketResponsePayloadTest {
     */
     @Test
     @org.junit.jupiter.api.Order(1)
-    public void simpleRetrieveTroubleTicketResponsePayloadTest() {
+    public void simpleTroubleTicketNotificationPayloadTest() {
         org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
         String jsonString = null;
         java.io.FileWriter fileWriter = null;
@@ -93,7 +89,7 @@ public class RetrieveTroubleTicketResponsePayloadTest {
             jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
             LOG.debug("serialised object: n" + jsonString);
 
-            java.io.File f  = new java.io.File("target/json/RetrieveTroubleTicketResponsePayload.json");
+            java.io.File f  = new java.io.File("target/json/TroubleTicketNotificationPayload.json");
             f.getParentFile().mkdirs(); 
             f.createNewFile();
             fileWriter = new java.io.FileWriter(f);
@@ -112,14 +108,14 @@ public class RetrieveTroubleTicketResponsePayloadTest {
 
 
 	/**
-	 * Model tests for RetrieveTroubleTicketResponsePayload with simple ObjectMapper
+	 * Model tests for TroubleTicketNotificationPayload with simple ObjectMapper
      * For your own real example message tests make sure src file path points to example data and not generated data
      * if class loader uses the test class (class.getResourceAsStream), 
      * the classloader will start search for file relative to the directory of the class
 	 */
 	@Test
     @org.junit.jupiter.api.Order(2)
-	public void B_testModelRetrieveTroubleTicketResponsePayloadSimpleMapper() {
+	public void testModelTroubleTicketNotificationPayloadSimpleMapper() {
 		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
 
 		// check we can parse json file to simple json model
@@ -148,7 +144,7 @@ public class RetrieveTroubleTicketResponsePayloadTest {
 	
 	@Test
     @org.junit.jupiter.api.Order(3)
-	public void C_testModelRetrieveTroubleTicketResponsePayload() {
+	public void testModelTroubleTicketNotificationPayload() {
 		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
 
 		LOG.debug("check we can parse example json file to correct model object");
@@ -156,7 +152,7 @@ public class RetrieveTroubleTicketResponsePayloadTest {
 
             Assertions.assertNotNull(src);
 
-			RetrieveTroubleTicketResponsePayload obj = json.getMapper().readValue(src, RetrieveTroubleTicketResponsePayload.class);
+			TroubleTicketNotificationPayload obj = json.getMapper().readValue(src, TroubleTicketNotificationPayload.class);
 
 			String jsonString = null;
 			jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(obj);
@@ -177,27 +173,91 @@ public class RetrieveTroubleTicketResponsePayloadTest {
     */
 
     /**
-     * Model tests for RetrieveTroubleTicketResponsePayload
+     * Model tests for TroubleTicketNotificationPayload
      */
     @Test
-    public void testRetrieveTroubleTicketResponsePayload() {
-        // TODO: test RetrieveTroubleTicketResponsePayload
+    public void testTroubleTicketNotificationPayload() {
+        // TODO: test TroubleTicketNotificationPayload
     }
 
     /**
-     * Test the property 'statusCode'
+     * Test the property 'correlationId'
      */
     @Test
-    public void statusCodeTest() {
-        // TODO: test statusCode
+    public void correlationIdTest() {
+        // TODO: test correlationId
     }
 
     /**
-     * Test the property 'body'
+     * Test the property 'description'
      */
     @Test
-    public void bodyTest() {
-        // TODO: test body
+    public void descriptionTest() {
+        // TODO: test description
+    }
+
+    /**
+     * Test the property 'domain'
+     */
+    @Test
+    public void domainTest() {
+        // TODO: test domain
+    }
+
+    /**
+     * Test the property 'event'
+     */
+    @Test
+    public void eventTest() {
+        // TODO: test event
+    }
+
+    /**
+     * Test the property 'eventId'
+     */
+    @Test
+    public void eventIdTest() {
+        // TODO: test eventId
+    }
+
+    /**
+     * Test the property 'eventTime'
+     */
+    @Test
+    public void eventTimeTest() {
+        // TODO: test eventTime
+    }
+
+    /**
+     * Test the property 'eventType'
+     */
+    @Test
+    public void eventTypeTest() {
+        // TODO: test eventType
+    }
+
+    /**
+     * Test the property 'priority'
+     */
+    @Test
+    public void priorityTest() {
+        // TODO: test priority
+    }
+
+    /**
+     * Test the property 'timeOcurred'
+     */
+    @Test
+    public void timeOcurredTest() {
+        // TODO: test timeOcurred
+    }
+
+    /**
+     * Test the property 'title'
+     */
+    @Test
+    public void titleTest() {
+        // TODO: test title
     }
 
 }

@@ -23,6 +23,7 @@ import org.opennms.integration.tmf925.openapi.model.ConflictResponse;
 import org.opennms.integration.tmf925.openapi.model.Error;
 import org.opennms.integration.tmf925.openapi.model.ForbiddenResponse;
 import org.opennms.integration.tmf925.openapi.model.InternalServerErrorResponse;
+import org.opennms.integration.tmf925.openapi.model.ListTroubleTicketResponsePayload;
 import org.opennms.integration.tmf925.openapi.model.ListTroubleTicketSuccess;
 import org.opennms.integration.tmf925.openapi.model.ListTroubleTicketSuccessHeaders;
 import org.opennms.integration.tmf925.openapi.model.MethodNotAllowedResponse;
@@ -36,12 +37,43 @@ import org.junit.jupiter.api.Test;
 /**
  * Model tests for ListTroubleTicketResponsePayload
  */
+@org.junit.jupiter.api.TestMethodOrder(org.junit.jupiter.api.MethodOrderer.OrderAnnotation.class)
 public class ListTroubleTicketResponsePayloadTest {
     private static final  org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(ListTroubleTicketResponsePayload.class);
 
     ListTroubleTicketResponsePayload model = org.instancio.Instancio.of(ListTroubleTicketResponsePayload.class).create();
 
-    
+
+	java.io.InputStream src = null;
+
+	/**
+	 * Modify this before method to pull in your test case
+     * For your own real example message tests make sure src file path points to example data and not generated data
+     * if class loader uses the test class (class.getResourceAsStream), 
+     * the classloader will start search for file relative to the directory of the class
+	 */
+	@org.junit.jupiter.api.BeforeEach
+    public void before() {
+
+        // will load from classpath relative to referenced class
+		// src = ListTroubleTicketResponsePayloadPayloadExampleTest.class.getResourceAsStream("ListTroubleTicketResponsePayloadExample.json"); 
+
+        // will load from generated random data json file
+        java.io.File f = new java.io.File("target/json/ListTroubleTicketResponsePayload.json");
+        if(f.exists()) try {
+			src = new java.io.FileInputStream(f);
+	        Assertions.assertNotNull(src);
+		} catch (Exception e) {
+			LOG.error("cannot load test data",e);
+		}
+		
+        // inject model instance if required to make the class creation work
+        ListTroubleTicketSuccess actualInstance = org.instancio.Instancio.of(ListTroubleTicketSuccess.class).create();
+        model.setActualInstance(actualInstance);
+
+    }
+
+
     /**
     * BASIC TESTS INJECTED TO OPENAPI GENERATED CODE BY MAVEN BUILD IN TARGET DIRECTORY
     * YOU MAY NEED TO EXCLUDE GENERATED TESTS IF MODEL IS NOT POPULATED PROPERLY BY EXTANTIO
@@ -52,6 +84,7 @@ public class ListTroubleTicketResponsePayloadTest {
     * simple test that we can write the randomly populated json model object
     */
     @Test
+    @org.junit.jupiter.api.Order(1)
     public void simpleListTroubleTicketResponsePayloadTest() {
         org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
         String jsonString = null;
@@ -60,8 +93,7 @@ public class ListTroubleTicketResponsePayloadTest {
         try {
             jsonString = json.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(model);
             LOG.debug("serialised object: n" + jsonString);
-            
-            // putting directly in test classes because resources plugin won't see them before tests
+
             java.io.File f  = new java.io.File("target/json/ListTroubleTicketResponsePayload.json");
             f.getParentFile().mkdirs(); 
             f.createNewFile();
@@ -81,27 +113,20 @@ public class ListTroubleTicketResponsePayloadTest {
 
 
 	/**
-	 * Model tests for ListTroubleTicketResponsePayload
+	 * Model tests for ListTroubleTicketResponsePayload with simple ObjectMapper
      * For your own real example message tests make sure src file path points to example data and not generated data
      * if class loader uses the test class (class.getResourceAsStream), 
      * the classloader will start search for file relative to the directory of the class
 	 */
 	@Test
-	public void testModelListTroubleTicketResponsePayload() {
+    @org.junit.jupiter.api.Order(2)
+	public void B_testModelListTroubleTicketResponsePayloadSimpleMapper() {
 		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
-
-		java.io.InputStream src = null;
 
 		// check we can parse json file to simple json model
 		LOG.debug("check we can parse example json file to simple json model");
 		try {
-            // will load from classpath relative to referenced class
-			//src = ListTroubleTicketResponsePayloadExampleTest.class.getResourceAsStream("ListTroubleTicketResponsePayload.json"); 
 
-            // will load from generated random data json file
-            java.io.File f = new java.io.File("target/json/ListTroubleTicketResponsePayload.json");
-            src = new java.io.FileInputStream(f);
-            
             Assertions.assertNotNull(src);
 			
 			com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
@@ -120,16 +145,16 @@ public class ListTroubleTicketResponsePayloadTest {
 			} catch (Exception ex) {
 			}
 		}
+	}
+	
+	@Test
+    @org.junit.jupiter.api.Order(3)
+	public void C_testModelListTroubleTicketResponsePayload() {
+		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
 
 		LOG.debug("check we can parse example json file to correct model object");
 		try {
-            // will load from classpath relative to referenced class
-            //src = ListTroubleTicketResponsePayloadExampleTest.class.getResourceAsStream("ListTroubleTicketResponsePayload.json"); 
-         
-            // will load from generated random data json file
-            java.io.File f = new java.io.File("target/json/ListTroubleTicketResponsePayload.json");
-            src = new java.io.FileInputStream(f);
-            
+
             Assertions.assertNotNull(src);
 
 			ListTroubleTicketResponsePayload obj = json.getMapper().readValue(src, ListTroubleTicketResponsePayload.class);

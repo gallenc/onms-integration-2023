@@ -35,10 +35,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * Model tests for CreateTroubleTicketResponsePayload
  */
+@org.junit.jupiter.api.TestMethodOrder(org.junit.jupiter.api.MethodOrderer.OrderAnnotation.class)
 public class CreateTroubleTicketResponsePayloadExampleTest {
     private static final  org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(CreateTroubleTicketResponsePayload.class);
 
@@ -54,20 +56,19 @@ public class CreateTroubleTicketResponsePayloadExampleTest {
 	 */
 	@org.junit.jupiter.api.BeforeEach
     public void before() {
-		System.out.println("before");
+
         // will load from classpath relative to referenced class
 		//src = CreateTroubleTicketResponsePayloadExampleTest.class.getResourceAsStream("createTroubleTicketResponseExample.json"); 
 
 
         // will load from generated random data json file
         java.io.File f = new java.io.File("target/json/CreateTroubleTicketResponsePayload.json");
-        try {
+        if(f.exists()) try {
 			src = new java.io.FileInputStream(f);
+	        Assertions.assertNotNull(src);
 		} catch (Exception e) {
 			LOG.error("cannot load test data",e);
 		}
-		
-        Assertions.assertNotNull(src);
 		
         // required to make the class work
     	CreateTroubleTicketCreated createTroubleTicketCreated = org.instancio.Instancio.of(CreateTroubleTicketCreated.class).create();
@@ -85,8 +86,8 @@ public class CreateTroubleTicketResponsePayloadExampleTest {
     * simple test that we can write the randomly populated json model object
     */
     @Test
+    @org.junit.jupiter.api.Order(1)
     public void simpleCreateTroubleTicketResponsePayloadTest() {
-
         org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
         String jsonString = null;
         java.io.FileWriter fileWriter = null;
@@ -121,20 +122,21 @@ public class CreateTroubleTicketResponsePayloadExampleTest {
      * the classloader will start search for file relative to the directory of the class
 	 */
 	@Test
+    @org.junit.jupiter.api.Order(2)
 	public void testModelCreateTroubleTicketResponsePayloadObjectMapper() {
 		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
 
 		// check we can parse json file to simple json model
 		LOG.debug("check we can parse example json file to simple json model");
 		try {
-            
+
             Assertions.assertNotNull(src);
-			
+
 			com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 
 			com.fasterxml.jackson.databind.JsonNode rootNode = mapper.readTree(src);
 			String str = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
-			LOG.debug("simple json payload: n" + str);
+			LOG.debug("simple json payload: \n" + str);
 
             src.close();
 		} catch (Exception e) {
@@ -149,6 +151,7 @@ public class CreateTroubleTicketResponsePayloadExampleTest {
 	}
 	
 	@Test
+    @org.junit.jupiter.api.Order(3)
 	public void testModelCreateTroubleTicketResponsePayload() {
 		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
 

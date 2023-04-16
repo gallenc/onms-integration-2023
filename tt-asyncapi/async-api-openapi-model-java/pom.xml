@@ -439,6 +439,29 @@
             <executions>
                <execution>
                   <phase>generate-test-sources</phase>
+                  <id>add class header annotations</id>
+                  <goals>
+                     <goal>replace</goal>
+                  </goals>
+                  <configuration>
+                     <includes>
+                        <include>target/generated-sources/openapi/src/test/java/**/*.java</include>
+                     </includes>
+                  
+                     <replacements>
+                        <replacement>
+                           <token>public class </token>
+                           <value><![CDATA[
+@org.junit.jupiter.api.TestMethodOrder(org.junit.jupiter.api.MethodOrderer.OrderAnnotation.class)
+public class ]]></value>
+                        </replacement>
+                     </replacements>
+                  </configuration>
+               </execution>
+
+               <execution>
+                  <id>add test methods</id>
+                  <phase>generate-test-sources</phase>
                   <goals>
                      <goal>replace</goal>
                   </goals>
@@ -452,8 +475,38 @@
                            <value><![CDATA[
     private static final  org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger($1.class);
 
-    $1 model = org.instancio.Instancio.of($1.class).create();${line.separator}
-    
+    $1 model = org.instancio.Instancio.of($1.class).create();
+
+	java.io.InputStream src = null;
+
+	/**
+	 * Modify this before method to pull in your test case
+     * For your own real example message tests make sure src file path points to example data and not generated data
+     * if class loader uses the test class (class.getResourceAsStream), 
+     * the classloader will start search for file relative to the directory of the class
+	 */
+	@org.junit.jupiter.api.BeforeEach
+    public void before() {
+
+        // will load from classpath relative to referenced class
+		// src = $1PayloadExampleTest.class.getResourceAsStream("$1Example.json"); 
+
+        // will load from generated random data json file
+        java.io.File f = new java.io.File("target/json/$1.json");
+        if(f.exists()) try {
+            src = new java.io.FileInputStream(f);
+            Assertions.assertNotNull(src);
+        } catch (Exception e) {
+            LOG.error("cannot load test data",e);
+        }
+		
+        // inject model instance if required to make the class creation work
+        // XXX actualInstance = org.instancio.Instancio.of(XXX.class).create();
+        // model.setActualInstance(actualInstance);
+
+    }
+
+
     /**
     * BASIC TESTS INJECTED TO OPENAPI GENERATED CODE BY MAVEN BUILD IN TARGET DIRECTORY
     * YOU MAY NEED TO EXCLUDE GENERATED TESTS IF MODEL IS NOT POPULATED PROPERLY BY EXTANTIO
@@ -464,6 +517,7 @@
     * simple test that we can write the randomly populated json model object
     */
     @Test
+    @org.junit.jupiter.api.Order(1)
     public void simple$1Test() {
         ${TMF925basePackage}.invoker.JSON json = new ${TMF925basePackage}.invoker.JSON();
         String jsonString = null;
@@ -492,27 +546,20 @@
 
 
 	/**
-	 * Model tests for $1
+	 * Model tests for $1 with simple ObjectMapper
      * For your own real example message tests make sure src file path points to example data and not generated data
      * if class loader uses the test class (class.getResourceAsStream), 
      * the classloader will start search for file relative to the directory of the class
 	 */
 	@Test
-	public void testModel$1() {
+    @org.junit.jupiter.api.Order(2)
+	public void testModel$1SimpleMapper() {
 		${TMF925basePackage}.invoker.JSON json = new ${TMF925basePackage}.invoker.JSON();
-
-		java.io.InputStream src = null;
 
 		// check we can parse json file to simple json model
 		LOG.debug("check we can parse example json file to simple json model");
 		try {
-            // will load from classpath relative to referenced class
-			//src = $1ExampleTest.class.getResourceAsStream("$1.json"); 
 
-            // will load from generated random data json file
-            java.io.File f = new java.io.File("target/json/$1.json");
-            src = new java.io.FileInputStream(f);
-            
             Assertions.assertNotNull(src);
 			
 			com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
@@ -531,16 +578,16 @@
 			} catch (Exception ex) {
 			}
 		}
+	}
+	
+	@Test
+    @org.junit.jupiter.api.Order(3)
+	public void testModel$1() {
+		org.opennms.integration.tmf925.openapi.invoker.JSON json = new org.opennms.integration.tmf925.openapi.invoker.JSON();
 
 		LOG.debug("check we can parse example json file to correct model object");
 		try {
-            // will load from classpath relative to referenced class
-            //src = $1ExampleTest.class.getResourceAsStream("$1.json"); 
-         
-            // will load from generated random data json file
-            java.io.File f = new java.io.File("target/json/$1.json");
-            src = new java.io.FileInputStream(f);
-            
+
             Assertions.assertNotNull(src);
 
 			$1 obj = json.getMapper().readValue(src, $1.class);
@@ -579,11 +626,13 @@
 <!--               <forkCount>0</forkCount> -->
 <!--               <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>-->
                <excludes>
+                  <!-- tests excuded from automatic test because they need oneof instances to be defined -->
                   <exclude>**/model/CreateTroubleTicketResponsePayloadTest.java</exclude>
                   <exclude>**/model//DeleteTroubleTicketResponsePayloadTest.java</exclude>
                   <exclude>**/model/ListTroubleTicketResponsePayloadTest.java</exclude>
                   <exclude>**/model/PatchTroubleTicketResponsePayloadTest.java</exclude>
                   <exclude>**/model/RetrieveTroubleTicketResponsePayloadTest.java</exclude>
+                  <exclude>**/model/TroubleTicketNotificationPayloadTest.java</exclude>
                </excludes>
             </configuration>
             <dependencies>

@@ -19,10 +19,29 @@
    </properties>
 
    <dependencies>
+
+      <dependency>
+         <groupId>org.apache.cxf</groupId>
+         <artifactId>cxf-rt-frontend-jaxws</artifactId>
+         <version>${cxfVersion}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.cxf</groupId>
+         <artifactId>cxf-rt-transports-http</artifactId>
+         <version>${cxfVersion}</version>
+      </dependency>
+      <!-- Jetty is needed if you're are not using the CXFServlet -->
+      <dependency>
+         <groupId>org.apache.cxf</groupId>
+         <artifactId>cxf-rt-transports-http-jetty</artifactId>
+         <version>${cxfVersion}</version>
+      </dependency>
+
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
          <version>4.13.1</version>
+         <scope>test</scope>
       </dependency>
 
    </dependencies>
@@ -73,19 +92,19 @@
                      </sources>
                   </configuration>
                </execution>
-<!--                <execution> -->
-<!--                   <id>add-test-source</id> -->
-<!--                   <phase>generate-test-sources</phase> -->
-<!--                   <phase>initialize</phase> -->
-<!--                   <goals> -->
-<!--                      <goal>add-test-source</goal> -->
-<!--                   </goals> -->
-<!--                   <configuration> -->
-<!--                      <sources> -->
-<!--                         <source>${project.build.directory}/generated-sources/openapi/src/test/java</source> -->
-<!--                      </sources> -->
-<!--                   </configuration> -->
-<!--                </execution> -->
+               <!-- <execution> -->
+               <!-- <id>add-test-source</id> -->
+               <!-- <phase>generate-test-sources</phase> -->
+               <!-- <phase>initialize</phase> -->
+               <!-- <goals> -->
+               <!-- <goal>add-test-source</goal> -->
+               <!-- </goals> -->
+               <!-- <configuration> -->
+               <!-- <sources> -->
+               <!-- <source>${project.build.directory}/generated-sources/openapi/src/test/java</source> -->
+               <!-- </sources> -->
+               <!-- </configuration> -->
+               <!-- </execution> -->
 
             </executions>
          </plugin>

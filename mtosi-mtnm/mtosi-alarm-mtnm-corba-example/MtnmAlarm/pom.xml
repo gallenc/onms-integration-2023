@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <groupId>org.opennms.example.mtosi</groupId>
+   <artifactId>MtnmAlarm</artifactId>
+   <version>0.0.1-SNAPSHOT</version>
+   <packaging>jar</packaging>
+
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <surefire.version>3.0.0-M5</surefire.version>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
+
+   </properties>
+
+   <dependencies>
+
+
+
+      <!-- this dependency could be used in JDK11 -->
+      <!-- see https://stackoverflow.com/questions/51710274/is-there-a-replacement-library-for-corba-in-jdk-11 -->
+      <dependency>
+         <groupId>org.glassfish.corba</groupId>
+         <artifactId>glassfish-corba-omgapi</artifactId>
+         <version>4.2.4</version>
+      </dependency>
+
+
+
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.13.1</version>
+         <scope>test</scope>
+      </dependency>
+
+   </dependencies>
+
+   <build>
+      <plugins>
+
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>idlj-maven-plugin</artifactId>
+            <version>1.2.2</version>
+            <executions>
+               <execution>
+                  <id>generate idl</id>
+                  <goals>
+                     <goal>generate</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${project.build.directory}/generated-sources/idl</outputDirectory>
+                     <sourceDirectory>${project.basedir}/mtnm_4.5/IIS/idl/</sourceDirectory>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>generate test idl</id>
+                  <goals>
+                     <goal>generate-test</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${project.build.directory}/generated-test-sources/idl</outputDirectory>
+                  </configuration>
+               </execution>
+            </executions>
+            <configuration>
+               <compiler>glassfish</compiler>
+               <failOnError>false</failOnError>
+               <sourceDirectory>${project.basedir}/mtnm_4.5/IIS/idl/</sourceDirectory>
+               <sources>
+                  <source>
+                     <includes>
+                        <include>**/*.idl</include>
+                     </includes>
+                     <emitStubs>true</emitStubs>
+                     <emitSkeletons>true</emitSkeletons>
+                  </source>
+               </sources>
+               <includeDirs>
+                  <includeDir>${project.basedir}/mtnm_4.5/IIS/idl</includeDir>
+               </includeDirs>
+
+            </configuration>
+         </plugin>
+
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.3.0</version>
+            <executions>
+               <execution>
+                  <id>add-source</id>
+                  <phase>generate-sources</phase>
+                  <goals>
+                     <goal>add-source</goal>
+                  </goals>
+                  <configuration>
+                     <sources>
+                        <source>${project.build.directory}/generated-sources/idl</source>
+                     </sources>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>add-test-source</id>
+                  <phase>generate-test-sources</phase>
+                  <goals>
+                     <goal>add-test-source</goal>
+                  </goals>
+                  <configuration>
+                     <sources>
+                        <source>${project.build.directory}/generated-test-sources/idl</source>
+                     </sources>
+                  </configuration>
+               </execution>
+
+            </executions>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${surefire.version}</version>
+         </plugin>
+      </plugins>
+   </build>
+
+</project>

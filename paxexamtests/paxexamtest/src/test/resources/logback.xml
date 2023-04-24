@@ -21,5 +21,7 @@
         <appender-ref ref="TEST_LOG" />
     </root>
     <logger name="org.ops4j.pax.exam" level="INFO" />
+    
+    <logger name="org.opennms.example" level="DEBUG" />
 
 </configuration>

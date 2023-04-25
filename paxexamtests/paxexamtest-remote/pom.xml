@@ -19,7 +19,7 @@
       <logback.version>1.0.4</logback.version>
       <slf4j.version>1.7.4</slf4j.version>
       <log4j.version>2.11.1</log4j.version>
-      <pax.logging.version>2.0.14</pax.logging.version> <!--  same as OpenNMS -->
+      <pax.logging.version>2.0.14</pax.logging.version> <!-- same as OpenNMS -->
    </properties>
 
    <dependencies>
@@ -65,12 +65,12 @@
       <!-- <scope>provided</scope> -->
       <!-- </dependency> -->
 
-<!--       <dependency> -->
-<!--          <groupId>org.apache.logging.log4j</groupId> -->
-<!--          <artifactId>log4j-api</artifactId> -->
-<!--          <version>${log4j.version}</version> -->
-<!--          <scope>test</scope> -->
-<!--       </dependency> -->
+      <!-- <dependency> -->
+      <!-- <groupId>org.apache.logging.log4j</groupId> -->
+      <!-- <artifactId>log4j-api</artifactId> -->
+      <!-- <version>${log4j.version}</version> -->
+      <!-- <scope>test</scope> -->
+      <!-- </dependency> -->
       <!-- <dependency> -->
       <!-- <groupId>org.apache.logging.log4j</groupId> -->
       <!-- <artifactId>log4j-core</artifactId> -->
@@ -112,6 +112,19 @@
          <scope>provided</scope>
       </dependency>
 
+      <!-- <dependency> -->
+      <!-- <groupId>org.ops4j.pax.exam</groupId> -->
+      <!-- <artifactId>pax-exam-container-remote</artifactId> -->
+      <!-- <version>${pax.exam.version}</version> -->
+      <!-- <scope>test</scope> -->
+      <!-- </dependency> -->
+
+      <!-- <dependency> -->
+      <!-- <groupId>org.ops4j.pax.exam</groupId> -->
+      <!-- <artifactId>pax-exam-container-forked</artifactId> -->
+      <!-- <version>${pax.exam.version}</version> -->
+      <!-- <scope>test</scope> -->
+      <!-- </dependency> -->
    </dependencies>
 
    <profiles>
@@ -174,32 +187,94 @@
                <version>${pax.url.version}</version>
             </dependency>
 
-<!--             <dependency> -->
-<!--                <groupId>org.apache.logging.log4j</groupId> -->
-<!--                <artifactId>log4j-api</artifactId> -->
-<!--                <version>${log4j.version}</version> -->
-<!--                <scope>test</scope> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                <groupId>org.apache.logging.log4j</groupId> -->
-<!--                <artifactId>log4j-core</artifactId> -->
-<!--                <version>${log4j.version}</version> -->
-<!--                <scope>test</scope> -->
-<!--             </dependency> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.apache.logging.log4j</groupId> -->
+            <!-- <artifactId>log4j-api</artifactId> -->
+            <!-- <version>${log4j.version}</version> -->
+            <!-- <scope>test</scope> -->
+            <!-- </dependency> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.apache.logging.log4j</groupId> -->
+            <!-- <artifactId>log4j-core</artifactId> -->
+            <!-- <version>${log4j.version}</version> -->
+            <!-- <scope>test</scope> -->
+            <!-- </dependency> -->
             <!-- running SLF4J over log4j -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.apache.logging.log4j</groupId> -->
+            <!-- <artifactId>log4j-slf4j-impl</artifactId> -->
+            <!-- <version>${log4j.version}</version> -->
+            <!-- <scope>test</scope> -->
+            <!-- </dependency> -->
+
+
+            <!-- <dependency> -->
+            <!-- <groupId>org.slf4j</groupId> -->
+            <!-- <artifactId>slf4j-api</artifactId> -->
+            <!-- <version>${slf4j.version}</version> -->
+            <!-- </dependency> -->
+
+         </dependencies>
+      </profile>
+
+      <profile>
+         <id>remote</id>
+         <activation>
+            <activeByDefault>false</activeByDefault>
+         </activation>
+         <properties>
+            <pax.exam.container>remote</pax.exam.container>
+         </properties>
+         <dependencies>
+         
+            <!--  the default pax exam remote container cannot be found on classpath -->
 <!--             <dependency> -->
-<!--                <groupId>org.apache.logging.log4j</groupId> -->
-<!--                <artifactId>log4j-slf4j-impl</artifactId> -->
-<!--                <version>${log4j.version}</version> -->
+<!--                <groupId>org.ops4j.pax.exam</groupId> -->
+<!--                <artifactId>pax-exam-container-remote</artifactId> -->
+<!--                <version>${pax.exam.version}</version> -->
 <!--                <scope>test</scope> -->
 <!--             </dependency> -->
 
+            <!--  this is a repackaged container with META-INF/services which can be found. however it does not run any tests :) -->
+            <dependency>
+               <groupId>org.opennms.pax</groupId>
+               <artifactId>repackage-pax-exam-container-remote</artifactId>
+               <version>0.0.1-SNAPSHOT</version>
+               <scope>test</scope>
+            </dependency>
 
-<!--             <dependency> -->
-<!--                <groupId>org.slf4j</groupId> -->
-<!--                <artifactId>slf4j-api</artifactId> -->
-<!--                <version>${slf4j.version}</version> -->
-<!--             </dependency> -->
+            <dependency>
+               <groupId>org.ops4j.pax.url</groupId>
+               <artifactId>pax-url-reference</artifactId>
+               <version>${pax.url.version}</version>
+            </dependency>
+
+            <!-- <dependency> -->
+            <!-- <groupId>org.apache.logging.log4j</groupId> -->
+            <!-- <artifactId>log4j-api</artifactId> -->
+            <!-- <version>${log4j.version}</version> -->
+            <!-- <scope>test</scope> -->
+            <!-- </dependency> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.apache.logging.log4j</groupId> -->
+            <!-- <artifactId>log4j-core</artifactId> -->
+            <!-- <version>${log4j.version}</version> -->
+            <!-- <scope>test</scope> -->
+            <!-- </dependency> -->
+            <!-- running SLF4J over log4j -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.apache.logging.log4j</groupId> -->
+            <!-- <artifactId>log4j-slf4j-impl</artifactId> -->
+            <!-- <version>${log4j.version}</version> -->
+            <!-- <scope>test</scope> -->
+            <!-- </dependency> -->
+
+
+            <!-- <dependency> -->
+            <!-- <groupId>org.slf4j</groupId> -->
+            <!-- <artifactId>slf4j-api</artifactId> -->
+            <!-- <version>${slf4j.version}</version> -->
+            <!-- </dependency> -->
 
          </dependencies>
       </profile>

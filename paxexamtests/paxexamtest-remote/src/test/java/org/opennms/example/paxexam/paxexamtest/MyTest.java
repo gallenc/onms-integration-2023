@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
+import org.ops4j.pax.exam.container.remote.RBCRemoteTargetOptions;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerClass;
@@ -33,6 +34,8 @@ public class MyTest {
 	@Configuration
 	public Option[] config() {
 		return options(systemProperty("log4j.configurationFile").value("file:src/test/resources/log4j2.xml"),
+				
+				RBCRemoteTargetOptions.location("localhost", 1234),
 
 				mavenBundle("org.slf4j", "slf4j-api", "1.7.4"),
 				mavenBundle().artifactId("pax-logging-log4j2").groupId("org.ops4j.pax.logging").version("2.0.14"),

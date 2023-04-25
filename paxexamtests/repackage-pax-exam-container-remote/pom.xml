@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>org.opennms.pax</groupId>
+   <artifactId>repackage-pax-exam-container-remote</artifactId>
+   <version>0.0.1-SNAPSHOT</version>
+   <packaging>jar</packaging>
+
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+      <java.version>8</java.version>
+
+      <pax.exam.version>4.13.5</pax.exam.version>
+
+   </properties>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.5.0</version>
+            <executions>
+               <execution>
+                  <id>unpack-manifest</id>
+                  <phase>initialize</phase>
+                  <goals>
+                     <goal>unpack</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ops4j.pax.exam</groupId>
+                           <artifactId>pax-exam-container-remote</artifactId>
+                           <version>${pax.exam.version}</version>
+                           <type>jar</type>
+                           <overWrite>false</overWrite>
+                           <outputDirectory>${project.build.directory}/copied-manifest</outputDirectory>
+                           <includes>**/MANIFEST.MF</includes>
+                           <excludes>**/*.class</excludes>
+                        </artifactItem>
+                     </artifactItems>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>unpack</id>
+                  <phase>initialize</phase>
+                  <goals>
+                     <goal>unpack</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ops4j.pax.exam</groupId>
+                           <artifactId>pax-exam-container-remote</artifactId>
+                           <version>${pax.exam.version}</version>
+                           <type>jar</type>
+                           <overWrite>false</overWrite>
+                           <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                        </artifactItem>
+                     </artifactItems>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.3.0</version>
+            <configuration>
+               <archive>
+                  <manifestFile>${project.build.directory}/copied-manifest/META-INF/MANIFEST.MF</manifestFile>
+               </archive>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+
+</project>

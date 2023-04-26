@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>org.opennms.integration.paxexam</groupId>
+   <artifactId>paxexam-feature</artifactId>
+   <version>0.0.1-SNAPSHOT</version>
+
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <!-- dependencies for java 11 -->
+      <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
+      <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
+      <jaxb-runtime.version>2.4.0-b180830.0438</jaxb-runtime.version>
+
+      <paxexam.version>4.13.5</paxexam.version>
+      <dependency.base.version>1.5.1</dependency.base.version>
+      <dependency.junit.version>4.12</dependency.junit.version>
+      <dependency.osgicore.version>4.3.1</dependency.osgicore.version>
+      <dependency.osgicomp.version>4.3.1</dependency.osgicomp.version>
+   </properties>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.opennms.maven.plugins</groupId>
+            <artifactId>features-maven-plugin</artifactId>
+            <version>1.2.0</version>
+            <executions>
+               <execution>
+                  <id>features.xml</id>
+                  <phase>process-resources</phase>
+                  <goals>
+                     <goal>generate-features-xml</goal>
+                  </goals>
+                  <configuration>
+                     <bundles>
+
+                        <bundle>wrap:mvn:junit/junit/${dependency.junit.version}</bundle>
+                     </bundles>
+                  </configuration>
+               </execution>
+            </executions>
+            <dependencies>
+               <!-- jaxb dependencies for java 11 -->
+               <dependency>
+                  <groupId>javax.annotation</groupId>
+                  <artifactId>javax.annotation-api</artifactId>
+                  <version>${javax.annotation-api.version}</version>
+               </dependency>
+               <dependency>
+                  <groupId>javax.xml.bind</groupId>
+                  <artifactId>jaxb-api</artifactId>
+                  <version>${jaxb-api.version}</version>
+               </dependency>
+               <dependency>
+                  <groupId>org.glassfish.jaxb</groupId>
+                  <artifactId>jaxb-runtime</artifactId>
+                  <version>${jaxb-runtime.version}</version>
+               </dependency>
+            </dependencies>
+         </plugin>
+         <!-- <plugin> -->
+         <!-- <groupId>org.apache.karaf.tooling</groupId> -->
+         <!-- <artifactId>features-maven-plugin</artifactId> -->
+         <!-- <version>2.3.0</version> -->
+         <!-- <executions> -->
+         <!-- <execution> -->
+         <!-- <id>generate</id> -->
+         <!-- <phase>generate-resources</phase> -->
+         <!-- <goals> -->
+         <!-- <goal>generate</goal> -->
+         <!-- </goals> -->
+         <!-- <configuration> -->
+         <!-- <bundles>src/main/resources/bundles.properties</bundles> -->
+         <!-- <kernelVersion>2.3.0</kernelVersion> -->
+         <!-- <outputFile>target/features.xml</outputFile> -->
+         <!-- </configuration> -->
+         <!-- </execution> -->
+         <!-- </executions> -->
+         <!-- </plugin> -->
+      </plugins>
+   </build>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.ops4j.pax.exam</groupId>
+         <artifactId>pax-exam-container-rbc</artifactId>
+         <version>${paxexam.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.ops4j.base</groupId>
+         <artifactId>ops4j-base-exec</artifactId>
+         <version>${dependency.base.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.ops4j.base</groupId>
+         <artifactId>ops4j-base-io</artifactId>
+         <version>${dependency.base.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.ops4j.base</groupId>
+         <artifactId>ops4j-base-lang</artifactId>
+         <version>${dependency.base.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.ops4j.base</groupId>
+         <artifactId>ops4j-base-store</artifactId>
+         <version>${dependency.base.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.ops4j.base</groupId>
+         <artifactId>ops4j-base-util-property</artifactId>
+         <version>${dependency.base.version}</version>
+      </dependency>
+      <!-- needs wrapped -->
+<!--       <dependency> -->
+<!--          <groupId>junit</groupId> -->
+<!--          <artifactId>junit</artifactId> -->
+<!--          <version>${dependency.junit.version}</version> -->
+<!--       </dependency> -->
+      <dependency>
+         <groupId>org.osgi</groupId>
+         <artifactId>org.osgi.core</artifactId>
+         <version>${dependency.osgicore.version}</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.osgi</groupId>
+         <artifactId>org.osgi.compendium</artifactId>
+         <version>${dependency.osgicomp.version}</version>
+         <scope>provided</scope>
+      </dependency>
+   </dependencies>
+
+   <pluginRepositories>
+      <pluginRepository>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <id>opennms-repo</id>
+         <name>OpenNMS Repository</name>
+         <url>https://maven.opennms.org/content/groups/opennms.org-release</url>
+      </pluginRepository>
+   </pluginRepositories>
+
+</project>

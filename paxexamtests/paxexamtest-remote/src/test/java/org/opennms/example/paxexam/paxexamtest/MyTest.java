@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
+import org.ops4j.pax.exam.ExamFactory;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.container.remote.RBCRemoteTargetOptions;
 import org.ops4j.pax.exam.junit.PaxExam;
@@ -24,6 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RunWith(PaxExam.class)
+//@ExamFactory(org.ops4j.pax.exam.container.remote.RBCRemoteContainerFactory.class)
+//@ExamFactory(org.opennms.paxexam.container.OpenNMSPluginTestContainerFactory.class)
 @ExamReactorStrategy(PerClass.class)
 public class MyTest {
 	private static Logger LOG = LoggerFactory.getLogger(MyTest.class);
@@ -35,7 +38,7 @@ public class MyTest {
 	public Option[] config() {
 		return options(systemProperty("log4j.configurationFile").value("file:src/test/resources/log4j2.xml"),
 				
-				RBCRemoteTargetOptions.location("localhost", 1234),
+				//RBCRemoteTargetOptions.location("localhost", 1234),
 
 				mavenBundle("org.slf4j", "slf4j-api", "1.7.4"),
 				mavenBundle().artifactId("pax-logging-log4j2").groupId("org.ops4j.pax.logging").version("2.0.14"),

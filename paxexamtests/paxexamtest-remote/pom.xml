@@ -14,6 +14,10 @@
       <karafVersion>4.3.6</karafVersion> <!-- same opennms 31 -->
       <felix.framework.version>6.0.5</felix.framework.version> <!-- same as karaf opennms -->
 
+
+      <pax.exam.karaf.version>4.3.6</pax.exam.karaf.version>
+
+
       <pax.exam.version>4.13.5</pax.exam.version>
       <pax.url.version>2.1.0</pax.url.version>
       <logback.version>1.0.4</logback.version>
@@ -112,12 +116,13 @@
          <scope>provided</scope>
       </dependency>
 
-      <!-- <dependency> -->
-      <!-- <groupId>org.ops4j.pax.exam</groupId> -->
-      <!-- <artifactId>pax-exam-container-remote</artifactId> -->
-      <!-- <version>${pax.exam.version}</version> -->
-      <!-- <scope>test</scope> -->
-      <!-- </dependency> -->
+      <!-- should be in profile -->
+      <dependency>
+         <groupId>org.ops4j.pax.exam</groupId>
+         <artifactId>pax-exam-container-remote</artifactId>
+         <version>${pax.exam.version}</version>
+         <scope>test</scope>
+      </dependency>
 
       <!-- <dependency> -->
       <!-- <groupId>org.ops4j.pax.exam</groupId> -->
@@ -129,12 +134,50 @@
 
    <profiles>
       <profile>
-         <id>felix</id>
+         <id>karaf</id>
          <activation>
-            <activeByDefault>true</activeByDefault>
+            <activeByDefault>false</activeByDefault>
          </activation>
          <properties>
-            <pax.exam.framework>felix</pax.exam.framework>
+            <pax.exam.framework>karaf</pax.exam.framework>
+         </properties>
+         <dependencies>
+            <dependency>
+               <groupId>org.ops4j.pax.exam</groupId>
+               <artifactId>pax-exam-container-karaf</artifactId>
+               <version>${pax.exam.version}</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.apache.karaf.features</groupId>
+               <artifactId>standard</artifactId>
+               <version>${pax.exam.karaf.version}</version>
+               <classifier>features</classifier>
+               <type>xml</type>
+               <scope>test</scope>
+            </dependency>
+         </dependencies>
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-surefire-plugin</artifactId>
+                  <configuration>
+                     <systemPropertyVariables>
+                        <pax.exam.karaf.version>${pax.exam.karaf.version}</pax.exam.karaf.version>
+                     </systemPropertyVariables>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+
+      <profile>
+         <id>felix</id>
+         <activation>
+            <activeByDefault>false</activeByDefault>
+         </activation>
+         <properties>
+            <pax.exam.framework>karaf</pax.exam.framework>
          </properties>
          <dependencies>
             <dependency>
@@ -146,7 +189,6 @@
             </dependency>
          </dependencies>
       </profile>
-
 
       <profile>
          <id>native</id>
@@ -226,22 +268,22 @@
             <pax.exam.container>remote</pax.exam.container>
          </properties>
          <dependencies>
-         
-            <!--  the default pax exam remote container cannot be found on classpath -->
-<!--             <dependency> -->
-<!--                <groupId>org.ops4j.pax.exam</groupId> -->
-<!--                <artifactId>pax-exam-container-remote</artifactId> -->
-<!--                <version>${pax.exam.version}</version> -->
-<!--                <scope>test</scope> -->
-<!--             </dependency> -->
 
-            <!--  this is a repackaged container with META-INF/services which can be found. however it does not run any tests :) -->
+            <!-- the default pax exam remote container cannot be found on classpath -->
             <dependency>
-               <groupId>org.opennms.pax</groupId>
-               <artifactId>repackage-pax-exam-container-remote</artifactId>
-               <version>0.0.1-SNAPSHOT</version>
+               <groupId>org.ops4j.pax.exam</groupId>
+               <artifactId>pax-exam-container-remote</artifactId>
+               <version>${pax.exam.version}</version>
                <scope>test</scope>
             </dependency>
+
+            <!-- this is a repackaged container with META-INF/services which can be found. however it does not run any tests :) -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.opennms.pax</groupId> -->
+            <!-- <artifactId>repackage-pax-exam-container-remote</artifactId> -->
+            <!-- <version>0.0.1-SNAPSHOT</version> -->
+            <!-- <scope>test</scope> -->
+            <!-- </dependency> -->
 
             <dependency>
                <groupId>org.ops4j.pax.url</groupId>

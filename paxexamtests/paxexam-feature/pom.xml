@@ -17,6 +17,7 @@
       <dependency.junit.version>4.12</dependency.junit.version>
       <dependency.osgicore.version>4.3.1</dependency.osgicore.version>
       <dependency.osgicomp.version>4.3.1</dependency.osgicomp.version>
+      <dependency.swissbox.version>1.8.4</dependency.swissbox.version>
    </properties>
    <build>
       <plugins>
@@ -33,7 +34,6 @@
                   </goals>
                   <configuration>
                      <bundles>
-
                         <bundle>wrap:mvn:junit/junit/${dependency.junit.version}</bundle>
                      </bundles>
                   </configuration>
@@ -83,9 +83,21 @@
    <dependencies>
       <dependency>
          <groupId>org.ops4j.pax.exam</groupId>
+         <artifactId>pax-exam</artifactId>
+         <version>${paxexam.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.ops4j.pax.exam</groupId>
          <artifactId>pax-exam-container-rbc</artifactId>
          <version>${paxexam.version}</version>
       </dependency>
+
+      <!-- <dependency> -->
+      <!-- <groupId>org.ops4j.pax.exam</groupId> -->
+      <!-- <artifactId>pax-exam-container-rbc-client</artifactId> -->
+      <!-- <version>${paxexam.version}</version> -->
+      <!-- </dependency> -->
 
       <dependency>
          <groupId>org.ops4j.base</groupId>
@@ -112,12 +124,57 @@
          <artifactId>ops4j-base-util-property</artifactId>
          <version>${dependency.base.version}</version>
       </dependency>
+      <dependency>
+         <groupId>org.ops4j.base</groupId>
+         <artifactId>ops4j-base-monitors</artifactId>
+         <version>${dependency.base.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.ops4j.pax.swissbox</groupId>
+         <artifactId>pax-swissbox-core</artifactId>
+         <version>${dependency.swissbox.version}</version>
+      </dependency>
+
+
+
+      <dependency>
+         <groupId>org.ops4j.pax.swissbox</groupId>
+         <artifactId>pax-swissbox-core</artifactId>
+         <version>${dependency.swissbox.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.ops4j.pax.swissbox</groupId>
+         <artifactId>pax-swissbox-extender</artifactId>
+         <version>${dependency.swissbox.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.ops4j.pax.swissbox</groupId>
+         <artifactId>pax-swissbox-lifecycle</artifactId>
+         <version>${dependency.swissbox.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.ops4j.pax.swissbox</groupId>
+         <artifactId>pax-swissbox-tracker</artifactId>
+         <version>${dependency.swissbox.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.ops4j.pax.swissbox</groupId>
+         <artifactId>pax-swissbox-framework</artifactId>
+         <version>${dependency.swissbox.version}</version>
+      </dependency>
+
+
       <!-- needs wrapped -->
-<!--       <dependency> -->
-<!--          <groupId>junit</groupId> -->
-<!--          <artifactId>junit</artifactId> -->
-<!--          <version>${dependency.junit.version}</version> -->
-<!--       </dependency> -->
+      <!-- <dependency> -->
+      <!-- <groupId>junit</groupId> -->
+      <!-- <artifactId>junit</artifactId> -->
+      <!-- <version>${dependency.junit.version}</version> -->
+      <!-- </dependency> -->
       <dependency>
          <groupId>org.osgi</groupId>
          <artifactId>org.osgi.core</artifactId>

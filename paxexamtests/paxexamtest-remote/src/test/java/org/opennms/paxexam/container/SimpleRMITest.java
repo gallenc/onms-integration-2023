@@ -225,7 +225,7 @@ public class SimpleRMITest {
 		Registry registry1=null;
 		try {
 			String name = "test";
-			registry1 = LocateRegistry.createRegistry(55555);
+			registry1 = LocateRegistry.createRegistry(555556);
 
 			remoteStub = UnicastRemoteObject.exportObject(rbc, 0);
 			registry1.rebind(name, remoteStub);
@@ -266,6 +266,32 @@ public class SimpleRMITest {
 
 	}
 
+	@Test
+	public void simpletest() {
+		Registry registry=null;
+		try {
+			registry = LocateRegistry.getRegistry("127.0.0.1", 55555);
+
+		// Registry registry = LocateRegistry.getRegistry("localhost", 44444);
+		assertNotNull(registry);
+
+		System.out.println("simple test registry names:");
+		List<String> registryNames = Arrays.asList(registry.list());
+		for (String name : registryNames) {
+
+			Object obj = registry.lookup(name);
+			System.out.println("name: " + name);
+			if (obj != null)
+				System.out.println("   name: " + name + "\n obj class: " + obj.getClass().getName()
+						+ "\n obj.toString():  " + obj.toString());
+		}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+	}
+	
 	@Test
 	public void test() {
 		try {

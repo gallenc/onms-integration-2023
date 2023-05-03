@@ -30,6 +30,10 @@ import org.slf4j.LoggerFactory;
 @ExamReactorStrategy(PerClass.class)
 public class MyTest {
 	private static Logger LOG = LoggerFactory.getLogger(MyTest.class);
+	
+	{
+		System.out.println("****  bundle printing test data 1");
+	}
 
 	@Inject
 	private BundleContext bc;
@@ -62,6 +66,12 @@ public class MyTest {
 		);
 	}
 
+	
+	@Test
+	public void printOutData() {
+		System.out.println("****  bundle printing test data");
+	}
+	
 	@Test
 	public void shouldHaveBundleContext() {
 		LOG.error("**** make sure we can log error");

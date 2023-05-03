@@ -30,7 +30,7 @@ import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceObjects;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
-import org.ops4j.pax.swissbox.tracker.ServiceLookup;
+//import org.ops4j.pax.swissbox.tracker.ServiceLookup;
 import org.ops4j.pax.exam.rbc.internal.RemoteBundleContext;
 import org.ops4j.pax.exam.rbc.internal.RemoteBundleContextImpl;
 import org.ops4j.pax.exam.RelativeTimeout;
@@ -225,7 +225,7 @@ public class SimpleRMITest {
 		Registry registry1 = null;
 		try {
 			String name = "test";
-			registry1 = LocateRegistry.createRegistry(555556);
+			registry1 = LocateRegistry.createRegistry(55556);
 
 			remoteStub = UnicastRemoteObject.exportObject(rbc, 0);
 			registry1.rebind(name, remoteStub);
@@ -299,7 +299,8 @@ public class SimpleRMITest {
 			// simple test
 			URL location1 = getClass().getProtectionDomain().getCodeSource().getLocation();
 			URL location2 = Bundle.class.getProtectionDomain().getCodeSource().getLocation();
-			URL location3 = ServiceLookup.class.getProtectionDomain().getCodeSource().getLocation();
+			//URL location3 = ServiceLookup.class.getProtectionDomain().getCodeSource().getLocation();
+			URL location3=null;
 			URL location4 = RemoteBundleContext.class.getProtectionDomain().getCodeSource().getLocation();
 			URL location5 = RelativeTimeout.class.getProtectionDomain().getCodeSource().getLocation();
 			// System.setProperty( "java.rmi.server.codebase", location1 + " " + location2 +

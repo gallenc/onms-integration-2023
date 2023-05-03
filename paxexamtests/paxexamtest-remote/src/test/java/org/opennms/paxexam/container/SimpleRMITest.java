@@ -222,7 +222,7 @@ public class SimpleRMITest {
 
 		RemoteBundleContext rbc = new RemoteBundleContextImpl(bc);
 		Remote remoteStub;
-		Registry registry1=null;
+		Registry registry1 = null;
 		try {
 			String name = "test";
 			registry1 = LocateRegistry.createRegistry(555556);
@@ -236,7 +236,7 @@ public class SimpleRMITest {
 						+ "\n obj.toString():  " + rbc2.toString());
 
 			List<String> registryNames = Arrays.asList(registry1.list());
-			System.out.println("list of registry names: "+registryNames.size());
+			System.out.println("list of registry names: " + registryNames.size());
 			for (String name2 : registryNames) {
 				Object obj = registry1.lookup(name2);
 				System.out.println("name: " + name2);
@@ -244,8 +244,8 @@ public class SimpleRMITest {
 					System.out.println("   name: " + name2 + "\n obj class: " + obj.getClass().getName()
 							+ "\n obj.toString():  " + obj.toString());
 			}
-			
-			UnicastRemoteObject.unexportObject(rbc,true);
+
+			UnicastRemoteObject.unexportObject(rbc, true);
 
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -255,9 +255,9 @@ public class SimpleRMITest {
 			e.printStackTrace();
 		} finally {
 
-			if(registry1 != null)
+			if (registry1 != null)
 				try {
-					UnicastRemoteObject.unexportObject(registry1,true);
+					UnicastRemoteObject.unexportObject(registry1, true);
 				} catch (NoSuchObjectException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -268,30 +268,30 @@ public class SimpleRMITest {
 
 	@Test
 	public void simpletest() {
-		Registry registry=null;
+		Registry registry = null;
 		try {
 			registry = LocateRegistry.getRegistry("127.0.0.1", 55555);
 
-		// Registry registry = LocateRegistry.getRegistry("localhost", 44444);
-		assertNotNull(registry);
+			// Registry registry = LocateRegistry.getRegistry("localhost", 44444);
+			assertNotNull(registry);
 
-		System.out.println("simple test registry names:");
-		List<String> registryNames = Arrays.asList(registry.list());
-		for (String name : registryNames) {
+			System.out.println("simple test registry names:");
+			List<String> registryNames = Arrays.asList(registry.list());
+			for (String name : registryNames) {
 
-			Object obj = registry.lookup(name);
-			System.out.println("name: " + name);
-			if (obj != null)
-				System.out.println("   name: " + name + "\n obj class: " + obj.getClass().getName()
-						+ "\n obj.toString():  " + obj.toString());
-		}
+				Object obj = registry.lookup(name);
+				System.out.println("name: " + name);
+				if (obj != null)
+					System.out.println("   name: " + name + "\n obj class: " + obj.getClass().getName()
+							+ "\n obj.toString():  " + obj.toString());
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		
+		}
+
 	}
-	
+
 	@Test
 	public void test() {
 		try {

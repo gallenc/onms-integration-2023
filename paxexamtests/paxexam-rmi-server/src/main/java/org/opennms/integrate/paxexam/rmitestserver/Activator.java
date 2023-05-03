@@ -50,14 +50,10 @@ public class Activator implements BundleActivator {
         
 		try {
 			Integer port = Integer.valueOf(portStr);
-			
-			paxexamRmiRegistry=LocateRegistry.getRegistry(port);
-			if(paxexamRmiRegistry!=null) {
-				LOG.info("Paxexam test RMI server already exists on port RMI_PORT_PROPERTY="+portStr);
-				return;
-			}
 
 			paxexamRmiRegistry = LocateRegistry.createRegistry(port);
+			LOG.debug("new registry Created "+paxexamRmiRegistry );			
+			
 		} catch (Exception e) {
 			LOG.error("problem creating paxexamRmiRegistry port="+portStr, e);
 		} 

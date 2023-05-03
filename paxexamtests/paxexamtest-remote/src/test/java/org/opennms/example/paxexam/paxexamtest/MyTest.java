@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(PaxExam.class)
 //@ExamFactory(org.ops4j.pax.exam.container.remote.RBCRemoteContainerFactory.class)
-//@ExamFactory(org.opennms.paxexam.container.OpenNMSPluginTestContainerFactory.class)
+@ExamFactory(org.opennms.paxexam.container.OpenNMSPluginTestContainerFactory.class)
 @ExamReactorStrategy(PerClass.class)
 public class MyTest {
 	private static Logger LOG = LoggerFactory.getLogger(MyTest.class);

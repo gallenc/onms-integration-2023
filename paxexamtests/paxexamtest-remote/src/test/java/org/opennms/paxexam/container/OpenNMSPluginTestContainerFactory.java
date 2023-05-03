@@ -39,7 +39,7 @@ public class OpenNMSPluginTestContainerFactory implements TestContainerFactory {
 		System.setProperty("java.rmi.server.hostname", "localhost");
 
 		String name = "karaf-root"; // karaf-root
-		Integer registry = 1099; // is actually the port
+		Integer registry = 55555; // is actually the port
 		// Integer registry =44444; // is actually the port
 		RelativeTimeout timeout = new RelativeTimeout(10000);
 

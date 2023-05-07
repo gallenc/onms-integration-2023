@@ -335,6 +335,27 @@
                <target>1.7</target>
             </configuration>
          </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <version>1.0.0</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>set-system-properties</goal>
+                  </goals>
+                  <configuration>
+                     <properties>
+                        <property>
+                           <name>sun.rmi.loader.logLevel</name>
+                           <value>ALL</value>
+                        </property>
+                     </properties>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+
       </plugins>
    </build>
 </project>

@@ -10,6 +10,8 @@ import org.ops4j.pax.exam.container.remote.RBCRemoteTarget;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.rmi.RMISecurityManager;
+import java.security.Policy;
 import java.util.ArrayList;
 
 public class OpenNMSPluginTestContainerFactory implements TestContainerFactory {
@@ -33,6 +35,17 @@ public class OpenNMSPluginTestContainerFactory implements TestContainerFactory {
 
 	@Override
 	public TestContainer[] create(final ExamSystem system) {
+		
+
+		Policy.setPolicy(new AllPolicy());
+		
+        System.setSecurityManager(new RMISecurityManager());
+        
+//        URL location1 = getClass().getProtectionDomain().getCodeSource().getLocation();
+//        URL location2 = Bundle.class.getProtectionDomain().getCodeSource().getLocation();
+//        URL location3 = ServiceLookup.class.getProtectionDomain().getCodeSource().getLocation();
+//        System.setProperty( "java.rmi.server.codebase", location1 + " " + location2 + " "
+//                + location3 );
 
 		List<TestContainer> containers = new ArrayList();
 

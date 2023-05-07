@@ -27,6 +27,10 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.net.URL;
+import org.osgi.framework.Bundle;
+import org.ops4j.pax.swissbox.framework.RemoteFrameworkImpl;
+import org.ops4j.pax.swissbox.tracker.ServiceLookup;
 
 public class Activator implements BundleActivator {
 	 private static Logger LOG = LoggerFactory.getLogger(Activator.class);
@@ -50,6 +54,13 @@ public class Activator implements BundleActivator {
         
 		try {
 			Integer port = Integer.valueOf(portStr);
+			
+			URL location1 = RemoteFrameworkImpl.class.getProtectionDomain().getCodeSource().getLocation();
+	        URL location2 = Bundle.class.getProtectionDomain().getCodeSource().getLocation();
+	        URL location3 = ServiceLookup.class.getProtectionDomain().getCodeSource().getLocation();
+	        String codebase = location1 + " " + location2 + " " + location3 ;
+	        LOG.debug("setting java.rmi.server.codebase:" +codebase);
+	        System.setProperty( "java.rmi.server.codebase", codebase);
 
 			paxexamRmiRegistry = LocateRegistry.createRegistry(port);
 			LOG.debug("new registry Created "+paxexamRmiRegistry );			

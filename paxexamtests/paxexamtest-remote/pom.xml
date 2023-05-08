@@ -24,6 +24,7 @@
       <slf4j.version>1.7.4</slf4j.version>
       <log4j.version>2.11.1</log4j.version>
       <pax.logging.version>2.0.14</pax.logging.version> <!-- same as OpenNMS -->
+      <dependency.swissbox.version>1.8.4</dependency.swissbox.version>
    </properties>
 
    <dependencies>
@@ -275,6 +276,12 @@
                <artifactId>pax-exam-container-remote</artifactId>
                <version>${pax.exam.version}</version>
                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+               <groupId>org.ops4j.pax.swissbox</groupId>
+               <artifactId>pax-swissbox-tracker</artifactId>
+               <version>${dependency.swissbox.version}</version>
             </dependency>
 
             <!-- this is a repackaged container with META-INF/services which can be found. however it does not run any tests :) -->

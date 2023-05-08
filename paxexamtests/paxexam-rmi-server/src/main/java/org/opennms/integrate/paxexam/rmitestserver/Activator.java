@@ -55,11 +55,16 @@ public class Activator implements BundleActivator {
 		try {
 			Integer port = Integer.valueOf(portStr);
 			
-			URL location1 = RemoteFrameworkImpl.class.getProtectionDomain().getCodeSource().getLocation();
+			URL location1 = new URL("file:/C:/devel/karaf/apache-karaf-4.3.6/paxexamdeps/pax-swissbox-framework-1.8.4.jar");
+			//URL location1 = RemoteFrameworkImpl.class.getProtectionDomain().getCodeSource().getLocation();
 	        URL location2 = Bundle.class.getProtectionDomain().getCodeSource().getLocation();
-	        URL location3 = ServiceLookup.class.getProtectionDomain().getCodeSource().getLocation();
-	        String codebase = location1 + " " + location2 + " " + location3 ;
-	        LOG.debug("setting java.rmi.server.codebase:" +codebase);
+	        
+	       // URL location3 = ServiceLookup.class.getProtectionDomain().getCodeSource().getLocation();
+			URL location3 = new URL("file:C:/devel/karaf/apache-karaf-4.3.6/paxexamdeps/pax-swissbox-tracker-1.8.4.jar");
+			URL location4 = new URL("file:C:/devel/karaf/apache-karaf-4.3.6/paxexamdeps/pax-exam-container-rbc-4.13.5.jar");
+			
+	        String codebase = location1 + " " + location2 + " " + location3 +" "+location4;
+	        LOG.debug("setting java.rmi.server.codebase: " +codebase);
 	        System.setProperty( "java.rmi.server.codebase", codebase);
 
 			paxexamRmiRegistry = LocateRegistry.createRegistry(port);

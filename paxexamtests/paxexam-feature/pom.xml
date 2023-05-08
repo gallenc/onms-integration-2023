@@ -96,11 +96,6 @@
          <version>${paxexam.version}</version>
       </dependency>
 
-      <dependency>
-         <groupId>org.ops4j.pax.exam</groupId>
-         <artifactId>pax-exam-container-rbc</artifactId>
-         <version>${paxexam.version}</version>
-      </dependency>
 
       <!-- <dependency> -->
       <!-- <groupId>org.ops4j.pax.exam</groupId> -->
@@ -175,12 +170,43 @@
          <version>${dependency.swissbox.version}</version>
       </dependency>
 
-<!--       <dependency> -->
-<!--          <groupId>org.slf4j</groupId> -->
-<!--          <artifactId>slf4j-api</artifactId> -->
-<!--          <version>1.7.4</version> -->
-<!--          <scope>provided</scope> -->
-<!--       </dependency> -->
+
+      <dependency>
+         <groupId>org.ops4j.pax.exam</groupId>
+         <artifactId>pax-exam-container-rbc</artifactId>
+         <version>${paxexam.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.ops4j.pax.exam</groupId>
+         <artifactId>pax-exam-invoker-junit</artifactId>
+         <version>${paxexam.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.ops4j.pax.exam</groupId>
+         <artifactId>pax-exam-extender-service</artifactId>
+         <version>${paxexam.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.ops4j.pax.exam</groupId>
+         <artifactId>pax-exam-inject</artifactId>
+         <version>${paxexam.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.apache.geronimo.specs</groupId>
+         <artifactId>geronimo-atinject_1.0_spec</artifactId>
+         <version>1.0</version>
+      </dependency>
+
+      <!-- <dependency> -->
+      <!-- <groupId>org.slf4j</groupId> -->
+      <!-- <artifactId>slf4j-api</artifactId> -->
+      <!-- <version>1.7.4</version> -->
+      <!-- <scope>provided</scope> -->
+      <!-- </dependency> -->
 
 
       <!-- needs wrapped -->

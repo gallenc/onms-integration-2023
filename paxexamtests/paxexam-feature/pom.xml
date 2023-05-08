@@ -182,6 +182,12 @@
          <artifactId>pax-exam-invoker-junit</artifactId>
          <version>${paxexam.version}</version>
       </dependency>
+      
+<!--      <dependency> -->
+<!--         <groupId>org.ops4j.pax.exam</groupId> -->
+<!--          <artifactId>pax-exam-junit4</artifactId> -->
+<!--          <version>${paxexam.version}</version> -->
+<!--       </dependency> -->
 
       <dependency>
          <groupId>org.ops4j.pax.exam</groupId>

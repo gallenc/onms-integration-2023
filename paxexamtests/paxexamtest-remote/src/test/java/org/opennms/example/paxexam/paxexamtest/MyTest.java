@@ -30,10 +30,16 @@ import org.slf4j.LoggerFactory;
 @ExamReactorStrategy(PerClass.class)
 public class MyTest {
 	private static Logger LOG = LoggerFactory.getLogger(MyTest.class);
-	
-	{
-		System.out.println("****  bundle printing test data 1");
-	}
+
+	//  remove comments  if you want to slow things down
+//	{
+//		System.out.println("****  bundle sleeping 20000 ms");
+//		try {
+//			Thread.sleep(20000);
+//		} catch (InterruptedException e) {
+//			System.out.println("****  bundle awake ");
+//		}
+//	}
 
 	@Inject
 	private BundleContext bc;

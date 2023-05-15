@@ -1,5 +1,6 @@
 package org.opennms.paxexam.container;
 
+import org.opennms.paxexam.container.tests.RBCRemoteTargetExtended;
 import org.ops4j.pax.exam.ExamSystem;
 import org.ops4j.pax.exam.RelativeTimeout;
 import org.ops4j.pax.exam.TestContainer;
@@ -57,7 +58,7 @@ public class OpenNMSPluginTestContainerFactory implements TestContainerFactory {
 		// Integer registry =44444; // is actually the port
 		RelativeTimeout timeout = new RelativeTimeout(10000);
 
-		TestContainer container = new RBCRemoteTarget(name, registry, timeout);
+		TestContainer container = new RBCRemoteTargetExtended(name, registry, timeout);
 
 		containers.add(container);
 

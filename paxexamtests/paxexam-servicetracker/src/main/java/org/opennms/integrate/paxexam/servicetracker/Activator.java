@@ -36,6 +36,7 @@ import org.osgi.framework.Bundle;
 import org.ops4j.pax.swissbox.framework.RemoteFrameworkImpl;
 import org.ops4j.pax.swissbox.tracker.ServiceLookup;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 //import org.ops4j.pax.exam.ProbeInvoker;
 
 import org.osgi.util.tracker.ServiceTracker;
@@ -66,42 +67,106 @@ public class Activator implements BundleActivator {
 				@Override
 				public void run() {
 
+					ServiceTracker tracker = null;
 					running.set(true);
 					try {
-						while (running.get()) {
+						LOG.info("tracking services with filter: " + filterStr);
+						Filter filter = bundleContext.createFilter(filterStr);
+						tracker = new ServiceTracker(bundleContext, filter, null);
+						int trackingCount = tracker.getTrackingCount();
 
-							LOG.info("tracking services with filter: " + filterStr);
-							Filter filter = bundleContext.createFilter(filterStr);
-							ServiceTracker tracker = new ServiceTracker(bundleContext, filter, null);
-							tracker.open(true);
+						tracker.open(true);
+
+						while (running.get()) {
 							try {
 								String msg = "";
-								tracker.waitForService(10000);
-								ServiceReference[] serviceReferences = tracker.getServiceReferences();
-								if (serviceReferences == null) {
-									msg = msg + "no services found by tracker";
-								} else {
-									msg = "found "+serviceReferences.length	+ " service references:\n";
-									for (ServiceReference ref : serviceReferences) {
-										msg = msg + "   " + ref.toString()+"\n";
-										for (String propkey: ref.getPropertyKeys()) {
-											msg=msg+"     property "+propkey+" = "+ref.getProperty(propkey)+"\n";
-										};
-									}
+								
+								try {
+									tracker.waitForService(10000);
+								} catch (InterruptedException e) {
+									LOG.debug("tracker timeout while waiting for service filter: "+filterStr);
 								}
-								LOG.info(msg.toString());
-							} catch (InterruptedException e) {
-								throw new RuntimeException("interrupted!", e);
-							} finally {
-								tracker.close();
-							}
 
+								// only increments on change of services being tracked
+								int newTrackingCount = tracker.getTrackingCount();
+
+								if (trackingCount != newTrackingCount) {
+									trackingCount = newTrackingCount;
+
+									ServiceReference[] serviceReferences = tracker.getServiceReferences();
+									if (serviceReferences == null) {
+										msg = msg + "no services found by tracker - waiting for new services filter: "+filterStr;
+									} else {
+										msg = "found " + serviceReferences.length + " service references:\n";
+										for (ServiceReference ref : serviceReferences) {
+											msg = msg + "  ref:  " + ref.toString() + "\n";
+											for (String propkey : ref.getPropertyKeys()) {
+												msg = msg + "     property " + propkey + " = "
+														+ ref.getProperty(propkey) + "\n";
+											}
+											msg=msg+"  property objectClass[] = ";
+											
+											String[]objectClass = (String[]) ref.getProperty("objectClass");
+											if(objectClass!=null) {
+												for(String objClassStr: objectClass) {
+													msg=msg+objClassStr+" ";
+												}
+											}
+
+											Object service = bundleContext.getService(ref);
+											msg = msg + "\n     bundleContext sevice from ref = " + service + " \n";
+											
+											// now try retreiving object using the probe signature
+											String probeSignature = (String) ref.getProperty("Probe-Signature");
+											
+											
+											String filterExpression = "(&(objectClass=org.ops4j.pax.exam.ProbeInvoker)(Probe-Signature=" + probeSignature + "))";
+											
+											//String filterExpression= "(Probe-Signature=" + probeSignature+")";
+											
+											msg=msg+"now try tracking with new filter="+ filterExpression +"\n";
+											Filter filter2 = bundleContext.createFilter(filterExpression);
+											ServiceTracker tracker2 = new ServiceTracker(bundleContext, filter2, null);
+											try {
+												tracker.open(true);
+												tracker2.waitForService(10000);
+											} catch (InterruptedException e) {
+												LOG.debug("tracker2 timeout while waiting for service filter: "+filterExpression);
+											}
+											ServiceReference ref2 = tracker2.getServiceReference();
+											msg = msg + "   reference found using service filter: " + ref2 + "\n";
+											tracker2.close();
+											
+											Object service2=null;
+											if (ref2!=null) {
+												service2 = bundleContext.getService(ref2);
+											}
+											msg = msg + "     Service object2 = " + service2 + " \n";
+											
+										}
+									}
+									LOG.info(msg.toString());
+
+									// sleep slows down loop waiting on services
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										LOG.debug("tracker waiting in loop for service change");
+									}
+
+								}
+
+							} catch (Exception ex) {
+								LOG.info("OpenNMSServiceTracker exception: ", ex);
+							}
 						}
-						LOG.info("Stopped paxexam service tracker");
 
 					} catch (Exception ex) {
-						LOG.info("OpenNMSServiceTracker shutting down on exception", ex);
+						LOG.info("OpenNMSServiceTracker shutting down on exception: ", ex);
 
+					} finally {
+						if (tracker != null)
+							tracker.close();
 					}
 
 				}

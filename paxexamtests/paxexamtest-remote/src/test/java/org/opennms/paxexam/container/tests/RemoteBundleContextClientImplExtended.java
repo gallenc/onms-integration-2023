@@ -283,6 +283,15 @@ public class RemoteBundleContextClientImplExtended implements RemoteBundleContex
 
     @Override
     public void uninstall(long bundleId) {
+    	LOG.debug("uninstalling bundle "+bundleId);
+    	
+    	//TODO REMOVE WAIT
+    	try {
+    		LOG.info("uninstall wait 10000");
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+        }
+    	LOG.info("end of uninstall wait");
         try {
             getRemoteBundleContext().uninstallBundle(bundleId);
         }

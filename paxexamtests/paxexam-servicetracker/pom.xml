@@ -21,6 +21,7 @@
       <osgi.version>6.0.0</osgi.version>
       <slf4j.version>1.7.4</slf4j.version>
       <dependency.swissbox.version>1.8.4</dependency.swissbox.version>
+      <pax.exam.version>4.13.5</pax.exam.version>
    </properties>
 
    <dependencies>
@@ -34,6 +35,11 @@
          <groupId>org.ops4j.pax.swissbox</groupId>
          <artifactId>pax-swissbox-framework</artifactId>
          <version>${dependency.swissbox.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.ops4j.pax.exam</groupId>
+         <artifactId>pax-exam</artifactId>
+         <version>${pax.exam.version}</version>
       </dependency>
 
       <dependency>

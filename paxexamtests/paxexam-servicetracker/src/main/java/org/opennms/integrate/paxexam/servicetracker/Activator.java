@@ -37,7 +37,10 @@ import org.ops4j.pax.swissbox.framework.RemoteFrameworkImpl;
 import org.ops4j.pax.swissbox.tracker.ServiceLookup;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-//import org.ops4j.pax.exam.ProbeInvoker;
+import org.ops4j.pax.exam.ProbeInvoker;
+
+import java.io.StringWriter;
+import java.io.PrintWriter;
 
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -80,11 +83,11 @@ public class Activator implements BundleActivator {
 						while (running.get()) {
 							try {
 								String msg = "";
-								
+
 								try {
 									tracker.waitForService(10000);
 								} catch (InterruptedException e) {
-									LOG.debug("tracker timeout while waiting for service filter: "+filterStr);
+									LOG.debug("tracker timeout while waiting for service filter: " + filterStr);
 								}
 
 								// only increments on change of services being tracked
@@ -95,7 +98,8 @@ public class Activator implements BundleActivator {
 
 									ServiceReference[] serviceReferences = tracker.getServiceReferences();
 									if (serviceReferences == null) {
-										msg = msg + "no services found by tracker - waiting for new services filter: "+filterStr;
+										msg = msg + "no services found by tracker - waiting for new services filter: "
+												+ filterStr;
 									} else {
 										msg = "found " + serviceReferences.length + " service references:\n";
 										for (ServiceReference ref : serviceReferences) {
@@ -104,45 +108,71 @@ public class Activator implements BundleActivator {
 												msg = msg + "     property " + propkey + " = "
 														+ ref.getProperty(propkey) + "\n";
 											}
-											msg=msg+"  property objectClass[] = ";
-											
-											String[]objectClass = (String[]) ref.getProperty("objectClass");
-											if(objectClass!=null) {
-												for(String objClassStr: objectClass) {
-													msg=msg+objClassStr+" ";
+											msg = msg + "  property objectClass[] = ";
+
+											String[] objectClass = (String[]) ref.getProperty("objectClass");
+											if (objectClass != null) {
+												for (String objClassStr : objectClass) {
+													msg = msg + objClassStr + " ";
 												}
 											}
 
 											Object service = bundleContext.getService(ref);
 											msg = msg + "\n     bundleContext sevice from ref = " + service + " \n";
-											
+
+
 											// now try retreiving object using the probe signature
 											String probeSignature = (String) ref.getProperty("Probe-Signature");
-											
-											
-											String filterExpression = "(&(objectClass=org.ops4j.pax.exam.ProbeInvoker)(Probe-Signature=" + probeSignature + "))";
-											
-											//String filterExpression= "(Probe-Signature=" + probeSignature+")";
-											
-											msg=msg+"now try tracking with new filter="+ filterExpression +"\n";
+
+											String filterExpression =
+											 "(&(objectClass=org.ops4j.pax.exam.ProbeInvoker)(Probe-Signature=" + probeSignature + "))";
+
+											//String filterExpression = "(Probe-Signature=" + probeSignature + ")";
+
+											msg = msg + "now try tracking with new filter=" + filterExpression + "\n";
 											Filter filter2 = bundleContext.createFilter(filterExpression);
 											ServiceTracker tracker2 = new ServiceTracker(bundleContext, filter2, null);
 											try {
-												tracker.open(true);
+												tracker2.open(true);
 												tracker2.waitForService(10000);
 											} catch (InterruptedException e) {
-												LOG.debug("tracker2 timeout while waiting for service filter: "+filterExpression);
+												LOG.debug("tracker2 timeout while waiting for service filter: "
+														+ filterExpression);
 											}
 											ServiceReference ref2 = tracker2.getServiceReference();
 											msg = msg + "   reference found using service filter: " + ref2 + "\n";
+
+											ServiceReference[] ref2array = tracker2.getServiceReferences();
+											if (ref2array == null) {
+												msg = msg + "   ref2array no services being tracked\n";
+											} else {
+												msg = msg + "   ref2array contains " + ref2array.length
+														+ " references: \n";
+												for (ServiceReference refn : ref2array) {
+													msg = msg + "   ref2array service references: " + refn + "\n";
+												}
+											}
+
 											tracker2.close();
-											
-											Object service2=null;
-											if (ref2!=null) {
+
+											Object service2 = null;
+											if (ref2 != null) {
 												service2 = bundleContext.getService(ref2);
 											}
-											msg = msg + "     Service object2 = " + service2 + " \n";
+											msg = msg + "   Service object2 = " + service2 + " \n";
 											
+											// try to invoke the original service
+											msg = msg + "   try to invoke Service object2 = " + service2 + " \n";
+											try {
+												ProbeInvoker probeInvoker = (ProbeInvoker) service2;
+												probeInvoker.call();
+											} catch (Exception ex) {
+												StringWriter sw = new StringWriter();
+												PrintWriter pw = new PrintWriter(sw);
+												ex.printStackTrace(pw);
+												msg = msg + "  problem calling service object from ref=" + service2+ " "+sw.toString()+ " \n";
+											}
+
 										}
 									}
 									LOG.info(msg.toString());

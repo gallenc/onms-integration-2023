@@ -36,62 +36,65 @@ import org.slf4j.LoggerFactory;
  */
 public class RBCRemoteTargetExtended implements TestContainer {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RBCRemoteTargetExtended.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RBCRemoteTargetExtended.class);
 
-    private RemoteBundleContextClient remoteBundleContextClient;
-    private Long probeId;
+	private RemoteBundleContextClient remoteBundleContextClient;
+	private Long probeId;
 
-    public RBCRemoteTargetExtended(String name, Integer registry, RelativeTimeout timeout) {
-        remoteBundleContextClient = new RemoteBundleContextClientImplExtended(name, registry, timeout);
-    }
+	public RBCRemoteTargetExtended(String name, Integer registry, RelativeTimeout timeout) {
+		remoteBundleContextClient = new RemoteBundleContextClientImplExtended(name, registry, timeout);
+	}
 
-    /**
-     * This access is kind of sneaky. Need to improve here. Usually this kind of raw access should
-     * not be allowed.
-     * 
-     * @return underlying access
-     */
-    public RemoteBundleContextClient getClientRBC() {
-        return remoteBundleContextClient;
-    }
+	/**
+	 * This access is kind of sneaky. Need to improve here. Usually this kind of raw
+	 * access should not be allowed.
+	 * 
+	 * @return underlying access
+	 */
+	public RemoteBundleContextClient getClientRBC() {
+		return remoteBundleContextClient;
+	}
 
-    public void call(TestAddress address) {
-        LOG.debug("call [" + address + "]");
-        remoteBundleContextClient.call(address);
-    }
+	public void call(TestAddress address) {
+		LOG.debug("RBC call [" + address + "]");
+		remoteBundleContextClient.call(address);
+	}
 
-    public TestContainer start() {
-        return this;
-    }
+	public TestContainer start() {
+		return this;
+	}
 
-    public long install(String location, InputStream probe) {
-        LOG.debug("Preparing and Installing bundle (from stream )..");
+	public long install(String location, InputStream probe) {
+		LOG.debug("Preparing and Installing bundle (from stream )..");
 
-        long id = 0;
-        id = remoteBundleContextClient.install(location, probe);
-        LOG.debug("Installed bundle (from stream)" + " as ID: " + id);
-        return id;
-    }
+		long id = 0;
+		id = remoteBundleContextClient.install(location, probe);
+		LOG.debug("Installed bundle (from stream)" + " as ID: " + id);
+		return id;
+	}
 
-    public long install(InputStream probe) {
-        return install("local", probe);
-    }
+	public long install(InputStream probe) {
+		return install("local", probe);
+	}
 
-    public TestContainer stop() {
-        remoteBundleContextClient.cleanup();
+	public TestContainer stop() {
+		LOG.debug("RBC stopping Test Container stop()");
+		remoteBundleContextClient.cleanup();
 
-        return this;
-    }
+		return this;
+	}
 
-    @Override
-    public long installProbe(InputStream stream) {
-        this.probeId = install(stream);
-        return probeId;
-    }
+	@Override
+	public long installProbe(InputStream stream) {
+		LOG.debug("RBC Installing probe from InputStream");
+		this.probeId = install(stream);
+		return probeId;
+	}
 
-    @Override
-    public void uninstallProbe() {
-        remoteBundleContextClient.uninstall(probeId);
-    }
+	@Override
+	public void uninstallProbe() {
+		LOG.debug("RBC Uninstalling probeId=" + probeId);
+		remoteBundleContextClient.uninstall(probeId);
+	}
 
 }

@@ -161,7 +161,7 @@ public class Activator implements BundleActivator {
 											}
 											msg = msg + "   Service object2 = " + service2 + " \n";
 											
-											// try to invoke the original service
+											// try to invoke the service
 											msg = msg + "   try to invoke Service object2 = " + service2 + " \n";
 											try {
 												ProbeInvoker probeInvoker = (ProbeInvoker) service2;

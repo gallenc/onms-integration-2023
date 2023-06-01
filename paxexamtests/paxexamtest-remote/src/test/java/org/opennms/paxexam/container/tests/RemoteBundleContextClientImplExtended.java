@@ -107,6 +107,7 @@ public class RemoteBundleContextClientImplExtended implements RemoteBundleContex
 
     @Override
     public long install(String location, InputStream stream) {
+    	LOG.debug("RBC Client installing location="+location);
         // turn this into a local url because we don't want pass the stream any further.
         try {
             // URI location = store.getLocation( store.store( stream ) );
@@ -115,6 +116,7 @@ public class RemoteBundleContextClientImplExtended implements RemoteBundleContex
 
             long id = getRemoteBundleContext().installBundle(location, packed);
             installed.push(id);
+            LOG.debug("RBC Client starting bundle id="+id);
             getRemoteBundleContext().startBundle(id);
             return id;
         }
@@ -140,9 +142,19 @@ public class RemoteBundleContextClientImplExtended implements RemoteBundleContex
 
     @Override
     public void cleanup() {
+    	
+    	//TODO REMOVE WAIT
+    	try {
+    		LOG.info("RBC Client cleanup wait 10000");
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+        }
+    	LOG.info("RBC Client end of cleanup wait");
+    	
         try {
             while (!installed.isEmpty()) {
                 Long id = installed.pop();
+                LOG.debug("RBC Client cleaning up - uninstall bundleid="+id);
                 getRemoteBundleContext().uninstallBundle(id);
             }
         }
@@ -157,6 +169,7 @@ public class RemoteBundleContextClientImplExtended implements RemoteBundleContex
 
     @Override
     public void setBundleStartLevel(final long bundleId, final int startLevel) {
+    	LOG.debug("RBC Client set bundle startLevel="+startLevel+ " bundleid="+bundleId);
         try {
             getRemoteBundleContext().setBundleStartLevel(bundleId, startLevel);
         }
@@ -170,6 +183,7 @@ public class RemoteBundleContextClientImplExtended implements RemoteBundleContex
 
     @Override
     public void start() {
+    	LOG.debug("RBC Client start system bundle");
         try {
             getRemoteBundleContext().startBundle(0);
         }
@@ -183,6 +197,7 @@ public class RemoteBundleContextClientImplExtended implements RemoteBundleContex
 
     @Override
     public void stop() {
+    	LOG.debug("RBC Client stop system bundle");
         try {
             getRemoteBundleContext().stopBundle(0);
 
@@ -198,6 +213,7 @@ public class RemoteBundleContextClientImplExtended implements RemoteBundleContex
 
     @Override
     public void waitForState(final long bundleId, final int state, final RelativeTimeout timeout) {
+    	LOG.debug("RBC Client waiting for state bundleId="+bundleId	+ " state="+state+ " timeout="+timeout);
         try {
             getRemoteBundleContext().waitForState(bundleId, state, timeout);
         }
@@ -272,7 +288,7 @@ public class RemoteBundleContextClientImplExtended implements RemoteBundleContex
     	//String filterExpression = "(&(objectClass=org.ops4j.pax.exam.ProbeInvoker)(Probe-Signature="+ address.root().identifier() + "))";
     	
         String filterExpression = "(" + PROBE_SIGNATURE_KEY + "=" + address.root().identifier() + ")";
-        LOG.debug("filterExpression="+filterExpression);
+        LOG.debug("RBC Client call address="+address+ " filterExpression="+filterExpression);
         ProbeInvoker service = getService(ProbeInvoker.class, filterExpression, rmiLookupTimeout);
         service.call(address.arguments());
     }
@@ -283,15 +299,8 @@ public class RemoteBundleContextClientImplExtended implements RemoteBundleContex
 
     @Override
     public void uninstall(long bundleId) {
-    	LOG.debug("uninstalling bundle "+bundleId);
-    	
-    	//TODO REMOVE WAIT
-    	try {
-    		LOG.info("uninstall wait 10000");
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-        }
-    	LOG.info("end of uninstall wait");
+    	LOG.debug("RBC Client uninstalling bundle "+bundleId);
+
         try {
             getRemoteBundleContext().uninstallBundle(bundleId);
         }

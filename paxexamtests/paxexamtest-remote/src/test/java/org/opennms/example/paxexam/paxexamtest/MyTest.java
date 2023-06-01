@@ -19,6 +19,8 @@ import org.ops4j.pax.exam.container.remote.RBCRemoteTargetOptions;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerClass;
+import org.ops4j.pax.exam.spi.reactors.PerMethod;
+import org.ops4j.pax.exam.spi.reactors.PerSuite;
 import org.ops4j.pax.exam.util.PathUtils;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
@@ -27,7 +29,10 @@ import org.slf4j.LoggerFactory;
 @RunWith(PaxExam.class)
 //@ExamFactory(org.ops4j.pax.exam.container.remote.RBCRemoteContainerFactory.class)
 @ExamFactory(org.opennms.paxexam.container.OpenNMSPluginTestContainerFactory.class)
+
+//@ExamReactorStrategy(PerSuite.class)
 @ExamReactorStrategy(PerClass.class)
+//@ExamReactorStrategy(PerMethod.class)
 public class MyTest {
 	private static Logger LOG = LoggerFactory.getLogger(MyTest.class);
 

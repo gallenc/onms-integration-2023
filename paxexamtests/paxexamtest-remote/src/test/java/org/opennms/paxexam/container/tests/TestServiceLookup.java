@@ -31,12 +31,15 @@ public class TestServiceLookup {
 		Registry registry = null;
 		try {
 			registry = LocateRegistry.getRegistry("127.0.0.1", 55555);
+			//registry = LocateRegistry.getRegistry("::1", 55555);
 
 			// Registry registry = LocateRegistry.getRegistry("localhost", 44444);
 			assertNotNull(registry);
 
 			System.out.println("simple test registry names:");
-			List<String> registryNames = Arrays.asList(registry.list());
+			String[] regList = registry.list();
+			System.out.println("number of registry names:"+regList.length);
+			List<String> registryNames = Arrays.asList(regList);
 			for (String name : registryNames) {
 
 				Object obj = registry.lookup(name);
@@ -49,6 +52,7 @@ public class TestServiceLookup {
 			RemoteBundleContext remoteBundleContext = (RemoteBundleContext) registry.lookup("PaxExam");
 			assertNotNull(remoteBundleContext);
 
+			System.out.println("trying to access rbc client");
 			String name = "PaxExam";
 
 			Integer registryPort = 55555;
@@ -56,10 +60,13 @@ public class TestServiceLookup {
 
 			RemoteBundleContextClientImplExtended rbcClient = new RemoteBundleContextClientImplExtended(name,
 					registryPort, timeout);
+			
+			System.out.println("rbcClient="+rbcClient);
 
 			// TestAddress testAddress = new DefaultTestAddress("testAddress", "arg1");
 
 			try {
+				System.out.println("trying to invoke rbcClient=");
 				String testAddressRootIdentifier = "PaxExam-8612631b-14e2-4c2a-b333-9ed480ef87e0";
 
 				String filterExpression = "(" + rbcClient.PROBE_SIGNATURE_KEY + "=" + testAddressRootIdentifier + ")";

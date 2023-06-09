@@ -1,25 +1,18 @@
-# Example OpenNMS use of Scriptd for integration
+# example opennms with paxexam
 
-This docker-compose project can run a small web service which accepts OpenNMS posts
 
-First build the roadfaultintegration project using the docker profile
 
-```
-mvn clean install -P docker
-
-```
-
-You can then start and stop opennms and the roadfaultapi container in this project.
+You can then start and stop opennms in this project.
 (You should have docker installed on your host).
 
 ```
-docker-compose  --profile roadfaultapi  up -d
+docker-compose    up -d
 
 ## to see the logs use
-docker-compose  --profile roadfaultapi  logs -f roadfaultapi
+docker-compose  logs -f horizon
 
 ## to shut down use
-docker-compose  --profile roadfaultapi down
+docker-compose  down
 
 to see opennms
 
@@ -27,11 +20,6 @@ http://[::1]:8980/opennms/   username admin password admin
 or
 http://localhost:8980/opennms/
 
-to see roadfaultapi
-
-http://[::1]:8080/
-or
-http://localhost:8080/
 
 
 ```
@@ -46,5 +34,10 @@ http://localhost:8080/
 
 ```
 docker-compose --profile roadfaultapi exec horizon bash
+```
+
+## to ssh to karaf in opennms use
+```
+ssh admin@horizon -p 8101  -o StrictHostKeyChecking=no
 ```
 

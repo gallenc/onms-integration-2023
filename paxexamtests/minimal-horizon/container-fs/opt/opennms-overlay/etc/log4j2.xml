@@ -161,7 +161,11 @@
     <logger name="org.snmp4j.transport" additivity="false" level="ERROR">
       <appender-ref ref="RoutingAppender"/>
     </logger>
-    <logger name="org.apache.kafka" additivity="false" level="INFO">
+    <logger name="org.apache.kafka" additivity="false" level="DEBUG">
+      <appender-ref ref="RoutingAppender" />
+    </logger>
+    
+    <logger name="org.opennms.integrate.paxexam" additivity="false" level="DEBUG">
       <appender-ref ref="RoutingAppender" />
     </logger>
 
@@ -197,7 +201,7 @@
         <KeyValuePair key="event-translator"     value="WARN" />
         <KeyValuePair key="icmp"                 value="WARN" />
         <KeyValuePair key="ipc"                  value="WARN" />
-        <KeyValuePair key="jetty-server"         value="WARN" />
+        <KeyValuePair key="jetty-server"         value="DEBUG" />
         <KeyValuePair key="enlinkd"              value="WARN" />
         <KeyValuePair key="manager"              value="DEBUG" />
         <KeyValuePair key="map"                  value="WARN" />
@@ -224,6 +228,8 @@
         <KeyValuePair key="trouble-ticketer"     value="WARN" />
         <KeyValuePair key="vacuumd"              value="WARN" />
         <KeyValuePair key="web"                  value="WARN" />
+        
+        <KeyValuePair key="onms-paxexam"         value="DEBUG" />
       </DynamicThresholdFilter>
 
       <appender-ref ref="RoutingAppender"/>
